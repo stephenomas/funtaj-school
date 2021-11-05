@@ -14,8 +14,9 @@ class Start extends TL_Controller
         if ($this->session->userdata('Elevated')) {
             $this->data['pageTitle'] = 'Dashboard';
 
-          
-            $this->load->view('elevated/start', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/start', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
 
         } elseif ($this->session->userdata('LoggedIn')) {
             $this->data['pageTitle'] = 'Dashboard';

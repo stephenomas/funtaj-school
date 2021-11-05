@@ -27,9 +27,9 @@ class School extends TL_Controller
         if ($this->session->userdata('Elevated')) {
             $this->data['pageTitle'] = 'Terms & Sessions';
 
-         //  $this->load->view('templates/header', $this->data);
-            $this->load->view('elevated/term_session', $this->data);
-            //$this->load->view('templates/footer', $this->data);
+             $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/term_session', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('welcome');
         }

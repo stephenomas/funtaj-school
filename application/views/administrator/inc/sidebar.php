@@ -43,11 +43,11 @@
                                     <span>School Options</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="school-info">School Info</a></li>
-                                    <li><a href="terms-session">Terms & Sessions</a></li>
-                                    <li><a href="subjects">Subjects</a></li>
-                                    <li><a href="classes">Classes</a></li>
-                                    <li><a href="signatures">Upload Signatures</a></li>
+                                <li><a class="<?=($this->uri->segment(1) === 'school') ? 'active': ''; ?>" href="<?=base_url('school')?>"> School Info</a></li>
+                                <li><a class="<?=($this->uri->segment(2) === 'terms_sessions') ? 'active': ''; ?>" href="<?=base_url('school/terms_sessions')?>"> Terms & Sessions</a></li>
+                                <li><a class="<?=($this->uri->segment(2) === 'subjects') ? 'active': ''; ?>" href="<?=base_url('school/subjects')?>">Subjects</a></li>
+                                <li><a class="<?=($this->uri->segment(2) === 'classes') ? 'active': ''; ?>" href="<?=base_url('school/classes')?>"> Classes</a></li>
+                                <li><a class="<?=($this->uri->segment(2) === 'signatures') ? 'active': ''; ?>" href="<?=base_url('school/signatures')?>"> Upload Signatures</a></li>
                                 </ul>
                             </li>
 
