@@ -1,370 +1,332 @@
-<h2 class="mb-4"><?=$pageTitle?></h2>
-
-<div class="row mb-4">
-    <div class="col-md">
-        <div class="d-flex btn" data-toggle="modal" data-target="#staffAdd">
-            <div class="bg-info text-light p-4">
-                <div class="d-flex align-items-center h-100">
-                    <i class="fa fa-3x fa-fw fa-plus"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-info mb-0">Add Staff</p>
-                <h4 class="font-weight-bold mb-0 text-danger"></h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="d-flex btn" onclick="curr()">
-            <div class="bg-primary text-light p-4">
-                <div class="d-flex align-items-center h-100">
-                    <i class="fa fa-3x fa-fw fa-id-badge"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-secondary mb-0">All Staff</p>
-                <h4 class="font-weight-bold mb-0"></h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="d-flex btn" onclick="old()">
-            <div class="bg-danger text-light p-4">
-                <div class="d-flex align-items-center h-100">
-                    <i class="fa fa-3x fa-fw fa-id-card-alt"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-danger mb-0">Inactive Staff</p>
-                <h4 class="font-weight-bold mb-0"></h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    //Buttons for navigating staff
-    function old() {
-        var base_url = "<?=base_url();?>";
-        window.location.href = base_url + 'staff/old';
-    }
-    function curr() {
-        var base_url = "<?=base_url();?>";
-        window.location.href = base_url + 'staff';
-    }
-
-</script>
-
-<div class="row mb-4">
-    <div class="col-md">
-        <div class="card">
-
-            <!-- Add Staff Modal -->
+<div id="layout-wrapper">
 
 
-            <div class="modal fade" id="staffAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Add Staff</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+<!-- <?php // include 'inc/topbar.php'; 
+//        $this->load->view('inc/topbar');
+?> -->
+
+<!-- ========== Left Sidebar Start ========== -->
+<?php //include 'inc/sidebar.php';
+$this->load->view('administrator/inc/sidebar');
+?>
+<!-- Left Sidebar End -->
+
+
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Staffs</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
+                                <li class="breadcrumb-item active">Staffs</li>
+                            </ol>
                         </div>
-                        <div class="modal-body mx-3">
-                            <?=form_open('staff/addStaff')?>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Title</i></span>
-                                </div>
-                                <select name="title" class="form-control" required>
-                                    <option value="">Choose title...</option>
-                                    <option value="Dr">Dr</option>
-                                    <option value="Mr">Mr</option>
-                                    <option value="Mrs">Mrs</option>
-                                    <option value="Ms">Ms</option>
-                                    <option value="Miss">Miss</option>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">First Name</i></span>
-                                </div>
-                                <input type="text" name="fname" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Other Names</i></span>
-                                </div>
-                                <input type="text" name="mname" class="form-control">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Last Name</i></span>
-                                </div>
-                                <input type="text" name="lname" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Sex</i></span>
-                                </div>
-                                <select name="gender" class="form-control" required>
-                                    <option value=" ">Choose sex...</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Staff Group</i></span>
-                                </div>
-                                <select name="groups" class="form-control" required>
-                                    <option value=" ">Choose staff group...</option>
-                                    <?php foreach ($staffGroups as $sG) : ?>
-                                        <option value="<?=$sG->groups?>"><?=$sG->groups?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Email</i></span>
-                                </div>
-                                <input type="text" name="email" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Password</i></span>
-                                </div>
-                                <input type="password" name="password" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-default">Add Staff</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
+            <!-- end page title -->
 
-            <!-- Add Staff  Modal Ends  -->
 
-
-            <div class="card-header bg-white font-weight-bold">
-                All Staff
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="card bg-primary text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Staff</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="staff/old" onclick="old()" class="card bg-warning text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Inactive Staffs</h5>
+                        </div>
+                    </a>
+                </div>
+                
             </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Middle Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Also Teach</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Subjects</th>
-                        <th scope="col"><i class="fa fa-lock"></th>
-                        <th scope="col">Deactivate</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php $count = 0; $teachescheckedcount = 0; foreach ($allStaff as $staff) : $count++ ?>
-                        <tr>
-                            <td data-label="#"><?=$count?></td>
-                            <td data-label="First Name"><?=$staff->fname?></td>
-                            <td data-label="Middle Name"><?=$staff->mname?></td>
-                            <td data-label="Last Name"><?=$staff->lname?></td>
-                            <td data-label="Email"><?=$staff->email?></td>
-                            <td data-label="Also Teaches"><?php if ($staff->groups != 'Tutor'): $teachescheckedcount++ ?><form><input type="checkbox" oninput="alsoTeaches('<?=$teachescheckedcount?>', '<?=$staff->id?>')" id="alsoteach<?=$teachescheckedcount?>" name="also_teaches" <?php echo ((int)$staff->also_teaches === 1) ? 'checked' : ' '?>></form><?php endif;?></td>
-                            <td data-label="Edit"><a href="" class="" data-toggle="modal" data-target="#staffEdit<?=$staff->id?>">Edit</a></td>
-                            <td data-label="Subject"><?=($staff->groups === 'Tutor' || (int)$staff->also_teaches === 1)? '<a href="" class="" data-toggle="modal" data-target="#tutSubject'.$staff->id.'">Subject</a>' : ''?></td>
 
-                            <!-- Edit Staff Modal -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <ul class="nav nav-tabs nav-tabs-custom mb-4">
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold p-3 active" href="#">All active Staffs</a>
+                                </li>
+                                
+                            </ul>
+                            <h4 class="card-title">All Staffs</h4>
+
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                         <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Also Teach</th>
+                                        <th>Subjects</th>
+                                        <th>Status</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
 
 
-                            <div class="modal fade" id="staffEdit<?=$staff->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Edit Staff</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <?=form_open('staff/editStaff')?>
-                                            <input type="hidden" name="id" value="<?=$staff->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Title</i></span>
+                                <tbody>
+                                <?php $count = 0; $teachescheckedcount = 0; foreach ($allStaff as $staff) : $count++ ?>
+                                    <tr>
+                                    <td><?=$count?></td>
+                                        <td><?=$staff->fname?></td>
+                                        <td><?=$staff->mname?></td>
+                                        <td><?=$staff->lname?></td>
+                                        <td><?=$staff->email?></td>
+                                        <td><?php if ($staff->groups != 'Tutor'): $teachescheckedcount++ ?><form><input type="checkbox" oninput="alsoTeaches('<?=$teachescheckedcount?>', '<?=$staff->id?>')" id="alsoteach<?=$teachescheckedcount?>" name="also_teaches" <?php echo ((int)$staff->also_teaches === 1) ? 'checked' : ' '?>></form><?php endif;?></td>
+                                        <td><?=($staff->groups === 'Tutor' || (int)$staff->also_teaches === 1)? '<a href="#" class="" data-bs-toggle="modal" data-bs-target="#subjectInfo'.$staff->id.'">Subject</a>' : ''?></td>
+                                        <td><?php if($staff->is_active == 1){ echo "Active"; }else{echo 'Deactivated';} ?></td>
+                                        <td> <?=anchor("staff/deleteStaff/" . $staff->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this staff?')", 'class' => '')) ?>  | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$staff->id?>">Edit</a> | <?=anchor("staff/deactivateStaff/" . $staff->id, "deactivate", array('onclick' => "return confirm('Do you really want to deactivate this staff?')", 'class' => '')) ?></td>
+                                    </tr>
+
+
+                                    <div class="modal fade" id="subjectInfo<?=$staff->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title w-100 font-weight-bold">Set Subjects For: <span class="text-primary"><?=$staff->fname?>&nbsp;<?=$staff->lname?></span></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                <div><?php
+                                                    $this->db->where('tutor_id', $staff->id);
+                                                    $getSub = $this->db->get('tutor_subjects');
+                                                    foreach ($getSub->result() as $sub) : ?>
+                                                        <div class="text-danger text-center"><?=strtoupper($sub->subject_title).' '.anchor("staff/deleteTutorSubject/" . $staff->id .'/'. $sub->id, "<i class='fa fa-trash'></i>", array('onclick' => "return confirm('Do you really want to delete this subject for this Tutor?')", 'class' => '')) ?></div>
+                                                    <?php endforeach;?>
                                                 </div>
-                                                <select name="title" class="form-control" required>
-                                                    <option value="<?=$staff->title?>"><?=$staff->title?></option>
-                                                    <option value="Dr">Dr</option>
-                                                    <option value="Mr">Mr</option>
-                                                    <option value="Mrs">Mrs</option>
-                                                    <option value="Ms">Ms</option>
-                                                    <option value="Miss">Miss</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">First Name</i></span>
+                                                <div class="modal-body mx-3">
+                                                    <?=form_open('staff/setTutorSubjects/'.$staff->id)?>
+                                                    <input type="hidden" name="id" value="<?=$staff->id?>">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="">Subjects</i></span>
+                                                        </div>
+                                                        <select name="subject_title" class="form-control">
+                                                            <option value="">Choose subjects...</option>
+                                                            <?php foreach ($subjects as $sub) : ?>
+                                                            <option value="<?=$sub->subjects?>"><?=$sub->subjects?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <input type="text" name="fname" value="<?=$staff->fname?>" class="form-control" required>
+                                                            
+
+                                                </p>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Other Names</i></span>
-                                                </div>
-                                                <input type="text" name="mname" value="<?=$staff->mname?>" class="form-control">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Last Name</i></span>
-                                                </div>
-                                                <input type="text" name="lname" value="<?=$staff->lname?>" class="form-control" required>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Email</i></span>
-                                                </div>
-                                                <input type="text" name="email" value="<?=$staff->email?>" class="form-control" required>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Sex</i></span>
-                                                </div>
-                                                <select name="gender" class="form-control" required>
-                                                    <option value="<?=$staff->gender?>"><?=$staff->gender?></option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Change Staff Group</i></span>
-                                                </div>
-                                                <select name="groups" class="form-control" required>
-                                                    <option value="<?=$staff->groups?>"><?=$staff->groups?></option>
-                                                    <?php foreach ($staffGroups as $sG) {
-                                                        echo '<option value="'.$sG->groups.'">'.$sG->groups.'</option>';
-                                                    } ?>
-                                                </select>
-                                            </div>
-                                            <?php if($staff->groups != 'Tutor') : ?>
-                                            <div class="input-group mb-3 form-check-inline">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Also Teaches</i> </span>
-                                                </div>&nbsp;
-                                                <input type="checkbox" name="also_teaches" value="" class="">
-                                            </div>
-                                            <?php endif;?>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Edit Staff</button>
-                                        </div>
                                         </form>
-                                    </div>
-                                </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+
+                                    <div class="modal fade" id="editInfo<?=$staff->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editInfoTitle">Edit Details</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                <?=form_open('staff/editStaff')?>
+                                                <input type="hidden" name="id" value="<?=$staff->id?>">
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Title</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="title"  class="form-select" aria-label="select ">
+                                                        <option value="<?=$staff->title?>"><?=$staff->title?></option>
+                                                            <option value="1">Dr</option>
+                                                            <option value="2">Mr</option>
+                                                            <option value="2">Mrs</option>
+                                                            <option value="2">Ms</option>
+                                                            <option value="2">Miss</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">First Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="fname" value="<?=$staff->fname?>" type="text" placeholder="" id="firstname">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="Other" class="col-sm-3 col-form-label">Other</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="mname" value="<?=$staff->mname?>" type="text" placeholder="" id="Other">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="lname" value="<?=$staff->lname?>" type="text" placeholder="" id="firstname">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Sex</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="gender" class="form-select" aria-label="select ">
+                                                        <option value="<?=$staff->gender?>"><?=$staff->gender?></option>
+                                                            <option value="1">Male</option>
+                                                            <option value="2">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="example-tel-input" class="col-sm-3 col-form-label">Telephone</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="tel" name="phone" value="<?=$staff->phone?>" placeholder="0804522454254" id="example-tel-input">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control"  name="email" value="<?=$staff->email?>" type="email" placeholder="abc@xyz.com" id="email">
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="row mb-3">
+                                                    <label for="example-password-input" class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="password" type="password"  id="example-password-input">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Staff Group</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" name="groups" aria-label="select ">
+                                                        <option value="<?=$staff->groups?>"><?=$staff->groups?></option>
+                                                        <?php foreach ($staffGroups as $sG) {
+                                                            echo '<option value="'.$sG->groups.'">'.$sG->groups.'</option>';
+                                                        } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">House</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="house" class="form-select" aria-label="select ">
+                                                        <option value="<?= $staff->house?>"  selected=""><?= $staff->house?></option>
+                                                            <?php 
+                                                            foreach ($houses as $house) {
+                                                                ?>
+                                                                  <option value="<?= $house->name?>"><?= $house->name?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Status</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" aria-label="select ">
+                                                            <?php if($staff->is_active == 1) { ?>
+                                                            <option selected="" value="1">active</option>
+                                                            <?php }else{?>
+                                                            <option selected="" value="1">active</option>
+                                                            <option selected="" value="2">Deactivated</option>
+                                                            <?php } ?>
+                                                            <option value="1">active</option>
+                                                            <option value="2">deactivated</option>
+                                                           
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                               
+
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                                            </div>
+                                        </form><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+
+                                
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To edit staff details -->
+                           
+                            <!-- To add new staff -->
+                            <?php // include 'inc/add-staff.php';
+                               $this->load->view('administrator/inc/add-staff')
+                            ?>
                             </div>
 
-                            <!--  Edit Staff Modal Ends  -->
-
-
-                            <!-- Edit Password Modal -->
-
-
-                            <div class="modal fade" id="passwordEdit<?=$staff->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Change Password for: <span class="text-primary"><?=$staff->fname?>&nbsp;<?=$staff->lname?></span></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <?=form_open('staff/editPassword')?>
-                                            <input type="hidden" name="id" value="<?=$staff->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Password</i></span>
-                                                </div>
-                                                <input type="password" name="password" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Change Password</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To display staff information -->
+                                <?php 
+                                   $this->load->view('administrator/inc/staff-details')
+                                // include 'inc/staff-details.php'; ?>
                             </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
 
-                            <!--  Edit password Modal Ends  -->
-
-                            <!-- Tutor Subject Modal -->
-
-
-                            <div class="modal fade" id="tutSubject<?=$staff->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Set Subjects For: <span class="text-primary"><?=$staff->fname?>&nbsp;<?=$staff->lname?></span></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div><?php
-                                            $this->db->where('tutor_id', $staff->id);
-                                            $getSub = $this->db->get('tutor_subjects');
-                                            foreach ($getSub->result() as $sub) : ?>
-                                                <div class="text-danger text-center"><?=strtoupper($sub->subject_title).' '.anchor("staff/deleteTutorSubject/" . $staff->id .'/'. $sub->id, "<i class='fa fa-trash'></i>", array('onclick' => "return confirm('Do you really want to delete this subject for this Tutor?')", 'class' => '')) ?></div>
-                                            <?php endforeach;?>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <?=form_open('staff/setTutorSubjects/'.$staff->id)?>
-                                            <input type="hidden" name="id" value="<?=$staff->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Subjects</i></span>
-                                                </div>
-                                                <select name="subject_title" class="form-control">
-                                                    <option value="">Choose subjects...</option>
-                                                    <?php foreach ($subjects as $sub) : ?>
-                                                    <option value="<?=$sub->subjects?>"><?=$sub->subjects?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Set Subject</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--  Tutor Subject Modal Ends  -->
-
-                            <td data-label="Password"><a href="" class="" data-toggle="modal" data-target="#passwordEdit<?=$staff->id?>"><i class="fa fa-key"></a></td>
-                            <td data-label="Deactivate"><?=anchor("staff/deactivateStaff/" . $staff->id, "<i class='fa fa-exclamation-circle'></i>", array('onclick' => "return confirm('Do you really want to deactivate this staff?')", 'class' => '')) ?></td>
-                            <td data-label="Delete"><?=anchor("staff/deleteStaff/" . $staff->id, "<i class='fa fa-trash'></i>", array('onclick' => "return confirm('Do you really want to delete this staff?')", 'class' => '')) ?></td>
-                        </tr>
-                    <?php endforeach;?>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+        </div> <!-- container-fluid -->
     </div>
-</div>
-</div>
+    <!-- End Page-content -->
 
-
+    <?php 
+       $this->load->view('administrator/inc/footer')
+    //include 'inc/footer.php'; ?>
 
 </div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Right Sidebar -->
+<?php 
+$this->load->view('administrator/inc/right-bar')
+//include 'inc/right-bar.php'; ?>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>

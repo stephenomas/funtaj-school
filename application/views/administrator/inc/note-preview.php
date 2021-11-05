@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 border-right text-center">
-                    <iframe src="https://ugcportal.com/raman-files/English%20Grammar%20Notes.pdf" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                    <iframe src="https://guduhigh.funtajschoolltd.com/assets/images/New_funtaj_logo.png" style="width:85vw; height:85vh;" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>

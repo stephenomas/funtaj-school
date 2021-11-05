@@ -40,9 +40,9 @@ class School extends TL_Controller
         if ($this->session->userdata('Elevated')) {
             $this->data['pageTitle'] = 'Subjects';
 
-           // $this->load->view('templates/header', $this->data);
-            $this->load->view('elevated/subjects', $this->data);
-          //  $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/subjects', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('welcome');
         }
@@ -53,9 +53,9 @@ class School extends TL_Controller
         if ($this->session->userdata('Elevated')) {
             $this->data['pageTitle'] = 'Classes';
 
-           // $this->load->view('templates/header', $this->data);
-            $this->load->view('elevated/classes', $this->data);
-           // $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/classes', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('welcome');
         }
@@ -65,9 +65,9 @@ class School extends TL_Controller
         if ($this->session->userdata('Elevated')) {
             $this->data['pageTitle'] = 'Upload Authorised Signatures';
 
-          //  $this->load->view('templates/header', $this->data);
-            $this->load->view('elevated/signatures', $this->data);
-           // $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/signatures', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('welcome');
         }

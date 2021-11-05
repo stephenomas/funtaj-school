@@ -15,10 +15,10 @@ class Staff extends TL_Controller{
         if($this->session->userdata('Elevated')){
             $this->data['houses'] =  $this->house_model->getHouse();
             $this->data['pageTitle'] = 'Manage Staff';
-             $this->data['topbar'] = $this->load->view('inc/topbar');
-       //     $this->load->view('templates/header', $this->data);
-            $this->load->view('staff/index', $this->data);
-          //  $this->load->view('templates/footer', $this->data);
+           
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/staff/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         }else{
             redirect('start');
         }
@@ -26,10 +26,10 @@ class Staff extends TL_Controller{
     function old(){
         if($this->session->userdata('Elevated')){
             $this->data['pageTitle'] = 'Inactive/Old Staff';
-            $this->data['topbar'] = $this->load->view('inc/topbar');
-         //   $this->load->view('templates/header', $this->data);
-            $this->load->view('staff/old', $this->data);
-           // $this->load->view('templates/footer', $this->data);
+          
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/staff/old', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         }else{
             redirect('start');
         }

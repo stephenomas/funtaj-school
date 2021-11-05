@@ -10,8 +10,8 @@
                 <div class="row mb-3">
                     <label for="" class="col-sm-3 col-form-label">Profile Picture</label>
                     <div class="col-sm-9">
-                        <img src="" alt="profile pic">
-                        <a href="" class="btn btn-primary waves-effect waves-light">Delete</a>
+                        <img src="<?=base_url($student->stu_img)?>" alt="profile pic">
+                        <button type="button" class="btn btn-primary waves-effect waves-light">Delete</button>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -23,7 +23,7 @@
                 <div class="row mb-3">
                     <label for="firstname" class="col-sm-3 col-form-label">First Name</label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="" id="firstname">
+                        <input class="form-control" type="text" value="<?= $student->fname ?>" placeholder="" id="firstname">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -94,7 +94,6 @@
                             <option value="1">active</option>
                             <option value="2">deactivated</option>
                             <option value="2">graduated</option>
-                            <option value="2">Transfered</option>
                         </select>
                     </div>
                 </div>

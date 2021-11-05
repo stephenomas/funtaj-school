@@ -1,96 +1,216 @@
-    <h2 class="mb-4"><?=$pageTitle?></h2>
+  <!-- Begin page -->
+  <div id="layout-wrapper">
 
-    <div class="row mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-white font-weight-bold">
-                    All Subjects
+
+<?php //include 'inc/topbar.php';
+ $this->load->view('administrator/inc/topbar')
+?>
+
+<!-- ========== Left Sidebar Start ========== -->
+<?php //include 'inc/sidebar.php'; 
+ $this->load->view('administrator/inc/sidebar')
+?>
+<!-- Left Sidebar End -->
+
+
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Subjects</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
+                                <li class="breadcrumb-item active">Subjects</li>
+                            </ol>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Subjects</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($subjects as $subs):?>
-
-                            <!-- Modal Setup-->
+            </div>
+            <!-- end page title -->
 
 
-                            <div class="modal fade" id="subjectEdit<?=$subs->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Edit Subject</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <?=form_open('school/editSubject')?>
-                                            <input type="hidden" name="id" value="<?=$subs->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Subject</i></span>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="card bg-primary text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Subjects</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                        <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            
+                            <h4 class="card-title">All Subjects</h4>
+
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Subjects</th>
+                                        <th>Code</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                <?php foreach ($subjects as $subs):?>
+                                    <tr>
+                                        <td><?=$subs->subjects?></td>
+                                        <td><?=$subs->code?></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#editInfo<?=$subs->id?>">Edit</a> | <?=anchor("school/deleteSubject/" . $subs->id, "<i class='fa fa-trash'></i>", array('onclick' => "return confirm('Do you really want to delete this subject?')", 'class' => '')) ?></td>
+                                        <div class="modal fade" id="editInfo<?=$subs->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editInfoTitle">Edit Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <input type="text" name="subject"  value="<?=$subs->subjects?>" class="form-control">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Code</i></span>
-                                                </div>    <input type="text" name="code" value="<?=$subs->code?>" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Edit</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                                <?=form_open('school/editSubject')?>
+                                                <input type="hidden" name="id" value="<?=$subs->id?>">
+                                                <div class="modal-body">
+                                                    <p>
+
+                                                    <div class="row mb-3">
+                                                        <label for="firstname" class="col-sm-3 col-form-label">Subject</label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control"  name="subject" type="text" value="<?=$subs->subjects?>" id="subject">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="Other" class="col-sm-3 col-form-label">Code</label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" name="code" type="text" value="<?=$subs->code?>" id="code">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                                                </div>
+                                            </form><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To edit student details -->
+                             
+
+                                 <!-- To add new student -->
+                                <?php //include 'inc/add-subject.php';
+                                 $this->load->view('administrator/inc/add-subject')
+                                ?>
                             </div>
 
-                            <!--  Modal Ends  -->
-                            <tr>
-                            <td data-label="Subject"><?=$subs->subjects?></td>
-                            <td data-label="Code"><?=$subs->code?></td>
-                            <td data-label="Edit"><a href="" class="" data-toggle="modal" data-target="#subjectEdit<?=$subs->id?>">Edit</a></td>
-                            <td data-label="Delete"><?=anchor("school/deleteSubject/" . $subs->id, "<i class='fa fa-trash'></i>", array('onclick' => "return confirm('Do you really want to delete this subject?')", 'class' => '')) ?></td>
-                        </tr>
-                        <?php endforeach;?>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-white font-weight-bold">
-                    Add Subjects
-                </div>
-                <div class="card-body">
-                    <?=form_open('school/addSubject')?>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Subject</i></span>
                         </div>
-                        <input type="text" name="subject" class="form-control">
                     </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Code</i></span>
-                        </div>    <input type="text" name="code" class="form-control">
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> © Funtaj.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        by Envy365 Agency
                     </div>
-                </div>
-                <div class="card-footer d-flex justify-content-center">
-                    <button class="btn btn-default">Add Subject</button>
-                </div>
-                    </form>
                 </div>
             </div>
         </div>
+    </footer>
+
+</div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+<div data-simplebar class="h-100">
+    <div class="rightbar-title d-flex align-items-center px-3 py-4">
+
+        <h5 class="m-0 me-2">Settings</h5>
+
+        <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+            <i class="mdi mdi-close noti-icon"></i>
+        </a>
+    </div>
+
+    <!-- Settings -->
+    <hr class="mt-0" />
+    <h6 class="text-center mb-0">Choose Layouts</h6>
+
+    <div class="p-4">
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="layout-1">
+        </div>
+
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
+            <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
+        </div>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css">
+            <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
+        </div>
+        <div class="form-check form-switch mb-5">
+            <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css">
+            <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+        </div>
+
+
+    </div>
+
+</div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>

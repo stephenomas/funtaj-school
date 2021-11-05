@@ -84,13 +84,6 @@
                             <input class="form-control" type="number" placeholder="10" id="example-tel-input">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary waves-effect waves-light">Add more</button>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Product Description</label>
-                    <div class="col-sm-9">
-                        <textarea name="" id="" cols="40" rows="5"></textarea>
-                    </div>
                 </div>
 
                 </p>

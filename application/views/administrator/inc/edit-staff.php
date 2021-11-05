@@ -129,7 +129,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light waves-effect" data-bsN-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
             </div>
         </form><!-- /.modal-content -->

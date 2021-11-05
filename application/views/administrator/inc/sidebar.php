@@ -51,8 +51,8 @@
                                 </ul>
                             </li>
 
-                            <li>
-                                <a href="staffs" class=" waves-effect">
+                            <li
+                            <?=($this->uri->segment(1) === 'staff') ? 'active': ''; ?>><a href="<?=base_url('staff')?>" class="waves-effect">
                                     <i class="ri-group-line"></i>
                                     <span>Staffs</span>
                                 </a>
