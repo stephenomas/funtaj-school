@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="old-students" class=" waves-effect">
+                                <a href="students/graduates" class=" waves-effect">
                                     <i class="mdi mdi-microsoft-teams"></i>
                                     <span>Old Students</span>
                                 </a>

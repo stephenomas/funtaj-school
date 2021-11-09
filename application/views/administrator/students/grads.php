@@ -1,337 +1,492 @@
-<div class="row mb-4">
-    <div class="col-md">
-        <h2 class="mb-4">
-            <?=$pageTitle?>
-        </h2>
-    </div>
-    <div class="col-md float-right">
-        <a class="btn btn-outline-info" id="" href="<?=base_url('students/search')?>">Search Students...</a>
-        <?php if($this->session->userdata('role') == 'Admin' || $this->session->userdata('role') == 'SuperAdmin') : ?><div class="float-right"><?=anchor(base_url('students/deleted'), '<i class="fa fa-trash-alt"></i>  Deleted Students', 'class="btn btn-warning"')?></div><?php endif;?>
-
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-md">
-        <h2 class="mb-4">
-            <?=anchor(base_url('students'), 'Back', 'class="btn btn-primary"')?>
-        </h2>
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-md">
-        <div class="d-flex btn" data-toggle="modal" data-target="#studentAdd">
-            <div class="bg-info text-light p-4">
-                <div class="d-flex align-items-center h-100">
-                    <i class="fa fa-3x fa-fw fa-plus"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-info mb-0">Add Student</p>
-                <span>Active Students: <span class="font-weight-bold mb-0 text-danger"><?=$allStudentsNum?></span></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md">
-        <div class="d-flex btn"  onclick="das()">
-            <div class="bg-success text-light p-4">
-                <div class="d-flex align-items-center h-100">
-                    <i class="fa fa-3x fa-fw fa-graduation-cap"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-secondary mb-0">Deactivated Students</p>
-                <h3 class="font-weight-bold mb-0"></h3>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="d-flex btn" onclick="grads()">
-            <div class="bg-danger text-light p-4">
-                <div class="d-flex align-items-center h-100 mb-0">
-                    <i class="fa fa-3x fa-fw fa-graduation-cap"></i>
-                </div>
-            </div>
-            <div class="flex-grow-1 bg-white p-4">
-                <p class="text-uppercase text-danger mb-0">Graduated Students</p>
-                <h3 class="font-weight-bold mb-0"></h3>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="layout-wrapper">
 
 
-<script>
-    //Buttons for navigating students
-    function grads() {
-        var base_url = "<?=base_url();?>";
-        window.location.href = base_url + 'students/grads';
-    }
-    function das() {
-        var base_url = "<?=base_url();?>";
-        window.location.href = base_url + 'students/das';
-    }
-</script>
+<?php //include 'inc/topbar.php'; 
+$this->load->view('administrator/inc/topbar')
+?>
 
-<div class="row mb-4">
-    <div class="col-md">
-        <div class="card">
+<!-- ========== Left Sidebar Start ========== -->
+<?php //include 'inc/sidebar.php'; 
+$this->load->view('administrator/inc/sidebar')
+?>
+<!-- Left Sidebar End -->
 
-            <!-- Add student Modal -->
 
-            <div class="modal fade" id="studentAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Add Student</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Students</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
+                                <li class="breadcrumb-item active">Students</li>
+                            </ol>
                         </div>
-                        <div class="modal-body mx-3">
-                            <?=form_open('students/addStudent')?>
-                            <div class="input-group mb-3">
-                                <h5 id="taken_msg" class="text-danger"></h5>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Admission No.</i></span>
-                                </div>
-                                <input type="number" id="admno" name="admno" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">First Name</i></span>
-                                </div>
-                                <input type="text" name="fname" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Other</i></span>
-                                </div>
-                                <input type="text" name="mname" class="form-control">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Last Name</i></span>
-                                </div>
-                                <input type="text" name="lname" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Sex</i></span>
-                                </div>
-                                <select name="gender" class="form-control" required>
-                                    <option value=" ">Choose sex...</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Date Of Birth</i></span>
-                                </div>
-                                <input type="date" name="dob" class="form-control" required>
-                            </div>
-                            <div class="input-group mb-3 form-inline">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="">Choose Class</i></span>
-                                </div>
-                                <?php if ($classPrefix === 'Junior_Senior') : ?>
-                                    <select class="form-control" name="class_prefix" required>
-                                        <option value="">Prefix...</option>
-                                        <option value="Primary">Primary</option>
-                                        <option value="JSS">JSS</option>
-                                        <option value="SS">SS</option>
-                                    </select>
-                                <?php endif;?>
-                                <?php if ($classPrefix !== 'Junior_Senior') : ?>
-                                    <input type="text" value="<?=$classPrefix?>" name="class_prefix" class="form-control" readonly required>
-                                <?php endif;?>
-                                <select name="curr_year" class="form-control">
-                                    <option value="">Class...</option>
-                                    <?php foreach ($classesDigit as $class) : ?>
-                                        <option value="<?=$class->digit?>"><?=$class->digit?></option>
-                                    <?php endforeach;?>
-                                </select>
-                                <select name="branch" class="form-control">
-                                    <option value="">Group...</option>
-                                    <?php foreach ($classesGroup as $group) : ?>
-                                        <option value="<?=$group->group?>"><?=$group->group?></option>
-                                    <?php endforeach;?>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-default">Add Student</button>
-                        </div>
-                        </form>
 
                     </div>
                 </div>
             </div>
+            <!-- end page title -->
 
-            <!-- Add student Modal Ends  -->
-            <div class="card-header bg-white font-weight-bold">
-                All Students
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="btn card bg-primary text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Students </h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a   onclick="das()" class="btn card bg-warning text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Deactivated Students</h5>
+                        </div>
+                    </a>
+                </div>
+               
+                <div class="col-lg-3">
+                    <a  onclick="grads()" class="btn card bg-success text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-account-check-outline me-3"></i> Back</h5>
+                        </div>
+                    </a>
+                </div>
+                <script>
+                    //Buttons for navigating students
+                    function grads() {
+                        var base_url = "<?=base_url();?>";
+                        window.location.href = base_url + 'students';
+                    }
+                    function das() {
+                        var base_url = "<?=base_url();?>";
+                        window.location.href = base_url + 'students/das';
+                    }
+                </script>
+                <!-- <div class="col-lg-4">
+                    <a href="#" class="card bg-light text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-dark"><i class="mdi mdi-school-outline me-3"></i> All</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#" class="card bg-light text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-dark"><i class="mdi mdi-school-outline me-3"></i> Asokoro</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#" class="card bg-light text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-dark"><i class="mdi mdi-school-outline me-3"></i> Gudu</h5>
+                        </div>
+                    </a>
+                </div> -->
             </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Middle Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Reg No.</th>
-                        <th scope="col">Class Of</th>
-                        <th scope="col">View</th>
-                        <th scope="col"><i class="fa fa-lock"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php $count = 0; foreach ($graduatedStudents as $student) : $count++ ?>
-                        <tr>
-                            <td data-label="#"><?=$count?></td>
-                            <td data-label="First Name"><?=$student->fname?></td>
-                            <td data-label="Middle Name"><?=$student->mname?></td>
-                            <td data-label="Last Name"><?=$student->lname?></td>
-                            <td data-label="Reg No."><?=$student->admno?></td>
-                            <td data-label="Class Of"><?=$student->class_of?></td>
-                            <td data-label="Edit"><a href="" class="" data-toggle="modal" data-target="#studentEdit<?=$student->id?>">View</a></td>
 
-                            <!-- Edit student Modal -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+
+                            <?php if($this->session->flashdata('picerr')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('picerr') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
 
 
-                            <div class="modal fade" id="studentEdit<?=$student->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">View Student</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                            <?php if($this->session->flashdata('picsuc')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('picsuc') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
 
-                                        <div class="modal-body mx-3">
-                                            <div class="text-center"><img src="<?=base_url($student->stu_img)?>" class="rounded-circle" height="100px" width="100px"></div>
-                                            <?=form_open('students/editstudent')?>
-                                            <input type="hidden" name="id" value="<?=$student->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Admission Number</i></span>
-                                                </div>
-                                                <input type="text" name="admno" value="<?=$student->admno?>" class="form-control" readonly required>
+                            <?php if($this->session->flashdata('success1')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success1') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <?php if($this->session->flashdata('error')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <ul class="nav nav-tabs nav-tabs-custom mb-4">
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold p-3 active" href="#">All Students</a>
+                                </li>
+                          
+                            </ul>
+                            <h4 class="card-title">All Students</h4>
+
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Reg No.</th>
+                                        <th>Class</th>
+                             
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <?php if(empty($this->uri->segment(3))){
+                                        $count = 0;
+                                    }else{
+                                        $count = (int)$this->uri->segment(3);
+                                    } foreach ($students_pagination->result() as $student) : $count++ ?>
+                                    <tr>
+                                    <td data-label="#"><?=$count?></td>
+                                    <td data-label="First Name"><?=$student->fname?></td>
+                                    <td data-label="Middle Name"><?=$student->mname?></td>
+                                    <td data-label="Last Name"><?=$student->lname?><?=(empty($student->email))? ' <span class="text-danger">No email!</span>' : ' '?></td>
+                                    <td data-label="Email"><?=$student->email?></td>
+                                    <td data-label="Reg No."><?=$student->admno?></td>
+                                    <td data-label="Class"><?=$student->class_prefix.' '.$student->curr_year.$student->branch?></td>
+                                
+                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?=$student->id?>">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$student->id?>">Edit</a> | <a href="">deactivate</a></td>
+                                 </tr>
+                                 <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To edit student details -->
+                                <?php 
+                                  // $this->load->view('inc/edit-student')
+                                //include 'inc/edit-student.php'; ?>
+                                    <div class="modal fade" id="editInfo<?=$student->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editInfoTitle">Edit Details</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">First Name</i></span>
+                                            <div class="modal-body">
+                                                <p>
+                                                <div class="row mb-3">
+                                                    <label for="" class="col-sm-3 col-form-label">Profile Picture</label>
+
+                                                    <div class="col-sm-9">
+                                                        <img src="<?=base_url($student->stu_img)?>" class="rounded-circle" height="100px" width="100px" alt="profile pic">
+                                                      
+                                                    </div>
+                                                 
                                                 </div>
-                                                <input type="text" name="fname" value="<?=$student->fname?>" class="form-control" required readonly>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Other</i></span>
+                                                <?=form_open('students/editstudent')?>
+                                                <input type="hidden" name="url" value="<?=current_url()?>">
+                                                <input type="hidden" name="id" value="<?=$student->id?>">
+                                                <input type="hidden" name="session" value="<?=$currentSession?>">
+                                                <div class="row mb-3">
+                                                    <label for="admission-no" class="col-sm-3 col-form-label">Admission No.</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" name="admno"  value="<?=$student->admno?>" placeholder="" id="admission-no">
+                                                    </div>
                                                 </div>
-                                                <input type="text" name="mname" value="<?=$student->mname?>" class="form-control" readonly>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Last Name</i></span>
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">First Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" name="fname" value="<?= $student->fname ?>" placeholder="" id="firstname">
+                                                    </div>
                                                 </div>
-                                                <input type="text" name="lname" value="<?=$student->lname?>" class="form-control" required readonly>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Email</i></span>
+                                                <div class="row mb-3">
+                                                    <label for="Other" class="col-sm-3 col-form-label">Other</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="mname" value="<?=$student->mname?>" type="text" placeholder="" id="Other">
+                                                    </div>
                                                 </div>
-                                                <input type="text" name="email" value="<?=$student->email?>" class="form-control" readonly>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Sex</i></span>
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="lname" type="text" value="<?=$student->lname?>" placeholder="" id="firstname">
+                                                    </div>
                                                 </div>
-                                                <select name="gender" class="form-control" required readonly>
-                                                    <option value="<?=$student->gender?>"><?=$student->gender?></option>
-<!--                                                    <option value="Male">Male</option>-->
-<!--                                                    <option value="Female">Female</option>-->
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Date Of Birth</i></span>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Sex</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="gender" class="form-select" aria-label="select ">
+                                                        <option value="<?=$student->gender?>"><?=$student->gender?></option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <input type="date" name="dob" value="<?=$student->dob?>" class="form-control" readonly>
+                                                <div class="row mb-3">
+                                                    <label for="example-date-input" class="col-sm-3 col-form-label">Date of Birth</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="date" name="dob" value="<?=$student->dob?>" id="example-date-input">
+                                                    </div>
+                                                </div>
+                                              
+                                                <div class="row mb-3">
+                                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="email" value="<?=$student->email?>" type="email" placeholder="abc@xyz.com" id="email">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="example-password-input" class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="password" type="password"  id="example-password-input">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">House</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" name="house" aria-label="select ">
+                                                            <option value="<?= $student->house?>"  selected=""><?= $student->house?></option>
+                                                            <?php 
+                                                            foreach ($houses as $house) {
+                                                                ?>
+                                                                  <option value="<?= $house->name?>"><?= $house->name?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Status</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" aria-label="select ">
+                                                            <option selected="">Choose Status</option>
+                                                            <option value="1">active</option>
+                                                            <option value="2">deactivated</option>
+                                                            <option value="2">graduated</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Branch</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" aria-label="select ">
+                                                            <option selected="">Choose Branch</option>
+                                                            <option value="1">Gudu</option>
+                                                            <option value="2">Asokoro</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Class Year</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" name="curr_year" aria-label="select ">
+                                                            <option value="<?= $student->curr_year ?>"><?= $student->curr_year ?></option>
+                                                            <?php foreach ($classesDigit as $class) : ?>
+                                                              <option value="<?=$class->digit?>"><?=$class->digit?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Class Group</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="branch" class="form-select" aria-label="select ">
+                                                         
+                                                            <option value="<?= $student->branch ?>"><?= $student->branch ?></option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="C">C</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                </p>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Edit student</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                                            </div>
+                                            </form>
+                                     </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                 <!-- To add new student -->
+                                <?php 
+                                 //  $this->load->view('inc/add-student')
+                                //include 'inc/add-student.php'; ?>
+                                <div id="viewDetails<?=$student->id?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="viewDetailsLabel"><?=$student->fname." ".$student->mname." ".$student->lname?> - Profile</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 border-right">
+                                                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="<?=base_url($student->stu_img)?>"><span class="font-weight-bold"><?=$student->fname." ".$student->mname." ".$student->lname?></span><span><?=$student->admno?></span></div>
+                                                    </div>
+                                                    <div class="col-md-5 border-right">
+                                                        <div class="p-3 py-5">
+                                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                                <h4 class="text-right">Profile</h4>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-6"><label class="labels">Date of Birth</label>
+                                                                    <h6><?=$student->dob?> </h6>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-6"><label class="labels">House</label>
+                                                                    <h6><?=$student->house?></h6>
+                                                                </div>
+                                                                <div class="col-md-6"><label class="labels">Status</label>
+                                                                    <h6><?php if($student->left_school == 1 || $student->has_graduated == 1  ){ echo "Inactive";}else{ echo 'Active';}?></h6>
+                                                                </div>
+                                                                <div class="col-md-6"><label class="labels">Class</label>
+                                                                    <h6><?=$student->curr_year."".$student->branch?></h6>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-6"><label class="labels">Sex</label>
+                                                                    <h6><?=$student->gender?></h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="p-3 py-5">
+                                                            <div class="d-flex justify-content-between align-items-center experience"><label class="labels">Result History</label></div><br>
+                                                            <div class="d-flex justify-content-between align-items-center experience"><span>2018/2019 Session - (year 9)</span><a href="" class="btn btn-primary waves-effect waves-light px-3 p-1 add-experience"><i class="fa fa-eye"></i>&nbsp;View</a></div><br>
+                                                            <div class="d-flex justify-content-between align-items-center experience"><span>2018/2019 Session - (year 9)</span><a href="" class="btn btn-primary waves-effect waves-light px-3 p-1 add-experience"><i class="fa fa-eye"></i>&nbsp;View</a></div><br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                 </div>
+                                
+                                <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To edit student details -->
+                           
+
+                                 <!-- To add new student -->
+                                <?php  $this->load->view('administrator/inc/add-student') ?>
                             </div>
 
-                            <!--  Edit student Modal Ends  -->
+                           
+                         
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
 
-                            <!-- Edit Password Modal -->
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
 
-                            <div class="modal fade" id="passwordEdit<?=$student->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Change Password for: <span class="text-primary"><?=$student->fname?>&nbsp;<?=$student->lname?></span></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <?=form_open('students/editPassword')?>
-                                            <input type="hidden" name="id" value="<?=$student->id?>">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="">Password</i></span>
-                                                </div>
-                                                <input type="password" name="password" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-default">Change Password</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--  Edit password Modal Ends  -->
-
-                            <td data-label="Password"><a href="" class="" data-toggle="modal" data-target="#passwordEdit<?=$student->id?>"><i class="fa fa-key"></a></td>
-                            </tr>
-                    <?php endforeach;?>
-                    </tbody>
-                </table>
-
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> © Funtaj.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        by Envy365 Agency
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="btn btn-outline-info" id="to-top">To Top</button>
-    </div>
+    </footer>
+
 </div>
-<script>
-    //Scroll to top
-    document.querySelector("#to-top").addEventListener("click", function(){
+<!-- end main content-->
 
-        var toTopInterval = setInterval(function(){
+</div>
+<!-- END layout-wrapper -->
 
-            var supportedScrollTop = document.body.scrollTop > 0 ? document.body : document.documentElement;
+<!-- Right Sidebar -->
+<div class="right-bar">
+<div data-simplebar class="h-100">
+    <div class="rightbar-title d-flex align-items-center px-3 py-4">
 
-            if (supportedScrollTop.scrollTop > 0) {
-                supportedScrollTop.scrollTop = supportedScrollTop.scrollTop - 50;
-            }
+        <h5 class="m-0 me-2">Settings</h5>
 
-            if (supportedScrollTop.scrollTop < 1) {
-                clearInterval(toTopInterval);
-            }
+        <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+            <i class="mdi mdi-close noti-icon"></i>
+        </a>
+    </div>
 
-        }, 10);
+    <!-- Settings -->
+    <hr class="mt-0" />
+    <h6 class="text-center mb-0">Choose Layouts</h6>
 
-    },false);
-</script>
+    <div class="p-4">
+        <div class="mb-2">
+            <img src="<?=base_url()?>assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="layout-1">
+        </div>
+
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
+            <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="<?=base_url()?>assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
+        </div>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="<?=base_url()?>assets/css/bootstrap-dark.min.css" data-appStyle="<?=base_url()?>assets/css/app-dark.min.css">
+            <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="<?=base_url()?>assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
+        </div>
+        <div class="form-check form-switch mb-5">
+            <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="<?=base_url()?>assets/css/app-rtl.min.css">
+            <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+        </div>
+
+
+    </div>
+
+</div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>

@@ -325,7 +325,7 @@ $this->load->view('administrator/inc/sidebar');
 
 <!-- Right Sidebar -->
 <?php 
-$this->load->view('adminstrator/inc/right-bar')
+$this->load->view('administrator/inc/right-bar')
 //include 'inc/right-bar.php'; ?>
 <!-- /Right-bar -->
 

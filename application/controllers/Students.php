@@ -10,7 +10,7 @@ class Students extends TL_Controller
 
     function index()
     {
-      //  if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
+      if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
             $this->data['pageTitle'] = 'Manage Students';
             $this->data['allStudentsNum'] = $this->getAllStudentsCount();
             $this->data['oldStudents'] = $this->getOldStudents();
@@ -58,19 +58,19 @@ class Students extends TL_Controller
             $str_links = $this->pagination->create_links();
             $this->data["pagLinks"] = explode('&nbsp;', $str_links);
 
-            echo json_encode($this->data);
+       
 
-//        $this->data['pagination'] = $this->pagination->create_links();
+     $this->data['pagination'] = $this->pagination->create_links();
 
             //For pagination end
 
-           // $this->load->view('templates/header', $this->data);
-            $this->load->view('students/index', $this->data);
-          //  $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/students/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
 
-        // } else {
-        //     redirect('start');
-        // }
+        }else {
+          redirect('start');
+        }
     }
 
     function deleted()
@@ -446,7 +446,83 @@ class Students extends TL_Controller
         }
     }
 
+    function grads()
+    {
+        $this->data['pageTitle'] = 'Graduated Students';
+        $this->data['allStudentsNum'] = $this->getAllStudentsCount();
+
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/students/grads', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+    }
+
     function graduates()
+    
+    {
+        if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
+            $this->data['pageTitle'] = 'Manage Students';
+            $this->data['allStudentsNum'] = $this->getAllStudentsCount();
+            $this->data['oldStudents'] = $this->getOldStudents();
+            $this->data['oldStudentsNum'] = $this->getOldStudentsCount();
+            $this->data['graduates'] = $this->getGraduatedStudents();
+            $this->data['promoteStatus'] = $this->getPromoteStatus($this->data['currentSession']);
+			$this->data['houses'] =  $this->house_model->getHouse();
+
+        
+
+//        //For pagination start
+            $config['base_url'] = base_url('students/index/');
+            $config['per_page'] = 50;
+            $config['num_links'] = 5;
+            $config['total_rows'] = $this->getAllStudentsCount();
+
+            //pagination link style
+            //config for bootstrap pagination class integration
+            $config['full_tag_open'] = '<ul class="tsc_pagination">';
+            $config['full_tag_close'] = '</ul>';
+//        $config['first_link'] = false;
+//        $config['last_link'] = false;
+            $config['first_tag_open'] = '<li class="page-item">';
+            $config['first_tag_close'] = '</li>';
+            $config['prev_link'] = '&laquo';
+            $config['prev_tag_open'] = '<li class="prev page-item">';
+            $config['prev_tag_close'] = '</li>';
+            $config['next_link'] = '&raquo';
+            $config['next_tag_open'] = '<li class="page-item">';
+            $config['next_tag_close'] = '</li>';
+            $config['last_tag_open'] = '<li class="page-item">';
+            $config['last_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="page-item"><a class="active page-link">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page-item">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $this->db->where('has_graduated', '1');
+            $this->db->where('left_school', '0');
+            $this->db->order_by('curr_year');
+            $this->db->order_by('branch');
+            $this->db->order_by('fname');
+            $this->data['students_pagination'] = $this->db->get('students', $config['per_page'], $this->uri->segment(3));
+            $str_links = $this->pagination->create_links();
+            $this->data["pagLinks"] = explode('&nbsp;', $str_links);
+
+//        $this->data['pagination'] = $this->pagination->create_links();
+
+            //For pagination end
+
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/students/grads', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+        } else {
+            redirect('start');
+        }
+        
+    
+    }
+
+    function das()
     {
         if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
             $this->data['pageTitle'] = 'Manage Students';
@@ -489,7 +565,7 @@ class Students extends TL_Controller
             $this->pagination->initialize($config);
 
             $this->db->where('has_graduated', '0');
-            $this->db->where('left_school', '0');
+            $this->db->where('left_school', '1');
             $this->db->order_by('curr_year');
             $this->db->order_by('branch');
             $this->db->order_by('fname');
@@ -501,25 +577,13 @@ class Students extends TL_Controller
 
             //For pagination end
 
-           // $this->load->view('templates/header', $this->data);
-           $this->load->view('students/index', $this->data);
-     
-          //  $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/students/deact', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
         }
         
-    
-    }
-
-    function das()
-    {
-        $this->data['pageTitle'] = 'Deactivated Students';
-        $this->data['allStudentsNum'] = $this->getAllStudentsCount();
-
-      
-        $this->load->view('students/deact', $this->data);
- 
     }
 
     public function admno_check()

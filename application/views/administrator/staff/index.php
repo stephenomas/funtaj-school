@@ -2,7 +2,7 @@
 
 
 <!-- <?php // include 'inc/topbar.php'; 
-//        $this->load->view('inc/topbar');
+    $this->load->view('administrator/inc/topbar');
 ?> -->
 
 <!-- ========== Left Sidebar Start ========== -->
