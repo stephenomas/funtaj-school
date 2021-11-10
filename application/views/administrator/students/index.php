@@ -25,12 +25,12 @@ $this->load->view('administrator/inc/sidebar')
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Students</h4>
+                        <h4 class="mb-sm-0">Case Study</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
-                                <li class="breadcrumb-item active">Students</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Stepping into History</a></li>
+                                <li class="breadcrumb-item active">User Data</li>
                             </ol>
                         </div>
 
@@ -44,14 +44,14 @@ $this->load->view('administrator/inc/sidebar')
                 <div class="col-lg-3">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="btn card bg-primary text-white-50">
                         <div class="card-body">
-                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Students </h5>
+                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Data </h5>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3">
                     <a   onclick="das()" class="btn card bg-warning text-white-50">
                         <div class="card-body">
-                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Deactivated Students</h5>
+                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Delete Data</h5>
                         </div>
                     </a>
                 </div>
@@ -139,13 +139,13 @@ $this->load->view('administrator/inc/sidebar')
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <ul class="nav nav-tabs nav-tabs-custom mb-4">
+                            <ul class="nav nav-tabs nav-tabs-custom mb-4">5
                                 <li class="nav-item">
-                                    <a class="nav-link fw-bold p-3 active" href="#">All Students</a>
+                                    <a class="nav-link fw-bold p-3 active" href="#">User Data</a>
                                 </li>
                           
                             </ul>
-                            <h4 class="card-title">All Students</h4>
+                            <h4 class="card-title">User Data</h4>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>

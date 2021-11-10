@@ -17,9 +17,9 @@ class Notes extends TL_Controller{
             if ($this->session->userdata('Elevated')) {
                 $this->data['pageTitle'] = 'Notes';
 
-                // $this->load->view('templates/header', $this->data);
-                $this->load->view('notes/index', $this->data);
-                //   $this->load->view('templates/footer', $this->data);
+                 $this->load->view('administrator/templates/header', $this->data);
+                $this->load->view('administrator/notes/index', $this->data);
+                $this->load->view('administrato/templates/footer', $this->data);
             }else{
                 redirect('start');
             }

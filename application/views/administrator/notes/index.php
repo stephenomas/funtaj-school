@@ -1,311 +1,552 @@
-<h2 class="mb-4"><?=$pageTitle?></h2>
-<style>
-    .tooltip{
-        display: inline;
-        position: relative;
-        text-decoration-color: #0A7EC5;
-    }
+<div id="layout-wrapper">
 
-    .tooltip:hover:after{
-        background: #333;
-        background: rgba(0,0,0,.8);
-        border-radius: 5px;
-        bottom: 26px;
-        color: #fff;
-        content: attr(title);
-        left: 20%;
-        padding: 5px 15px;
-        position: absolute;
-        z-index: 98;
-        width: 220px;
-    }
-</style>
-<?php if($this->session->userdata('Elevated')) : ?>
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="d-flex">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="text-info">Upload Subject Note</h5>
-                    <h6>Allowed types: <span class="text-danger">PDF, JPEG, TXT, GIF, JPG, PNG</span></h6>
-                    <?=form_open_multipart('notes/uploadNote')?>
-                    <input type="hidden" name="term" value="<?=$currentTerm?>">
-                    <input type="hidden" name="session" value="<?=$currentSession?>">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Note title</i></span>
+
+<?php 
+$this->load->view('inc/administrator/topbar')
+//include 'inc/topbar.php'; ?>
+
+<!-- ========== Left Sidebar Start ========== -->
+<?php 
+ $this->load->view('inc/administrator/sidebar')
+//include 'inc/sidebar.php'; ?>
+<!-- Left Sidebar End -->
+
+
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Notes</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
+                                <li class="breadcrumb-item active">Notes</li>
+                            </ol>
                         </div>
-                        <input type="text" name="title" id="title" class="form-control" placeholder="Enter note title or file name..." required>
+
                     </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Subject</i></span>
-                        </div>
-                        <select name="subject" class="form-control" id="subject" required>
-                            <option value="">Choose your subject...</option>
-                            <?php foreach ($subjects as $subject) : ?>
-                                <option value="<?=$subject->subjects?>"><?=$subject->subjects?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <?php if($classPrefix == 'Year' || $classPrefix == 'Grade') : ?>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="">Class prefix</i></span>
-                            </div>
-                            <input type="text" class="form-control" value="<?=$classPrefix?>" name="prefix" id="prefix" readonly>
-                        </div>
-                    <?php endif; ?>
-                    <?php if($classPrefix == 'Junior_Senior') : ?>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="">Class prefix</i></span>
-                            </div>
-                            <select name="prefix" class="form-control" id="prefix" required>
-                                <option value="">Choose class prefix...</option>
-                                <?php foreach ($classesPrefix as $pr) : ?>
-                                    <option value="<?=$pr->prefix?>"><?=$pr->prefix?></option>
-                                <?php endforeach;?>
-                            </select>
-                        </div>
-                    <?php endif; ?>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Classes</i></span>
-                        </div>
-                        <select name="digit" class="form-control" id="digit" required>
-                            <option value="">Choose class...</option>
-                            <?php foreach ($classesDigit as $cl) : ?>
-                                <option value="<?=$cl->digit?>"><?=$cl->digit?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Upload File</i></span>
-                        </div>
-                        <input type="file" name="userfile" id="userfile" class="form-control" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="submit" id="submit" value="Upload" class="form-control btn btn-primary" >
-                    </div>
-                    </form>
-                    <hr>
                 </div>
             </div>
-        </div>
-    </div>
+            <!-- end page title -->
 
-    <div class="col-md-8">
-        <h6 class="text-danger">All Notes</h6>
-        <div class="d-flex">
-
-
-                    <table class="table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Note title</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Staff ID</th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">View</th>
-                            <?php if($this->session->userdata('Elevated')){
-                                echo '<th scope="col">Delete</th>';
-                            }?>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php $count = 0; foreach ($allNotes as $notes) : $count++ ?>
-                            <tr>
-                                <td data-label="#"><?=$count?></td>
-                                <td data-label="Note Title"><?=$notes->note_title?></td>
-                                <td data-label="Type"><?php
-                                    $pos = strrpos(base_url($notes->note_link), '.');
-                                    $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
-                                    echo '<span class="text-danger">'.strtoupper($type).'</span>';?></td>
-                                <td data-label="Staff ID"><span class="text-danger text-center"><?php
-                                    $this->db->where('id', $notes->staff_id);
-                                    $staffGet = $this->db->get('staff');
-                                    foreach($staffGet->result() as $staff) :
-                                        $staffName = $staff->fname.' '.$staff->lname;?>
-                                        <a href="" title="<?=$staffName?>" class="tooltip btn btn-outline-primary"><?=$staff->id?></a></span>
-                                        <?php endforeach;?>
-                                </td>
-
-                                <td data-label="Subject"><?=$notes->subject?></td>
-                                <td data-label="Class"><?=$notes->prefix.' '.$notes->digit?></td>
-                                <td data-label="View"><?=anchor('notes/viewNote/'.$notes->id, '<i class="fa fa-eye"></i>', 'class="btn btn-outline-primary"')?></td>
-                                <?php if($this->session->userdata('Elevated')){
-                                    echo '<td data-label="Delete Note">'.anchor("notes/deleteNote/" . $notes->id, "<i class='fa fa-trash-alt'></i>", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " ")).'</td>';
-                                }?>
-                            </tr>
-                        <?php endforeach;?>
-
-                        </tbody>
-                    </table>
+            <?php if($this->session->userdata('Elevated')) : ?>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="card bg-primary text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-notebook-plus-outline me-3"></i> Add Notes</h5>
+                        </div>
+                    </a>
                 </div>
+            </div>
 
-    </div>
-</div>
-<?php endif; ?>
-<?php if($this->session->userdata('role') == 'Tutor') : ?>
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="d-flex">
-                <div class="card">
-                    <div class="card-body">
-                <h5 class="text-info">Upload Subject Note</h5>
-                        <h6>Allowed types: <span class="text-danger">PDF, JPEG, TXT, GIF, JPG, PNG</span></h6>
-                <?=form_open_multipart('notes/uploadNote')?>
-                        <input type="hidden" name="term" value="<?=$currentTerm?>">
-                        <input type="hidden" name="session" value="<?=$currentSession?>">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Note title</i></span>
-                        </div>
-                        <input type="text" name="title" id="title" class="form-control" placeholder="Enter note title or file name..." required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Subject</i></span>
-                        </div>
-                        <select name="subject" class="form-control" id="subject" required>
-                            <option value="">Choose your subject...</option>
-                            <?php foreach ($tutorSubjects as $subject) : ?>
-                                <option value="<?=$subject->subject_title?>"><?=$subject->subject_title?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <?php if($classPrefix == 'Year' || $classPrefix == 'Grade') : ?>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Class prefix</i></span>
-                        </div>
-                        <input type="text" class="form-control" value="<?=$classPrefix?>" name="prefix" id="prefix" readonly>
-                    </div>
-                    <?php endif; ?>
-                    <?php if($classPrefix == 'Junior_Senior') : ?>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="">Class prefix</i></span>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                            <select name="prefix" class="form-control" id="prefix" required>
-                                <option value="">Choose class prefix...</option>
-                                <?php foreach ($classesPrefix as $pr) : ?>
-                                    <option value="<?=$pr->prefix?>"><?=$pr->prefix?></option>
+                            
+                            <?php } ?>
+                            <span class="d-flex">
+                                <form class="app-search row">
+                                    <div class="position-relative col-10">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <!-- <span class="ri-search-line"></span> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary col-2"><i class="ri-search-line"></i></button>
+                                </form>
+                            </span>
+
+
+                            <div id="todo-task" class="task-list row">
+                            <?php $count = 0; foreach ($allNotes as $notes) : $count++ ?>
+                                <!-- end task card -->
+                                <div class="card task-box col-md-3">
+                                    <div class="progress progress-sm animated-progess" style="height: 3px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="float-end ms-2">
+                                            <div>
+                                            <?=$notes->prefix.' '.$notes->digit?>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <a href="#" class=""><?php
+                                            $pos = strrpos(base_url($notes->note_link), '.');
+                                            $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
+                                            echo '<span class="text-danger">'.strtoupper($type).'</span>';?></a>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-size-16"><a href="javascript: void(0);" class="text-dark"><?=$notes->subject?></a></h5>
+                                            <p class="mb-4"><?=$notes->note_title?></p>
+                                        </div>
+
+                                        <div class="d-inline-flex team mb-0">
+                                            <div class="me-3 align-self-center">
+                                                Staff :
+                                            </div>
+                                            <div class="team-member">
+                                                <a href="javascript: void(0);" class="team-member d-inline-block">
+                                                    <div class="">
+                                                        <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+                                                        <?php
+                                                        $this->db->where('id', $notes->staff_id);
+                                                        $staffGet = $this->db->get('staff');
+                                                        foreach($staffGet->result() as $staff) :
+                                                            $staffName = $staff->fname.' '.$staff->lname;
+                                                            echo $staffName;
+                                                            ?>
+                                                           
+                                                        <?php endforeach;?>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                       
+                                        <div class="mb-0 float-end">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('Elevated')){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
                                 <?php endforeach;?>
-                            </select>
-                        </div>
-                    <?php endif; ?>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Classes</i></span>
-                        </div>
-                        <select name="digit" class="form-control" id="digit" required>
-                            <option value="">Choose class...</option>
-                            <?php foreach ($classesDigit as $cl) : ?>
-                                <option value="<?=$cl->digit?>"><?=$cl->digit?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="">Upload File</i></span>
-                        </div>
-                        <input type="file" name="userfile" id="userfile" class="form-control" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="submit" id="submit" value="Upload" class="form-control btn btn-primary" >
-                    </div>
-                </form>
+                                <!-- end task card -->
 
+                                
+                                
+                            </div>
+
+                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Reg No.</th>
+                                        <th>Class</th>
+                                        <th>Status</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Ade</td>
+                                        <td>Mike</td>
+                                        <td>Stew</td>
+                                        <td>abc@xyz.com</td>
+                                        <td>14365</td>
+                                        <td>Year 9A</td>
+                                        <td>Active</td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+
+                                <!-- To add new note -->
+                                <?php 
+                                 $this->load->view('administrator/anc/add-note')
+                                //include 'inc/add-note.php'; ?>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To display note information -->
+                                <?php 
+                                 $this->load->view('administrator/inc/note-preview')
+                                //include 'inc/note-preview.php'; ?>
+                            </div>
+                        </div>
                     </div>
-                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+            <?php endif; ?>
+
+            <?php if($this->session->userdata('role') == 'Tutor') : ?>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="card bg-primary text-white-50">
+                        <div class="card-body">
+                            <h5 class="text-white"><i class="mdi mdi-notebook-plus-outline me-3"></i> Add Notes</h5>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="col-md-8">
-            <h6 class="text-danger">My Notes</h6>
-            <div class="d-flex">
-                    <table class="table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Note title</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">View</th>
-                            <?php if($this->session->userdata('role') == 'Admin'){
-                                echo '<th scope="col">View</th>';
-                            }?>
-                        </tr>
-                        </thead>
-                        <tbody>
 
-                        <?php $count = 0; foreach ($tutorNotes as $notes) : $count++ ?>
-                            <tr>
-                                <td data-label="#"><?=$count?></td>
-                                <td data-label="Note Title"><?=$notes->note_title?></td>
-                                <td data-label="Type"><?php
-                                    $pos = strrpos(base_url($notes->note_link), '.');
-                                    $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
-                                    echo '<span class="text-danger">'.strtoupper($type).'</span>';?></td>
-                                <td data-label="Subject"><?=$notes->subject?></td>
-                                <td data-label="Class"><?=$notes->prefix.' '.$notes->digit?></td>
-                                <td data-label="View"><?=anchor('notes/viewNote/'.$notes->id, '<i class="fa fa-eye"></i>', 'class="btn btn-outline-primary"')?></td>
-                                <?php if($this->session->userdata('role') == 'Admin'){
-                                    echo '<td data-label="Delete Note"></td>';
-                                }?>
-                            </tr>
-                        <?php endforeach;?>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
 
-                        </tbody>
-                    </table>
-            </div>
-        </div>
-    </div>
-<?php endif; ?>
-<?php if($this->session->userdata('role') == 'Student') : ?>
-    <div class="row mb-4">
-        <div class="col-md">
-            <h6 class="text-danger">Your Notes This Term</h6>
-            <div class="d-flex">
-                        <table class="table-hover">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Note title</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Subject</th>
-                                <th scope="col">View</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <span class="d-flex">
+                                <form class="app-search row">
+                                    <div class="position-relative col-10">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <!-- <span class="ri-search-line"></span> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary col-2"><i class="ri-search-line"></i></button>
+                                </form>
+                            </span>
 
+
+                            <div id="todo-task" class="task-list row">
+                            <?php $count = 0; foreach ($tutorNotes as $notes) : $count++ ?>
+                                <!-- end task card -->
+                                <div class="card task-box col-md-3">
+                                    <div class="progress progress-sm animated-progess" style="height: 3px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="float-end ms-2">
+                                            <div>
+                                            <?=$notes->prefix.' '.$notes->digit?>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <a href="#" class=""><?php
+                                            $pos = strrpos(base_url($notes->note_link), '.');
+                                            $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
+                                            echo '<span class="text-danger">'.strtoupper($type).'</span>';?></a>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-size-16"><a href="javascript: void(0);" class="text-dark"><?=$notes->subject?></a></h5>
+                                            <p class="mb-4"><?=$notes->note_title?></p>
+                                        </div>
+
+                                        <div class="d-inline-flex team mb-0">
+                                            <div class="me-3 align-self-center">
+                                                Staff :
+                                            </div>
+                                            <div class="team-member">
+                                                <a href="javascript: void(0);" class="team-member d-inline-block">
+                                                    <div class="">
+                                                        <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+                                                        <?php
+                                                        $this->db->where('id', $notes->staff_id);
+                                                        $staffGet = $this->db->get('staff');
+                                                        foreach($staffGet->result() as $staff) :
+                                                            $staffName = $staff->fname.' '.$staff->lname;
+                                                            echo $staffName;
+                                                            ?>
+                                                           
+                                                        <?php endforeach;?>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                       
+                                        <div class="mb-0 float-end">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('role') == 'Admin'){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <?php endforeach;?>
+                                <!-- end task card -->
+
+                                
+                                
+                            </div>
+
+                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Reg No.</th>
+                                        <th>Class</th>
+                                        <th>Status</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Ade</td>
+                                        <td>Mike</td>
+                                        <td>Stew</td>
+                                        <td>abc@xyz.com</td>
+                                        <td>14365</td>
+                                        <td>Year 9A</td>
+                                        <td>Active</td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+
+                                <!-- To add new note -->
+                                <?php 
+                                 $this->load->view('adminstrator/inc/add-note')
+                                //include 'inc/add-note.php'; ?>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To display note information -->
+                                <?php 
+                                 $this->load->view('administratorinc/note-preview')
+                                //include 'inc/note-preview.php'; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+            <?php endif; ?>
+
+
+            <?php if($this->session->userdata('role') == 'Student') :  ?>
+            
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <span class="d-flex">
+                                <form class="app-search row">
+                                    <div class="position-relative col-10">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <!-- <span class="ri-search-line"></span> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary col-2"><i class="ri-search-line"></i></button>
+                                </form>
+                            </span>
+
+
+                            <div id="todo-task" class="task-list row">
                             <?php $count = 0; foreach ($studentsNotes as $notes) : $count++ ?>
-                                <tr>
-                                    <td data-label="#"><?=$count?></td>
-                                    <td data-label="Note Title"><?=$notes->note_title?></td>
-                                    <td data-label="Type"><?php
-                                        $pos = strrpos(base_url($notes->note_link), '.');
-                                        $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
-                                        echo '<span class="text-danger">'.strtoupper($type).'</span>';?></td>
-                                    <td data-label="Subject"><?=$notes->subject?></td>
-                                    <td data-label="View"><?=anchor('notes/viewNote/'.$notes->id, 'View Note', 'class="btn btn-outline-primary"')?></td>
-                                </tr>
-                            <?php endforeach;?>
+                                <!-- end task card -->
+                                <div class="card task-box col-md-3">
+                                    <div class="progress progress-sm animated-progess" style="height: 3px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="card-body">
 
-                            </tbody>
-                        </table>
+                                        <div class="float-end ms-2">
+                                            <div>
+                                            <?=$notes->prefix.' '.$notes->digit?>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <a href="#" class=""><?php
+                                            $pos = strrpos(base_url($notes->note_link), '.');
+                                            $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
+                                            echo '<span class="text-danger">'.strtoupper($type).'</span>';?></a>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-size-16"><a href="javascript: void(0);" class="text-dark"><?=$notes->subject?></a></h5>
+                                            <p class="mb-4"><?=$notes->note_title?></p>
+                                        </div>
+
+                                        <div class="d-inline-flex team mb-0">
+                                            <div class="me-3 align-self-center">
+                                                Staff :
+                                            </div>
+                                            <div class="team-member">
+                                                <a href="javascript: void(0);" class="team-member d-inline-block">
+                                                    <div class="">
+                                                        <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+                                                        <?php
+                                                        $this->db->where('id', $notes->staff_id);
+                                                        $staffGet = $this->db->get('staff');
+                                                        foreach($staffGet->result() as $staff) :
+                                                            $staffName = $staff->fname.' '.$staff->lname;
+                                                            echo $staffName;
+                                                            ?>
+                                                           
+                                                        <?php endforeach;?>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                       
+                                        <div class="mb-0 float-end">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('role') == 'Admin'){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <?php endforeach;?>
+                                <!-- end task card -->
+
+                                
+                                
+                            </div>
+
+                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Reg No.</th>
+                                        <th>Class</th>
+                                        <th>Status</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Ade</td>
+                                        <td>Mike</td>
+                                        <td>Stew</td>
+                                        <td>abc@xyz.com</td>
+                                        <td>14365</td>
+                                        <td>Year 9A</td>
+                                        <td>Active</td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+
+                                <!-- To add new note -->
+                                <?php 
+                                 $this->load->view('administrator/inc/add-note')
+                                //include 'inc/add-note.php'; ?>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <!-- To display note information -->
+                                <?php 
+                                 $this->load->view('administrator/inc/note-preview')
+                                //include 'inc/note-preview.php'; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+            <?php endif; ?>
+
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> © Funtaj.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        by Envy365 Agency
                     </div>
                 </div>
-
-        <div class="col-md-7">
-
+            </div>
         </div>
+    </footer>
+
+</div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+<div data-simplebar class="h-100">
+    <div class="rightbar-title d-flex align-items-center px-3 py-4">
+
+        <h5 class="m-0 me-2">Settings</h5>
+
+        <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+            <i class="mdi mdi-close noti-icon"></i>
+        </a>
     </div>
-<?php endif; ?>
+
+    <!-- Settings -->
+    <hr class="mt-0" />
+    <h6 class="text-center mb-0">Choose Layouts</h6>
+
+    <div class="p-4">
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="layout-1">
+        </div>
+
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
+            <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
+        </div>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css">
+            <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
+        </div>
+        <div class="form-check form-switch mb-5">
+            <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css">
+            <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+        </div>
+
+
+    </div>
+
+</div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
