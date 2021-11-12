@@ -17,9 +17,9 @@ class Assignments extends TL_Controller{
         if($this->session->userdata('LoggedIn')){
             $this->data['pageTitle'] = 'Assignments';
 
-          //  $this->load->view('templates/header', $this->data);
-            $this->load->view('assignments/index', $this->data);
-            //$this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/assignments/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         }else{
             redirect('start');
         }

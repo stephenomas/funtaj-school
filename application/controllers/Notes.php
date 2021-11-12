@@ -19,7 +19,7 @@ class Notes extends TL_Controller{
 
                  $this->load->view('administrator/templates/header', $this->data);
                 $this->load->view('administrator/notes/index', $this->data);
-                $this->load->view('administrato/templates/footer', $this->data);
+                $this->load->view('administrator/templates/footer', $this->data);
             }else{
                 redirect('start');
             }
