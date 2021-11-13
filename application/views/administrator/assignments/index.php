@@ -2,7 +2,7 @@
 
 
 <?php //include 'inc/topbar.php'; 
-    $this->load->view('admininstrator/inc/topbar');
+    $this->load->view('administrator/inc/topbar');
 ?>
 
 <!-- ========== Left Sidebar Start ========== -->
@@ -92,7 +92,7 @@
                                         </div>
                                         <div>
                                             <h5 class="font-size-16"><a href="javascript: void(0);" class="text-dark"><?=$assignment->assignment_title?></a></h5>
-                                            <p class="mb-4">Week 1 Assignments</p>
+                                            <p class="mb-4"><?=$assignment->subject?></p>
                                         </div>
 
                                         <div class="d-inline-flex team mb-0">
@@ -103,11 +103,11 @@
                                                 foreach($staffGet->result() as $staff) :
                                                 $staffName = $staff->fname.' '.$staff->lname;?><?=$staffName?>
                                                 <?php endforeach;?>
-                               \
+                               
                                             </div>
                                         </div>
                                         <div class="mb-0 float-end">
-                                            <a href="#" class="">#NZ1219</a>
+                                            <a href="#" class=""><?=$assignment->prefix.' '.$assignment->digit?></a>
                                         </div>
 
                                     </div>
