@@ -2,12 +2,12 @@
 
 
 <?php 
-$this->load->view('inc/administrator/topbar')
+$this->load->view('administrator/inc/topbar')
 //include 'inc/topbar.php'; ?>
 
 <!-- ========== Left Sidebar Start ========== -->
 <?php 
- $this->load->view('inc/administrator/sidebar')
+ $this->load->view('administrator/inc/sidebar')
 //include 'inc/sidebar.php'; ?>
 <!-- Left Sidebar End -->
 
@@ -169,7 +169,7 @@ $this->load->view('inc/administrator/topbar')
 
                                 <!-- To add new note -->
                                 <?php 
-                                 $this->load->view('administrator/anc/add-note')
+                                 $this->load->view('administrator/inc/add-note')
                                 //include 'inc/add-note.php'; ?>
                             </div>
 
@@ -322,7 +322,7 @@ $this->load->view('inc/administrator/topbar')
                             <div class="col-sm-6 col-md-4 col-xl-3">
                                 <!-- To display note information -->
                                 <?php 
-                                 $this->load->view('administratorinc/note-preview')
+                                 $this->load->view('administrator/inc/note-preview')
                                 //include 'inc/note-preview.php'; ?>
                             </div>
                         </div>

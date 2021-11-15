@@ -22,6 +22,9 @@ class Authme extends TL_Controller
         if ($this->form_validation->run()) {
             $process = $this->auth_model->process_login($email, $password);
             if ($process) {
+            if($this->session->userdata('role') === "Student"){
+                redirect('student-portal');
+            }else{
                 $this->session->set_flashdata('success', 'Welcome back.');
                 if (empty($this->session->userdata('lastpage'))) {
                     redirect('start');
@@ -67,10 +70,12 @@ class Authme extends TL_Controller
                         redirect('start');
                     }
                 }
+            }
             } else {
                 $this->session->set_flashdata('warning', 'We are not able to log you in. Please ensure you are currently a staff or student of the school and have settled every outstanding bill with the accounts department.');
                 redirect('welcome');
             }
+     
         } else {
             $this->session->set_flashdata('warning', 'Please enter email and password in the correct format');
             redirect('start');

@@ -8,6 +8,8 @@
             <div class="modal-body">
                 <p>
 				<form  method="post" action="students/addStudent" enctype="multipart/form-data">
+               
+                <input type="hidden" name="session" value="<?=$currentSession?>">
                 <div class="row mb-3">
                     <label for="" class="col-sm-3 col-form-label">Profile Picture</label>
                     <div class="col-sm-9">

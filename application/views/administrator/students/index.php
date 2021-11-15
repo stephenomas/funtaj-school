@@ -44,14 +44,14 @@ $this->load->view('administrator/inc/sidebar')
                 <div class="col-lg-3">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="btn card bg-primary text-white-50">
                         <div class="card-body">
-                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Data </h5>
+                            <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i> Add Student </h5>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3">
                     <a   onclick="das()" class="btn card bg-warning text-white-50">
                         <div class="card-body">
-                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Delete Data</h5>
+                            <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Deactivated Students</h5>
                         </div>
                     </a>
                 </div>
