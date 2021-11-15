@@ -1,6 +1,6 @@
 <header class="desktop-nav header navbar fixed-top">
         <div class="nav-logo mr-5 ml-4 d-lg-inline-block d-none">
-            <a href="./" class=""> <img src="assets/img/logo-3.png" class="img-fluid" alt="logo"></a>
+            <a href="./" class=""> <img src="<?=base_url()?>assets/student/assets/img/logo-3.png" class="img-fluid" alt="logo"></a>
         </div>
         <ul class="navbar-nav flex-row mr-auto">
 
@@ -43,10 +43,10 @@
             <li class="nav-item dropdown user-profile-dropdown mr-5  d-lg-inline-block d-none">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media">
-                        <img src="assets/img/90x90.jpg" class="img-fluid mr-2" alt="admin-profile">
+                        <img src="<?=base_url()?>assets/student/assets/img/90x90.jpg" class="img-fluid mr-2" alt="admin-profile">
                         <div class="media-body align-self-center">
-                            <h6 class="mb-1">Adetomi</h6>
-                            <p class="mb-0">Year 9A</p>
+                            <h6 class="mb-1"><?= $this->session->userdata('fname') ?></h6>
+                            <p class="mb-0"><?= $this->session->userdata('prefix')." ".$this->session->userdata('prefix') ?></p>
                         </div>
                     </div>
                 </a>
@@ -96,7 +96,7 @@
                             <div class="">
                                 <div class="media">
                                     <div class="usr-img online mr-3">
-                                        <img class="usr-img rounded-circle" src="assets/img/90x90.jpg" alt="profile">
+                                        <img class="usr-img rounded-circle" src="<?=base_url()?>assets/student/assets/img/90x90.jpg" alt="profile">
                                     </div>
                                     <div class="media-body">
                                         <div class="d-flex">
@@ -117,7 +117,7 @@
                             <div class="">
                                 <div class="media">
                                     <div class="usr-img online mr-3">
-                                        <img class="usr-img rounded-circle" src="assets/img/90x90.jpg" alt="profile">
+                                        <img class="usr-img rounded-circle" src="<?=base_url()?>assets/student/assets/img/90x90.jpg" alt="profile">
                                     </div>
                                     <div class="media-body">
                                         <div class="d-flex">

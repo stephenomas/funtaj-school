@@ -29,7 +29,7 @@
             <div class="container">
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Hello, Adetomi</h3>
+                        <h3>Hello, <?=$this->session->userdata('fname')?></h3>
                     </div>
                 </div>
 
