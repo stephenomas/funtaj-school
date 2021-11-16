@@ -155,8 +155,8 @@
                                         <img alt="admin-profile" src="assets/img/90x90.jpg" class="rounded-circle">
                                     </div>
                                     <div class="usr-info-meta text-center">
-                                        <p class="usr-name mb-0">Adetomi</p>
-                                        <p class="usr-occupation">SS3A</p>
+                                        <p class="usr-name mb-0"><?=$this->session->userdata('fname')?></p>
+                                        <p class="usr-occupation"><?=$this->session->userdata('prefix')." ".$this->session->userdata('digit')?></p>
                                         <button class="btn btn-secondary btn-rounded">View Profile</button>
                                     </div>
                                 </div>

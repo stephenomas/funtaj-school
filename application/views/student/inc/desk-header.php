@@ -46,7 +46,7 @@
                         <img src="<?=base_url()?>assets/student/assets/img/90x90.jpg" class="img-fluid mr-2" alt="admin-profile">
                         <div class="media-body align-self-center">
                             <h6 class="mb-1"><?= $this->session->userdata('fname') ?></h6>
-                            <p class="mb-0"><?= $this->session->userdata('prefix')." ".$this->session->userdata('prefix') ?></p>
+                            <p class="mb-0"><?= $this->session->userdata('prefix')." ".$this->session->userdata('digit') ?></p>
                         </div>
                     </div>
                 </a>
