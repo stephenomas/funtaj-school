@@ -12,10 +12,14 @@ class Comments extends TL_Controller
     {
         if ($this->session->userdata('LoggedIn')) {
             $this->data['pageTitle'] = 'Comment Bank';
+            $this->data['commments'] = $this->db->get('reports_comments_bank')->result();
 
-          //  $this->load->view('templates/header', $this->data);
-            $this->load->view('scores/comment_bank', $this->data);
-          //  $this->load->view('templates/footer', $this->data);
+            $this->db->order_by('categories');
+            $this->data['categories'] = $this->db->get('reports_comments_categories')->result();
+
+          $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/scores/comment_bank', $this->data);
+          $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
         }

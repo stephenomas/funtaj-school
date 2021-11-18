@@ -12,7 +12,9 @@ class Welcome extends TL_Controller {
 	    if (!$this->session->userdata('LoggedIn')){
             $this->data['pageTitle'] = 'Login';
             $this->load->view('administrator/login', $this->data);
-        }else{
+        }elseif($this->session->userdata('role') == "Student"){
+	        redirect('student-portal');
+        }elseif($this->session->userdata('role') != "Student"){
 	        redirect('start');
         }
 	}

@@ -14,9 +14,9 @@ class Headtutor extends TL_Controller
             $this->data['pageTitle'] = 'Head Teacher/Principal Comments';
             $this->data['subTitle'] = 'Select class to view students';
 
-       //     $this->load->view('templates/header', $this->data);
-            $this->load->view('admin_comments/index', $this->data);
-           // $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/admin_comments/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
         }

@@ -27,14 +27,14 @@
                                     <span>Calendar</span>
                                 </a>
                             </li>
-
+                            <?php if($this->session->userdata('Elevated') == True): ?>
                             <li>
-                                <a href="comment-bank" class=" waves-effect">
+                                <a href="<?=base_url('comments')?>" class=" waves-effect <?=($this->uri->segment(1) === 'comments') ? 'active': ''; ?>">
                                     <i class="ri-chat-1-line"></i>
                                     <span>Comment Bank</span>
                                 </a>
                             </li>
-
+                            <?php endif; ?>
                             
                 
                             <li>

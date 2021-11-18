@@ -169,7 +169,7 @@
             </li>
 
             <li class="nav-item dropdown cs-toggle ml-3 mr-lg-4"> 
-                <a href="#" class="nav-link toggle-control-sidebar suffle">
+                <a href="student-portal/logout" class="nav-link ">
                     <span class="icon flaticon-log-3"></span>
                 </a>
             </li>
