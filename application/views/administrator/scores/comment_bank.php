@@ -98,21 +98,24 @@ $this->load->view('administrator/inc/topbar')
                                     </div>
 
                                 </div>
+                                
                                 <ul class="message-list">
+                                <?php foreach($comments as $comment) : ?>
                                     <li>
                                         <div class="col-mail col-mail-1">
                                             <div class="checkbox-wrapper-mail">
                                                 <input type="checkbox" id="chk19">
                                                 <label class="form-label" for="chk19" class="toggle"></label>
                                             </div>
-                                            <a href="#" class="title">CATEGORY</a>
+                                            <a href="#" class="title"><?php if($comment->categories == ""){ echo $comment->categories; }else{ echo "No category"; } ?></a>
                                         </div>
                                         <div class="col-mail col-mail-2">
-                                            <a href="#" class="subject">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
+                                            <a href="#" class="subject"><?= $comment->comments ?></span>
                                             </a>
                                             <div class="date"><a href="">Edit</a> | <a href="">Delete</a></div>
                                         </div>
                                     </li>
+                                <?php endforeach ?>
 
                                 </ul>
 

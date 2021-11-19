@@ -12,7 +12,8 @@ class Comments extends TL_Controller
     {
         if ($this->session->userdata('LoggedIn')) {
             $this->data['pageTitle'] = 'Comment Bank';
-            $this->data['commments'] = $this->db->get('reports_comments_bank')->result();
+    
+            $this->data['comments'] = $this->db->get('reports_comments_bank')->result();
 
             $this->db->order_by('categories');
             $this->data['categories'] = $this->db->get('reports_comments_categories')->result();
