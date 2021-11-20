@@ -88,20 +88,21 @@
                                     <li><a href="add=product">Add Product</a></li>
                                 </ul>
                             </li>
-
+                            <?php if($this->session->userdata('Elevated') == True): ?>
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-account-circle-line"></i>
                                     <span>Fees</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="school-fees">School Fees</a></li>
+                                    <li><a href="fees">School Fees</a></li>
                                     <li><a href="expenditure">Expenditure</a></li>
                                     <!-- <li><a href="javascript: void(0);">Recover Password</a></li>
                                     <li><a href="javascript: void(0);">Lock Screen</a></li> -->
                                 </ul>
                             </li>
-
+                            <?php endif; ?>
+                            
                             <li class="menu-title">School</li>
 
 
