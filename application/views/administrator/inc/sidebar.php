@@ -10,23 +10,17 @@
 
                             <li>
                                 <a href="./" class="waves-effect">
-                                    <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
+                                    <i class="ri-dashboard-line"></i>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="staff-dashboard" class="waves-effect">
-                                    <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
-                                    <span>Dashboard *</span>
-                                </a>
-                            </li>
-
-                            <li>
+                      
+                            <!-- <li>
                                 <a href="calendar" class=" waves-effect">
                                     <i class="ri-calendar-2-line"></i>
                                     <span>Calendar</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <?php if($this->session->userdata('Elevated') == True): ?>
                             <li>
                                 <a href="<?=base_url('comments')?>" class=" waves-effect <?=($this->uri->segment(1) === 'comments') ? 'active': ''; ?>">

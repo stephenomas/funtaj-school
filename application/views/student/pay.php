@@ -61,51 +61,80 @@
                                                     <div class="row">
                                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                                             <h3><?= $currentSession ?> SCHOOL FEES</h3>
-                                                            <h6 class="text-primary">YOU HAVE PAID ₦<?php if($paid != null){number_format($paid->amount_paid);}else{ echo 0;} ?> OUT OF ₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?> (YOU MUST PAY ATLEAST <?= $fee->minimum ?>%)</h6>
+                                                            <h6 class="text-primary">YOU HAVE PAID ₦<?php if($paid != null){ echo number_format($paid->amount_paid);}else{ echo 0;} ?> OUT OF ₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?> (YOU MUST PAY ATLEAST <?= $fee->minimum ?>%)</h6>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="widget-content widget-content-area">
-                                                    <form  id="paymentForm">
+                                                    <form  id="paymentForm" class="form-row">
                                                         <div class="form-group col-md-6 mb-4">
                                                             <label for="exampleFormControlInput1">How much are you paying</label>
-                                                            <input type="number"  name="amount" class="form-control-rounded form-control pay_id amount" id="email" placeholder="e.g 120,000">
+                                                            <input type="number"  name="amount" class="form-control-rounded form-control" id="pay_id" placeholder="e.g 120,000">
                                                         </div>
+                                                        <input type="hidden"  name="amount" class="form-control-rounded form-control" id="min" value="<?= $fee->minimum ?>">
+                                                        <input type="hidden"  name="amount" class="form-control-rounded form-control" id="who" value="<?= $this->session->userdata('id') ?>">
+                                                        <input type="hidden"  name="amount" class="form-control-rounded form-control" id="total" value="<?= $fee->first_term + $fee->second_term + $fee->third_term?>">
+                                                        <input type="hidden"  name="amount" class="form-control-rounded form-control" id="amm" value="<?php if($paid != null){echo $paid->amount_paid;}else{ echo 0;} ?>">
                                                         <div class="form-group col-md-6 mb-4">
                                                             <label for="exampleFormControlSelect1">Email</label>
-                                                            <input type="text" class="form-control-rounded form-control email" id="exampleFormControlInput1" value="<?= $this->session->userdata('email')  ?>" readonly>
+                                                            <input type="text" class="form-control-rounded form-control email" id="email" value="<?= $this->session->userdata('email')  ?>" readonly>
                                                         </div>
                                                         <div class="form-group col-md-6 mb-4">
                                                             <label for="exampleFormControlSelect1">Total Fees</label>
                                                             <input type="text" class="form-control-rounded form-control" id="exampleFormControlInput1" value="₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?>" readonly>
                                                         </div>
-                                                        <button  onclick="payWithPaystack()"   class="mt-4 mb-4 btn btn-button-7 btn-rounded">Pay Now</button>
+                                                        <button  onclick="doit()"   class="mt-4 mb-4 btn btn-button-7 btn-rounded">Pay Now</button>
                                                     </form>
                                                     <script src="https://js.paystack.co/v1/inline.js"></script> 
                                                     <script>
 
 
-                                                        // function runit(){
+                                                        function doit(){
+                                                                        
+                                                        var amount =  document.getElementById('amm').value;
+                                                      
+                                                      if(amount < 1){
+                                                   
+                                                          var min =   document.getElementById('min').value;
+                                                          var total =   document.getElementById('total').value;
+                                                          var pay = document.getElementById('pay_id').value;
+                                                          var check = min / 100 * total;
+                                                          if(pay < check){
+                                                              alert("You must pay a minimum of " + check)
+                                                          }else{
+                                                              runit();
+                                                            
+                                                          }
+                                                      }else{
+                                                        runit();
+                                                       
+                                                      }
+
+
+                                                          
+                                                    }
+                                                   
+                                                        function runit(){
                                                             var paymentForm = document.getElementById('paymentForm');
-                                                            var email = document.getElementById('email').value;
+                                                     var email = document.getElementById('email');
                                                             paymentForm.addEventListener('submit', payWithPaystack);
 
                                                         function payWithPaystack(e) {
                                                             e.preventDefault();
 
-                                                            alert(email);
+                                                           
                                                             
                                                             var handler = PaystackPop.setup({
 
                                                                     key: 'pk_test_b3e254392ba5d8f8382e46733a0d438990b10969', // Replace with your public key
-                                                                    email: document.getElementByClassName('email').value,
-                                                                    amount: document.getElementByClassName('amount').value * 100, 
+                                                                    email: document.getElementById('email').value,
+                                                                    amount: document.getElementById('pay_id').value * 100, 
                                                                     // the amount value is multiplied by 100 to convert to the lowest currency unit
                                                                     currency: 'NGN',
                                                                     metadata: {
                                                                         custom_fields: [
                                                                             {
-                                                                                payer_id: <?= $this->session->userdata('id') ?>,
+                                                                                payer_id: document.getElementById('who').value,
                                                                             
                                                                             }
                                                                         ]
@@ -123,7 +152,8 @@
                                                                                 reference
                                                                             },
                                                                             success: function (response) {
-                                                                                console.log(JSON.parse(response))
+                                                                                location.replace('/funtaj-school/student-portal/school-fees');
+                                                                                console.log(response)
                                                                             },
                                                                             error: function (error){
                                                                                 console.log(error)
@@ -140,23 +170,7 @@
 
                                                             
                                                         }
-                                                        // }
-                                                        // var amount = <?php // if($paid != null){ echo $paid->amount_paid;}else{echo 0;} ?>
-
-                                                        // if($amount == 0){
-                                                        //     var min =  //$fee->minimum;
-                                                        //     var total =  //$fee->first_term + $fee->second_term + $fee->third_term ;
-                                                        //     var pay = document.getElementByClassName('pay_id').value;
-                                                        //     var check = min / 100 * total;
-                                                        //     if(pay < check){
-                                                        //         alert("You must pay a minimum of " + check)
-                                                        //     }else{
-                                                        //         runit();
-                                                        //     }
-                                                        // }else{
-                                                        //     runit();
-                                                        // }
-                                                        
+                                                    }
 
                                                         
                                                     </script>
