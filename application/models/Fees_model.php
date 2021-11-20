@@ -10,7 +10,7 @@ class Fees_model extends TL_Model{
         'first_term' => $fterm,
         'second_term' => $sterm,
         'third_term' => $tterm,
-        'curr_year' => $year,
+        'fee_year' => $year,
         'minimum' => $min,
         'curr_session' => $sess,
        );

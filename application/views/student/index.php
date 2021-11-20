@@ -35,7 +35,7 @@
 
                 <div class="row layout-spacing ">
 
-                    <a href="student-portal/school-fees" class="col-xl-3 mb-xl-0 col-lg-6 mb-4 col-md-6 col-sm-6">
+                    <a href="school-fees" class="col-xl-3 mb-xl-0 col-lg-6 mb-4 col-md-6 col-sm-6">
 
                         <div class="widget-content-area  data-widgets br-4">
                             <div class="widget  t-income-widget">
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="media-body text-right">
                                         <p class="widget-text mb-0">School Fees</p>
-                                        <p class="widget-numeric-value">₦200,000</p>
+                                        <p class="widget-numeric-value">₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?></p>
                                     </div>
                                 </div>
                                 <p class="widget-total-stats mt-2 text-secondary">click to view</p>
@@ -178,3 +178,6 @@
  $this->load->view('student/inc/footer')
     ?>
     <!--  END FOOTER  -->
+    <?php //include 'student/inc/footer.php'; 
+ $this->load->view('student/inc/main-footer')
+    ?>

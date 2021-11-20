@@ -192,7 +192,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="validationCustom03" class="form-label">Class / Year</label>
-                                                        <select class="form-select" id="validationCustom03" required>
+                                                        <select name="fee_year" class="form-select" id="validationCustom03" required>
                                                             <option selected disabled value="">select class</option>
                                                             <?php foreach ($classesDigit as $class) : ?>
                                                             <option value="<?=$class->digit?>"><?=$class->digit?></option>
@@ -217,13 +217,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="validationCustom06" class="form-label">Session</label>
-                                                        <select name="sess" class="form-select" id="validationCustom06" required>
-                                                            <option selected disabled value="">select session</option>
-                                                            <?php foreach($sess as $ses){ ?>
-                                                            <option value="<?=$ses->sessions?>"><?=$ses->sessions?></option>
-                                                            <?php } ?>
-                                                          
-                                                        </select>
+                                                        <input type="text" class="form-control" readonly name="sess" value="<?=$currentSession?>">
                                                         <div class="invalid-feedback">
                                                             Please select a valid Session.
                                                         </div>

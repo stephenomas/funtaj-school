@@ -173,7 +173,7 @@ class Students extends TL_Controller
     {
         if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
            
-            // $password = hash('sha256', $pass);
+             $password = hash('sha256', $pass);
             // $id = $this->input->post('id');
             // $url = $this->input->post('url');
 

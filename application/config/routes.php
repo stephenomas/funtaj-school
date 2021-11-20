@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['student-portal'] = 'portal/index';
 $route['student-portal/school-fees'] = 'SchoolFees/index';
+$route['student-portal/school-fees/pay'] = 'SchoolFees/pay';
 $route['student-portal/logout'] = 'portal/logout';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

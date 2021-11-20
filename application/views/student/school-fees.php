@@ -38,10 +38,10 @@
                             <div class="col-md-12 mb-5 mt-5">
                                 <ul class="nav nav-pills mb-5 justify-content-between" id="pills-tab" role="tablist">
                                     <li class="col-xl-6 col-lg-6 col-md-6 col-12 nav-item text-center mb-5">
-                                        <a class="nav-link" href="pay-school-fees">
+                                        <a class="nav-link" href="pay">
                                             <i class="flaticon-money"></i>
                                             <h6 class="mt-3 mb-3">Pay School Fees</h6>
-                                            <p>Lorem ipsum dolor dolore magna aliqua.</p>
+                                           
                                         </a>
                                     </li>
 
@@ -49,7 +49,7 @@
                                         <a class="nav-link" href="#feeslist">
                                             <i class="flaticon-note-1"></i>
                                             <h6 class="mt-3 mb-3">School Fees History</h6>
-                                            <p>Lorem ipsum dolor dolore magna aliqua.</p>
+                                          
                                         </a>
                                     </li>
 
@@ -132,4 +132,7 @@
 
     <?php //include 'student/inc/footer.php'; 
  $this->load->view('student/inc/footer')
+    ?>
+        <?php //include 'student/inc/footer.php'; 
+ $this->load->view('student/inc/main-footer')
     ?>
