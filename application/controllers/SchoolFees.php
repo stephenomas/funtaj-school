@@ -94,7 +94,7 @@ public function confirm(){
            $insert = $this->fees_model->addPayment($stud->id, $fname, $stud->curr_year, $amount, $outstand, $mode, $ref, $status);
            $ins =   $this->fees_model->addHistory($fname, $stud->id,  $currentSession->session, $stud->curr_year, $amount, $status2, $total);
             
-            if($nsert && $ins){
+            if($insert && $ins){
                 return json_encode("Payment successful");
             }else{
                 return json_encode("Payment failed");

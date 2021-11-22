@@ -139,7 +139,7 @@ $this->load->view('administrator/inc/sidebar')
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <ul class="nav nav-tabs nav-tabs-custom mb-4">5
+                            <ul class="nav nav-tabs nav-tabs-custom mb-4">
                                 <li class="nav-item">
                                     <a class="nav-link fw-bold p-3 active" href="#">User Data</a>
                                 </li>

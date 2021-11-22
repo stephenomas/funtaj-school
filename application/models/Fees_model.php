@@ -111,7 +111,22 @@ class Fees_model extends TL_Model{
                 }
            }
           
-    
+          
+        }
+
+        public function editFee($id, $status){
+               $data = [
+                    'status' => $status
+               ];
+
+               $this->db->where('id', $id);
+               $update = $this->db->update('fees_history', $data);
+
+               if($update){
+                   return true;
+               }else{
+                   return false;
+               }
         }
 
 }

@@ -57,21 +57,28 @@
                             </a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="card bg-warning text-white-50">
+                            <a href="<?= site_url('fees/outstanding') ?>" class="card bg-danger text-white-50">
+                                <div class="card-body">
+                                    <h5 class="text-white"><i class="mdi mdi-account-multiple-remove-outline me-3"></i> Not Paid</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a href="<?= site_url('fees/awaiting') ?>" class="card bg-warning text-white-50">
                                 <div class="card-body">
                                     <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Awaiting Verification</h5>
                                 </div>
                             </a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="card bg-danger text-white-50">
+                            <a href="<?= site_url('fees/part') ?>" class="card bg-danger text-white-50">
                                 <div class="card-body">
-                                    <h5 class="text-white"><i class="mdi mdi-account-multiple-remove-outline me-3"></i> Part or no payment</h5>
+                                    <h5 class="text-white"><i class="mdi mdi-account-multiple-remove-outline me-3"></i> Part payment</h5>
                                 </div>
                             </a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="card bg-success text-white-50">
+                            <a href="<?= site_url('fees/full') ?>" class="card bg-success text-white-50">
                                 <div class="card-body">
                                     <h5 class="text-white"><i class="mdi mdi-account-check-outline me-3"></i> Full Payment</h5>
                                 </div>
