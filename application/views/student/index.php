@@ -35,7 +35,7 @@
 
                 <div class="row layout-spacing ">
 
-                    <a href="school-fees" class="col-xl-3 mb-xl-0 col-lg-6 mb-4 col-md-6 col-sm-6">
+                    <a href="<?=site_url("student-portal/school-fees")?>" class="col-xl-3 mb-xl-0 col-lg-6 mb-4 col-md-6 col-sm-6">
 
                         <div class="widget-content-area  data-widgets br-4">
                             <div class="widget  t-income-widget">

@@ -5,8 +5,14 @@ private $myfee;
 
 public function index(){
     if($this->session->userdata('role') == "Student"){
+
+        $this->db->where('student_id', $this->session->userdata('id'));
+        $this->data['fees'] = $this->db->get('fees_history')->result();
+
+      
+
         $this->load->view('student/inc/header');
-        $this->load->view('student/school-fees');
+        $this->load->view('student/school-fees', $this->data);
         $this->load->view('student/inc/main-footer');
     }else{
         redirect('start');
@@ -86,9 +92,13 @@ public function confirm(){
             $status2 = $outstand > 0 ? "Part Payment" : "Full Payment";
 
            $insert = $this->fees_model->addPayment($stud->id, $fname, $stud->curr_year, $amount, $outstand, $mode, $ref, $status);
-           $ins =   $this->fees_model->addHistory($fname, $stud->id,  $currentSession->session, $amount, $status2);
+           $ins =   $this->fees_model->addHistory($fname, $stud->id,  $currentSession->session, $stud->curr_year, $amount, $status2, $total);
             
-
+            if($nsert && $ins){
+                return json_encode("Payment successful");
+            }else{
+                return json_encode("Payment failed");
+            }
 
           // print_r($decoded);
 

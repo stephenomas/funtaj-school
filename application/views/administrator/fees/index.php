@@ -151,7 +151,7 @@
                                                     <th>Class</th>
                                               
                                                     <th>Amount Paid</th>
-                                                    <th>Outstanding</th>
+                                                
                                                     <th>Payment Mode</th>
                                                     <th>Status</th>
                                                     <th>Option</th>
@@ -166,7 +166,7 @@
                                                     <td><?= $fee_paid->curr_year ?></td>
                                         
                                                     <td><?= $fee_paid->amount_paid ?></td>
-                                                    <td><?= $fee_paid->outstanding ?></td>
+                                                   
                                                     <td><?= $fee_paid->paymentmode ?></td>
                                                     <td>
                                                         <div class="badge badge-soft-success font-size-12"><?= $fee_paid->status ?></div>

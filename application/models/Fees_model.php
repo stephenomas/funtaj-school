@@ -2,7 +2,7 @@
 
 class Fees_model extends TL_Model{
 
-
+    private $status;
 
 	public function addFee($year, $min, $sess, $fterm, $sterm, $tterm ){
 
@@ -46,19 +46,53 @@ class Fees_model extends TL_Model{
            }
     }
 
-    public function addHistory($fname, $stid, $sess, $amount, $status){
+    public function addHistory($fname, $stid, $sess, $year, $amount, $status, $total){
+
         $data =  array(
             'fname' => $fname,
             'student_id' => $stid,
             'amount_paid' => $amount,
             'curr_session' => $sess,
+            'curr_year' => $year,
             'status' => $status,
            );
+
+           if($amount >= $total){
+            $d = [
+                'has_paid_school_fees' => 1
+            ];
+
+            $this->db->where('id', $stid);
+            $student =  $this->db->update('students', $d);
+
+            
+            }
 
            $this->db->where('student_id', $stid);
            $this->db->where('curr_session', $sess);
            $check = $this->db->get('fees_history');
-           if($check->num_row() > 0){
+           if($check->num_rows() > 0){
+
+            $new = $check->row()->amount_paid + $amount;
+            if($new >= $total){
+                $d = [
+                    'has_paid_school_fees' => 1
+                ];
+
+                $this->status = "Full Payment";
+                $this->db->where('id', $stid);
+                $student =  $this->db->update('students', $d);
+
+                
+            }
+            $data =  array(
+                'fname' => $fname,
+                'student_id' => $stid,
+                'amount_paid' => $new,
+                'curr_session' => $sess,
+                'status' => $this->status,
+               );
+               
             $this->db->where('student_id', $stid);
             $this->db->where('curr_session', $sess);
             $update = $this->db->update('fees_history', $data);
