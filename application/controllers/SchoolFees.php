@@ -91,7 +91,7 @@ public function confirm(){
             $status = "Verified";
             $status2 = $outstand > 0 ? "Part Payment" : "Full Payment";
 
-           $insert = $this->fees_model->addPayment($stud->id, $fname, $stud->curr_year, $amount, $outstand, $mode, $ref, $status);
+           $insert = $this->fees_model->addPayment($stud->id, $fname, $stud->curr_year, $currentSession->session, $amount, $outstand, $mode, $ref, $status);
            $ins =   $this->fees_model->addHistory($fname, $stud->id,  $currentSession->session, $stud->curr_year, $amount, $status2, $total);
             
             if($insert && $ins){
@@ -141,13 +141,16 @@ public function addFees(){
         $stud = $this->db->get('students')->row();
         $fname = $stud->fname." ".$stud->lname;
         $curr_year = $stud->curr_year;
+        $this->db->where('id', 1);
+        $currentSession= $this->db->get('current_term_session')->row();
+        $sess = $currentSession->session;
         $outstand = 0;
         $mode = "Bank Transfer";
         
 
         
 
-       $deposit = $this->fees_model->bankdeposit($payee, $fname, $curr_year, $amount, $outstand, $mode, $file, $status);
+       $deposit = $this->fees_model->bankdeposit($payee, $fname, $curr_year, $sess, $amount, $outstand, $mode, $file, $status);
 
        if($deposit){
         $this->session->set_flashdata('success', 'School Fees Receipt Uploaded');

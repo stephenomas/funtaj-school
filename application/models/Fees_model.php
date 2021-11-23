@@ -25,11 +25,12 @@ class Fees_model extends TL_Model{
 
     }
 
-    public function addPayment($payee, $fname, $curr_year, $amount, $outstand, $mode, $ref, $status){
+    public function addPayment($payee, $fname, $curr_year, $sess, $amount, $outstand, $mode, $ref, $status){
         $data =  array(
             'payee_id' => $payee,
             'fname' => $fname,
             'curr_year' => $curr_year,
+            'curr_session' => $sess,
             'amount_paid' => $amount,
             'outstanding' => $outstand,
             'paymentmode' => $mode,
@@ -129,11 +130,61 @@ class Fees_model extends TL_Model{
                }
         }
 
-        public function bankdeposit($payee, $fname, $curr_year, $amount, $outstand, $mode, $image, $status){
+        public function approval($id, $status, $amount, $uid, $sess, $schoolfees, $fname, $year){
+                $data = [
+                    'status' => $status
+                ];
+
+                if($status == "Verified"){
+                    $this->db->where('student_id', $uid);
+                    $this->db->where('curr_session', $sess);
+                    $fee = $this->db->get('fees_history')->row();
+                    if($fee != null){
+                        $new = $fee->amount_paid + $amount;
+                        if($new >= $schoolfees){
+                            $check = "Full Payment";
+
+                        }else{
+                            $check = "Part Payment";
+                        }
+
+                        $dat = [
+                            "amount_paid" => $new,
+                            "status" => $check
+                        ];
+                        $this->db->where('student_id', $uid);
+                        $this->db->where('curr_session', $sess);
+                        $update = $this->db->update('fees_history', $dat);
+
+                        
+                        
+                    }else{
+                        if($amount >= $schoolfees){
+                            $status = "Full Payment";
+                        }else{
+                            $status = "Part Payment";
+                        }
+                        $insert = $this->addHistory($fname, $uid, $sess, $year, $amount, $status, $schoolfees);
+
+                       
+                        }
+                }
+
+                $this->db->where('id', $id);
+                $pay = $this->db->update('fees_payment', $data);
+                if($pay){
+                    return true;
+                }else{
+                    return false;
+                }
+        }
+
+        public function bankdeposit($payee, $fname, $curr_year, $sess, $amount, $outstand, $mode, $image, $status){
             $data =  array(
                 'payee_id' => $payee,
                 'fname' => $fname,
                 'curr_year' => $curr_year,
+                'curr_session' => $sess,
                 'amount_paid' => $amount,
                 'outstanding' => $outstand,
                 'paymentmode' => $mode,

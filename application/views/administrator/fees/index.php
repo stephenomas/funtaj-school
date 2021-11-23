@@ -126,7 +126,13 @@
                                             </a>
                                         </li>
                                     </ul>
-
+                                    <?php if($this->session->flashdata('success')){ ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <?= $this->session->flashdata('success') ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    
+                                    <?php } ?>
                                     <p><br></p>
                                     <div class="tab-pane active" id="studentlist" role="tabpanel">
                                         <span class="d-flex">
@@ -176,10 +182,76 @@
                                                    
                                                     <td><?= $fee_paid->paymentmode ?></td>
                                                     <td>
+                                                        <?php if($fee_paid->status == "Approved" || $fee_paid->status == "Verified" ){
+                                                        ?>
                                                         <div class="badge badge-soft-success font-size-12"><?= $fee_paid->status ?></div>
+                                                        <?php } ?>
+
+                                                        <?php if($fee_paid->status == "Disapproved"){
+                                                        ?>
+                                                        <div class="badge badge-soft-success font-size-12"><?= $fee_paid->status ?></div>
+                                                        <?php } ?>
+
+                                                        <?php if($fee_paid->status == "Pending Approval"){
+                                                        ?>
+                                                        <div class="badge badge-soft-warning font-size-12"><?= $fee_paid->status ?></div>
+                                                        <?php } ?>
                                                     </td>
-                                                    <td><a href="">View</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a></td>
+                                                   <?php if($fee_paid->paymentmode == "Bank Transfer"){ ?><td><a href="">View</a> | <?php if($fee_paid->status == "Pending Approval"){ ?><a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$fee_paid->id?>">Edit</a><?php }?> </td> <?php }?>
                                                 </tr>
+                                                <div class="modal fade" id="editInfo<?=$fee_paid->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                    <?=form_open('fees/editPayment')?>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="addInfoTitle">Edit Payment</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>
+                                                                <input class="form-control" value="<?= $fee_paid->id ?>" name="id" readonly type="hidden"  placeholder="" id="firstname">
+                                                                
+                                                              
+                                                                
+                                                                    <div class="row mb-3">
+                                                                        <label for="firstname" class="col-sm-3 col-form-label">Full Name</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input class="form-control" value="<?= $fee_paid->fname ?>" readonly type="text" placeholder="" id="firstname">
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    <div class="row mb-3">
+                                                                        <label for="firstname" class="col-sm-3 col-form-label">Amount Paid</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input class="form-control" value="<?= $fee_paid->amount_paid ?>" type="text" placeholder="" id="firstname">
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                               
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-3 col-form-label">Payment Status</label>
+                                                                    <div class="col-sm-9">
+                                                                        <select name="status" class="form-select" aria-label="select ">
+                                                                            <option value="<?= $fee_paid->status ?>"><?= $fee_paid->status ?> </option>
+                                                                           
+                                                                            <option value="Verified">Approved</option>
+                                                                            <option value="Disapproved">Disapproved</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                          
+
+
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Update Payment</button>
+                                                            </div>
+                                                        </form>
+                                                     </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
                                                 <?php } ?>
                                             </tbody>
                                         </table>
@@ -304,9 +376,7 @@
 
                                     <div class="col-sm-6 col-md-4 col-xl-3">
                                         <!-- To edit student fees -->
-                                        <?php //nclude 'inc/edit-fees.php'; 
-                                          $this->load->view('administrator/inc/edit-fees')
-                                        ?>
+                                       
                                     
                                         <!-- To add new student fee-->
                                         <?php // include 'inc/add-fees.php'; 

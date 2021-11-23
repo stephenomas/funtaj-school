@@ -9,7 +9,7 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="./" class="waves-effect">
+                                <a href="<?= site_url('dashboard') ?>" class="waves-effect">
                                     <i class="ri-dashboard-line"></i>
                                     <span>Dashboard</span>
                                 </a>
@@ -89,7 +89,7 @@
                                     <span>Fees</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="fees">School Fees</a></li>
+                                    <li><a href="<?= site_url('fees') ?>">School Fees</a></li>
                                     <li><a href="expenditure">Expenditure</a></li>
                                     <!-- <li><a href="javascript: void(0);">Recover Password</a></li>
                                     <li><a href="javascript: void(0);">Lock Screen</a></li> -->

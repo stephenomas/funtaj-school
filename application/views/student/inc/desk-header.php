@@ -169,7 +169,7 @@
             </li>
 
             <li class="nav-item dropdown cs-toggle ml-3 mr-lg-4"> 
-                <a href="student-portal/logout" class="nav-link ">
+                <a href="<?= site_url('student-portal/logout') ?>" class="nav-link ">
                     <span class="icon flaticon-log-3"></span>
                 </a>
             </li>

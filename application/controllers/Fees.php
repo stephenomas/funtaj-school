@@ -62,7 +62,7 @@ class Fees extends TL_Controller
     public function awaiting(){
         if ($this->session->userdata('Elevated')) {
             $this->db->where('status', 'Pending Approval');
-            $this->data['fees_paid'] = $this->db->get('fees_history')->result(); 
+            $this->data['fees_paid'] = $this->db->get('fees_payment')->result(); 
       
             $this->load->view('administrator/templates/header', $this->data);
             $this->load->view('administrator/fees/awaiting', $this->data);
@@ -97,6 +97,8 @@ class Fees extends TL_Controller
         $id = $this->input->post('id');
         $status = $this->input->post('status');
 
+    
+        
         $edit = $this->fees_model->editFee($id, $status);
 
         if($edit){
@@ -106,6 +108,35 @@ class Fees extends TL_Controller
             $this->session->set_flashdata('error', 'Action Failed');
             redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    public function editPayment(){
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+
+        $this->db->where('id', $id);
+        $pay = $this->db->get('fees_payment')->row();
+        $amount = $pay->amount_paid;
+        $uid = $pay->payee_id;
+        $sess = $pay->curr_session;
+        $this->db->where('curr_session', $sess);
+        $this->db->where('fee_year', $this->session->userdata('digit'));
+        $yourfee = $this->db->get('school_fees')->row();
+        $schoolfees = $yourfee->second_term + $yourfee->first_term + $yourfee->third_term;
+        $fname = $pay->fname;
+        $year = $pay->curr_year;
+
+        if($pay->status == "Pending Approval" && $status != $pay->status){
+            $update = $this->fees_model->approval($id, $status, $amount, $uid, $sess, $schoolfees, $fname, $year);
+            if($update){
+                $this->session->set_flashdata('success', 'Approval successful');
+                redirect($_SERVER['HTTP_REFERER']);
+            }else{
+                $this->session->set_flashdata('error', 'Approval failed');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+
     }
 
     

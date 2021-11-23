@@ -57,6 +57,7 @@ $route['student-portal/school-fees/pay'] = 'SchoolFees/pay';
 $route['student-portal/school-fees/schoolFees/addFees'] = 'SchoolFees/addFees';
 $route['student-portal/school-fees/pay/confirm'] = 'SchoolFees/confirm';
 $route['student-portal/logout'] = 'portal/logout';
+$route['dashboard'] = 'welcome/dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

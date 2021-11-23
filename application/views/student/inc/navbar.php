@@ -65,10 +65,10 @@
                                 <a href="#dashboards" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"> Payment of Fees <i class="flaticon-dot-three"></i> </a>
                                 <ul class="collapse list-unstyled sub-submenu show" id="dashboards">
                                     <li >
-                                        <a href="pay-school-fees"> Pay School Fees</a>
+                                        <a href="<?= site_url('student-portal/school-fees/pay') ?>"> Pay School Fees</a>
                                     </li>
                                     <li>
-                                        <a href="school-fees"> School Fees History </a>
+                                        <a href="<?= site_url('student-portal/school-fees') ?>"> School Fees History </a>
                                     </li>
                                     <!-- <li>
                                         <a href=""> Fees History </a>
