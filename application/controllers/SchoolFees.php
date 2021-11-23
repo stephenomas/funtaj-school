@@ -112,6 +112,59 @@ public function confirm(){
 
 }
 
+public function addFees(){
+
+    $config['upload_path']          = './assets/receipts/';
+    $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+    $config['encrypt_name']             = true;
+    $config['max_size']             = 2048;
+    $config['max_width']            = 5000;
+    $config['max_height']           = 5000;
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    if (! $this->upload->do_upload('image')) {
+        $error = array('error' => $this->upload->display_errors());
+
+        $this->session->set_flashdata('picerr', $this->upload->display_errors());
+        $file = "empty";
+        redirect($_SERVER['HTTP_REFERER']);
+    } else {
+        $data = array('upload_data' => $this->upload->data());
+        $image = $this->upload->data();
+        $file = 'assets/receipts/'.$image['file_name'];
+        $amount =  $this->input->post('amount');
+        $status = "Pending Approval";
+        $payee = $this->session->userdata('id');
+        $this->db->where('id', $this->session->userdata('id'));
+        $stud = $this->db->get('students')->row();
+        $fname = $stud->fname." ".$stud->lname;
+        $curr_year = $stud->curr_year;
+        $outstand = 0;
+        $mode = "Bank Transfer";
+        
+
+        
+
+       $deposit = $this->fees_model->bankdeposit($payee, $fname, $curr_year, $amount, $outstand, $mode, $file, $status);
+
+       if($deposit){
+        $this->session->set_flashdata('success', 'School Fees Receipt Uploaded');
+       
+        redirect($_SERVER['HTTP_REFERER']);
+       }else{
+        $this->session->set_flashdata('error', 'Failed to Upload');
+       
+        redirect($_SERVER['HTTP_REFERER']);
+       }
+
+        
+    }
+    
+
+}
+
 
 
 }

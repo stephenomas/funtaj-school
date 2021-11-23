@@ -129,4 +129,24 @@ class Fees_model extends TL_Model{
                }
         }
 
+        public function bankdeposit($payee, $fname, $curr_year, $amount, $outstand, $mode, $image, $status){
+            $data =  array(
+                'payee_id' => $payee,
+                'fname' => $fname,
+                'curr_year' => $curr_year,
+                'amount_paid' => $amount,
+                'outstanding' => $outstand,
+                'paymentmode' => $mode,
+                'image' => $image,
+                'status' => $status,
+               );
+
+               $ins = $this->db->insert('fees_payment', $data);
+               if($ins){
+                   return true;
+               }else{
+                   return false;
+               }
+        }
+
 }

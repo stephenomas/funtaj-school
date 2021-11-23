@@ -42,6 +42,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+
+                            <?php if($this->session->flashdata('picerr')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('picerr') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <?php if($this->session->flashdata('error')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
                             <div class="widget-content widget-content-area underline-content">
 
                                 <ul class="nav nav-tabs  mb-3 text-center" id="lineTab" role="tablist">
@@ -192,20 +214,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="widget-content widget-content-area">
-                                                        <form class="form-row">
+                                                    <form action="schoolFees/addFees" method="post" enctype="multipart/form-data" class="form-row">
                                                             <div class="form-group col-md-6 mb-4">
                                                                 <label for="exampleFormControlInput1">How much DID you paying</label>
-                                                                <input type="number" class="form-control-rounded form-control" id="exampleFormControlInput1" placeholder="e.g 120,000">
+                                                                <input type="number" name="amount" class="form-control-rounded form-control" id="exampleFormControlInput1" placeholder="e.g 120,000">
                                                             </div>
                                                             <div class="form-group col-md-6 mb-4">
                                                                 <label for="exampleFormControlSelect1">Total Fees</label>
-                                                                <input type="text" class="form-control-rounded form-control" id="exampleFormControlInput1" value="₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?>" readonly>
+                                                                <input type="text"  class="form-control-rounded form-control" id="exampleFormControlInput1" value="₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?>" readonly>
                                                             </div>
                                                             <div class="form-group mb-4 mt-3">
                                                                 <label for="exampleFormControlFile1">UPLOAD BANK SLIP (NOTE: THIS WILL BE VERIFIED BY THE SCHOOL)</label>
-                                                                <input type="file" class="form-control-file form-control-file-rounded" id="exampleFormControlFile1">
+                                                                <input type="file" required class="form-control-file form-control-file-rounded" name="image" id="exampleFormControlFile1">
                                                             </div>
-                                                            <input type="submit" name="time" class="mt-4 mb-4 btn btn-button-7 btn-rounded">
+                                                            <input type="submit" name="time" value="Upload" class="mt-4 mb-4 btn btn-button-7 btn-rounded">
                                                         </form>
                                                     </div>
                                                 </div>

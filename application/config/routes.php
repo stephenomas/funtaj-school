@@ -54,6 +54,7 @@ $route['default_controller'] = 'welcome';
 $route['student-portal'] = 'portal/index';
 $route['student-portal/school-fees'] = 'SchoolFees/index';
 $route['student-portal/school-fees/pay'] = 'SchoolFees/pay';
+$route['student-portal/school-fees/schoolFees/addFees'] = 'SchoolFees/addFees';
 $route['student-portal/school-fees/pay/confirm'] = 'SchoolFees/confirm';
 $route['student-portal/logout'] = 'portal/logout';
 $route['404_override'] = '';

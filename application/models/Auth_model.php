@@ -48,7 +48,7 @@ class Auth_model extends TL_Model
             $this->db->where('password', $password);
             $this->db->where('has_graduated', 0);
             $this->db->where('left_school', 0);
-            $this->db->where('has_paid_school_fees', 1);
+         
 
             $stuquery = $this->db->get('students');
 
