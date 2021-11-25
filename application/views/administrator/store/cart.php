@@ -25,12 +25,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Store</h4>
+                            <h4 class="mb-sm-0">Cart</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Store</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Store</a></li>
+                                    <li class="breadcrumb-item active">Cart</li>
                                 </ol>
                             </div>
 
@@ -39,43 +39,6 @@
                 </div>
                 <!-- end page title -->
 
-
-                <div class="row">
-                    <div class="col-lg-3">
-                        <a onclick="cart()" class="btn card bg-primary text-white-50">
-                            <div class="card-body">
-                                <h5 class="text-white"><i class="mdi mdi-account-plus-outline me-3"></i>cart </h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3">
-                        <a onclick="orders()" class="btn card bg-warning text-white-50">
-                            <div class="card-body">
-                                <h5 class="text-white"><i class="mdi mdi-account--off-outline me-3"></i>Orders</h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <a onclick="grads()" class="btn card bg-success text-white-50">
-                            <div class="card-body">
-                                <h5 class="text-white"><i class="mdi mdi-account-check-outline me-3"></i> Graduates</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <script>
-                        //Buttons for navigating students
-                        function cart() {
-                            var base_url = "<?= base_url(); ?>";
-                            window.location.href = base_url + 'store/cart';
-                        }
-
-                        function orders() {
-                            var base_url = "<?= base_url(); ?>";
-                            window.location.href = base_url + 'students/orders';
-                        }
-                    </script>
-                </div>
 
                 <div class="row">
                     <div class="col-12">
@@ -96,7 +59,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/product/img-1.jpg" alt="product-img" title="product-img" class="avatar-md" />
+                                                        <img src="<?= base_url() ?>assets/images/product/img-1.jpg" alt="product-img" title="product-img" class="avatar-md" />
                                                     </td>
                                                     <td>
                                                         <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Full sleeve T-shirt</a></h5>
@@ -119,7 +82,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/product/img-2.jpg" alt="product-img" title="product-img" class="avatar-md" />
+                                                        <img src="<?= base_url() ?>assets/images/product/img-2.jpg" alt="product-img" title="product-img" class="avatar-md" />
                                                     </td>
                                                     <td>
                                                         <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Half sleeve T-shirt</a></h5>
@@ -142,7 +105,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/product/img-3.jpg" alt="product-img" title="product-img" class="avatar-md" />
+                                                        <img src="a<?= base_url() ?>ssets/images/product/img-3.jpg" alt="product-img" title="product-img" class="avatar-md" />
                                                     </td>
                                                     <td>
                                                         <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Hoodie (Green)</a></h5>
@@ -165,7 +128,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/product/img-4.jpg" alt="product-img" title="product-img" class="avatar-md" />
+                                                        <img src="<?= base_url() ?>assets/images/product/img-4.jpg" alt="product-img" title="product-img" class="avatar-md" />
                                                     </td>
                                                     <td>
                                                         <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Hoodie (Gray)</a></h5>
