@@ -33,8 +33,8 @@
                                             <div class="text-center">
                                                 <div>
                                                     <a href="./" class="">
-                                                        <img src="funtajadmin/assets/images/logo-dark.png" alt="" height="20" class="auth-logo logo-dark mx-auto">
-                                                        <img src="funtajadmin/assets/images/logo-light.png" alt="" height="20" class="auth-logo logo-light mx-auto">
+                                                        <img src="<?=base_url()?>/assets/images/logo-dark.png" alt="" height="20" class="auth-logo logo-dark mx-auto">
+                                                        <img src="<?=base_url()?>/assets/images/logo-light.png" alt="" height="20" class="auth-logo logo-light mx-auto">
                                                     </a>
                                                 </div>
     
