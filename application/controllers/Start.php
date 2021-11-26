@@ -21,9 +21,9 @@ class Start extends TL_Controller
         } elseif ($this->session->userdata('LoggedIn')) {
             $this->data['pageTitle'] = 'Dashboard';
 
-            $this->load->view('templates/header', $this->data);
-            $this->load->view('elevated/index', $this->data);
-            $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/elevated/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             $user_data = array(
                 'warning' => 'Please login to continue',

@@ -24,6 +24,8 @@ class Authme extends TL_Controller
             if ($process) {
             if($this->session->userdata('role') === "Student"){
                 redirect('student-portal');
+            }elseif($this->session->userdata('role') === "Tutor"){
+                redirect('Tutor');
             }else{
                 $this->session->set_flashdata('success', 'Welcome back.');
                 if (empty($this->session->userdata('lastpage'))) {

@@ -928,4 +928,12 @@ class Students extends TL_Controller
         return $getPromoteStatus->result();
     }
 //    End of functions to get the promotion status of the current or currently selected session
+
+    function old(){
+        $this->db->where('has_left_school');
+
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/tutor/index', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+    }
 }
