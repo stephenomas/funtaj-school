@@ -58,7 +58,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="students/graduates" class=" waves-effect">
+                                <a href="<?= site_url('students/old') ?>" class=" waves-effect">
                                     <i class="mdi mdi-microsoft-teams"></i>
                                     <span>Old Students</span>
                                 </a>

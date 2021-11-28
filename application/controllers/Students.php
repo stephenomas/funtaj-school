@@ -301,6 +301,109 @@ class Students extends TL_Controller
         }
     }
 
+    function addOld(){
+        if ($this->session->userdata('LoggedIn')){
+            $school_info = $this->school_model->getSchoolInfo();
+            foreach ($school_info as $info) {
+                $emailextget = $info->email_ext;
+            }
+            $this->form_validation->set_rules('fname', 'Fast Name', 'trim|required');
+            $this->form_validation->set_rules('mname', 'Middle Name', 'trim');
+            $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
+            $this->form_validation->set_rules('admno', 'Admission No', 'trim|required');
+            ///image upload
+ 
+                $config['upload_path']          = './assets/stuimg/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['encrypt_name']             = true;
+                $config['max_size']             = 2000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if (! $this->upload->do_upload('image')) {
+                    $error = array('error' => $this->upload->display_errors());
+
+                    $this->session->set_flashdata('picerr', $this->upload->display_errors());
+                    $file = "empty";
+                } else {
+                   
+                    $data = array('upload_data' => $this->upload->data());
+                    $image = $this->upload->data();
+                    $file = 'assets/stuimg/'.$image['file_name'];
+                }
+
+                $config1['upload_path']          = './assets/results/';
+                $config1['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+                $config1['encrypt_name']             = true;
+                $config1['max_size']             = 5000;
+                
+
+                $this->load->library('upload', $config1);
+                $this->upload->initialize($config1);
+
+                if (! $this->upload->do_upload('result')) {
+                    $error = array('error' => $this->upload->display_errors());
+
+                    $this->session->set_flashdata('picerr', $this->upload->display_errors());
+                    $file2 = "empty";
+                } else {
+                   
+                    $data = array('upload_data' => $this->upload->data());
+                    $image1 = $this->upload->data();
+                    $file2 = 'assets/results/'.$image1['file_name'];
+                }
+        
+            ///
+            $admno = strtoupper($this->input->post('admno'));
+            $fname = strtoupper($this->input->post('fname'));
+            $mname = strtoupper($this->input->post('mname'));
+            $lname = strtoupper($this->input->post('lname'));
+			$house = $this->input->post('house');
+            $dob = $this->input->post('dob');
+            $gender = $this->input->post('gender');
+            $class_prefix = $this->input->post('class_prefix');
+            $curr_year = $this->input->post('curr_year');
+            $branch = $this->input->post('branch');
+            $emailext = $emailextget;
+            $email = $this->input->post('email');
+            if (empty($this->input->post('password'))) {
+                $password = hash('sha256', 'password');
+            } else {
+                $password = hash('sha256', $this->input->post('password'));
+            }
+
+            $this->db->where('admno', $admno);
+            $admnocheck = $this->db->get('students');
+            if ($admnocheck->num_rows() === 0) {
+                $create = $this->students_model->add_old($admno, $fname, $mname, $lname, $dob, $email, $password, $gender, $class_prefix, $curr_year, $branch, $house, $file, $file2);
+
+       
+
+                if ($create) {
+                    $this->session->set_flashdata('success1', 'You successfully added a new student.');
+                    redirect('students/old');
+                }else{
+                    $this->session->set_flashdata('error', 'Sorry cannot add student');
+                    redirect('students/old');
+                }
+               
+            } else {
+                foreach ($admnocheck->result() as $existing) {
+                    $name = $existing->fname . ' ' . $existing->mname . ' ' . $existing->lname;
+                    $current_class = $existing->class_prefix . ' ' . $existing->curr_year . $existing->branch;
+                }
+                $this->session->set_flashdata('error', 'Cannot Add Student! This admision number: ' . $admno . ' is already assigned to ' . $name . ' in ' . $current_class);
+                redirect('students/old');
+            }
+        }else {
+            redirect('start');
+        }
+
+    }
+
 //    This is to edit active students
     function editStudent()
     {
@@ -930,10 +1033,64 @@ class Students extends TL_Controller
 //    End of functions to get the promotion status of the current or currently selected session
 
     function old(){
-        $this->db->where('has_left_school');
+        if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
+            $this->data['pageTitle'] = 'Manage Students';
+            $this->data['allStudentsNum'] = $this->getAllStudentsCount();
+            $this->data['oldStudents'] = $this->getOldStudents();
+            $this->data['oldStudentsNum'] = $this->getOldStudentsCount();
+            $this->data['graduates'] = $this->getGraduatedStudents();
+            $this->data['promoteStatus'] = $this->getPromoteStatus($this->data['currentSession']);
+			$this->data['houses'] =  $this->house_model->getHouse();
 
-        $this->load->view('administrator/templates/header', $this->data);
-        $this->load->view('administrator/tutor/index', $this->data);
-        $this->load->view('administrator/templates/footer', $this->data);
+        
+
+//        //For pagination start
+            $config['base_url'] = base_url('students/index/');
+            $config['per_page'] = 50;
+            $config['num_links'] = 5;
+            $config['total_rows'] = $this->getAllStudentsCount();
+
+            //pagination link style
+            //config for bootstrap pagination class integration
+            $config['full_tag_open'] = '<ul class="tsc_pagination">';
+            $config['full_tag_close'] = '</ul>';
+//        $config['first_link'] = false;
+//        $config['last_link'] = false;
+            $config['first_tag_open'] = '<li class="page-item">';
+            $config['first_tag_close'] = '</li>';
+            $config['prev_link'] = '&laquo';
+            $config['prev_tag_open'] = '<li class="prev page-item">';
+            $config['prev_tag_close'] = '</li>';
+            $config['next_link'] = '&raquo';
+            $config['next_tag_open'] = '<li class="page-item">';
+            $config['next_tag_close'] = '</li>';
+            $config['last_tag_open'] = '<li class="page-item">';
+            $config['last_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="page-item"><a class="active page-link">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page-item">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $this->db->where('has_graduated', '1');
+            $this->db->or_where('left_school', '1');
+            $this->db->order_by('curr_year');
+            $this->db->order_by('branch');
+            $this->db->order_by('fname');
+            $this->data['students_pagination'] = $this->db->get('students', $config['per_page'], $this->uri->segment(3));
+            $str_links = $this->pagination->create_links();
+            $this->data["pagLinks"] = explode('&nbsp;', $str_links);
+
+//        $this->data['pagination'] = $this->pagination->create_links();
+
+            //For pagination end
+
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/students/old', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+        } else {
+            redirect('start');
+        }
     }
 }

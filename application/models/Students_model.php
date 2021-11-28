@@ -24,6 +24,31 @@ class Students_model extends TL_Model{
         }return false;
     }
 
+    function add_old($admno, $fname, $mname, $lname, $dob, $email, $password, $gender, $class_prefix, $curr_year, $branch, $house, $file, $file2){
+        $data = array(
+            'admno' => $admno,
+            'fname' => $fname,
+            'mname' => $mname,
+            'lname' => $lname,
+            'dob' => $dob,
+            'email' => $email,
+            'password' => $password,
+            'gender' => $gender,
+            'class_prefix' => $class_prefix,
+            'curr_year' => $curr_year,
+            'branch' => $branch,
+            'house' => $house,
+            'stu_img' => $file,
+            'left_school' => 1,
+            'result_img' => $file2
+        );
+
+        $insert = $this->db->insert('students', $data);
+        if($insert){
+            return true;
+        }return false;
+    }
+
     function editStudent($admno, $fname, $mname, $lname, $dob, $email, $gender, $house){
         $data = array(
             'admno' => $admno,

@@ -804,4 +804,6 @@ class School extends TL_Controller
 
         $this->db->insert('parents', $data);
     }
+
+  
 }
