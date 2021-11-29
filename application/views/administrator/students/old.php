@@ -191,7 +191,7 @@ $this->load->view('administrator/inc/sidebar')
                                                     </div>
                                                  
                                                 </div>
-                                                <?=form_open('students/edit_old')?>
+                                                <?=form_open_multipart('students/edit_old')?>
                                                 <input type="hidden" name="url" value="<?=current_url()?>">
                                                 <input type="hidden" name="id" value="<?=$student->id?>">
                                                 <input type="hidden" name="session" value="<?=$currentSession?>">
@@ -199,132 +199,120 @@ $this->load->view('administrator/inc/sidebar')
                                                 
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="admission-no" class="col-sm-3 col-form-label">Admission No.</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="number" placeholder="" id="admission-no">
+                                                    <label for="admission-no" class="col-sm-3 col-form-label">Admission No.</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="admno" value="<?= $student->admno ?>" type="number" placeholder="" id="admission-no">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="firstname" class="col-sm-3 col-form-label">First Name</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="text" placeholder="" id="firstname">
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">First Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" value="<?= $student->fname ?>" name="fname" type="text" placeholder="" id="firstname">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="Other" class="col-sm-3 col-form-label">Other</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="text" placeholder="" id="Other">
+                                                <div class="row mb-3">
+                                                    <label for="Other" class="col-sm-3 col-form-label">Other</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" value="<?= $student->mname ?>" name="mname" type="text" placeholder="" id="Other">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="firstname" class="col-sm-3 col-form-label">Last Name</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="text" placeholder="" id="firstname">
+                                                <div class="row mb-3">
+                                                    <label for="firstname" class="col-sm-3 col-form-label">Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" value="<?= $student->lname ?>" name="lname" type="text" placeholder="" id="firstname">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">Sex</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Choose Sex</option>
-                                                        <option value="1">Male</option>
-                                                        <option value="2">Female</option>
-                                                    </select>
+                                            
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Sex</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="gender" class="form-select" aria-label="select ">
+                                                        <option value="<?= $student->gender ?>"><?= $student->gender ?></option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-3">
-                                                <label for="example-date-input" class="col-sm-3 col-form-label">Date of Birth</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+                                                <div class="row mb-3">
+                                                    <label for="example-date-input" class="col-sm-3 col-form-label">Date of Birth</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" value="<?= $student->dob ?>" name="dob" type="date" value="2011-08-19" id="example-date-input">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="example-tel-input" class="col-sm-3 col-form-label">Telephone</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="tel" placeholder="234-(80)-555-5555" id="example-tel-input">
+                                            
+                                                
+                                                <div class="row mb-3">
+                                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" value="<?= $student->email ?>" name="email" type="email" placeholder="abc@xyz.com" id="email">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="email" placeholder="abc@xyz.com" id="email">
+                                                <div class="row mb-3">
+                                                    <label for="example-password-input" class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="password" type="password" required value="" id="example-password-input">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="example-password-input" class="col-sm-3 col-form-label">Password</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="password" value="hunter2" id="example-password-input">
-                                                </div>
-                                            </div>
 
-                                            <div class="row mb-3">
-                                                <label for="" class="col-sm-3 col-form-label">Results Document (.pdf)</label>
-                                                <div class="col-sm-9">
-                                                    <input type="file" class="form-control" id="customFile" value="mubyresult.pdf">
-                                                    <a href="" class="btn btn-primary waves-effect waves-light">Delete</a>
+                                                <div class="row mb-3">
+                                                    <label for="" class="col-sm-3 col-form-label">Results Document (.pdf)</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" required name="result" class="form-control" id="customFile">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">House</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Choose House</option>
-                                                        <option value="1">Red</option>
-                                                        <option value="2">Blue</option>
-                                                        <option value="2">Green</option>
-                                                        <option value="2">Yellow</option>
-                                                    </select>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">House</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="house" class="form-select" aria-label="select ">
+                                                        <option value="<?= $student->house?>"><?= $student->house?></option>
+                                                        
+                                                                <?php 
+                                                                foreach ($houses as $house) {
+                                                                    ?>
+                                                                    <option value="<?= $house->name?>"><?= $house->name?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">Status</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Choose Status</option>
-                                                        <option value="1">active</option>
-                                                        <option value="2">deactivated</option>
-                                                        <option value="2">graduated</option>
-                                                        <option value="2">Transfered</option>
+                                                <?php if ($classPrefix === 'Junior_Senior') : ?>
+                                                    <select class="form-control" name="class_prefix" required>
+                                                        <option value="">Prefix...</option>
+                                                        <option value="JSS">JSS</option>
+                                                        <option value="SS">SS</option>
                                                     </select>
-                                                </div>
-                                            </div>
+                                                <?php endif;?>
+                                                <?php if ($classPrefix !== 'Junior_Senior') : ?>
+                                                    <input hidden type="text" value="<?=$classPrefix?>" name="class_prefix" class="form-control" readonly required>
+                                                <?php endif;?>
 
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">Branch</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Choose Branch</option>
-                                                        <option value="1">Gudu</option>
-                                                        <option value="2">Asokoro</option>
-                                                    </select>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Class Year</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="curr_year" class="form-select" aria-label="select ">
+                                                        <option value="<?= $student->curr_year?>"><?= $student->curr_year?></option>
+                                                                
+                                                            <?php foreach ($classesDigit as $class) : ?>
+                                                                <option value="<?=$class->digit?>"><?=$class->digit?></option>
+                                                            <?php endforeach;?>
+                                            
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">Class Year</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Class...</option>
-                                                        <option value="1">7</option>
-                                                        <option value="2">8</option>
-                                                        <option value="2">9</option>
-                                                        <option value="2">10</option>
+                                                <div class="row mb-3">
+                                                    <label class="col-sm-3 col-form-label">Class Group</label>
+                                                    <div class="col-sm-9">
+                                                    <select name="branch" class="form-control">
+                                                    <option value="<?= $student->branch?>"><?= $student->branch?></option>
+                                                        <?php foreach ($classesGroup as $group) : ?>
+                                                            <option value="<?=$group->groups?>"><?=$group->groups?></option>
+                                                        <?php endforeach;?>
                                                     </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label">Class Group</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select" aria-label="select ">
-                                                        <option selected="">Group...</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        <option value="C">C</option>
-                                                    </select>
-                                                </div>
-                                            </div>
 
                                                 </p>
                                             </div>

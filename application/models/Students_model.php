@@ -58,13 +58,28 @@ class Students_model extends TL_Model{
             'dob' => $dob,
             'email' => $email,
             'gender' => $gender,
-            'house' => $house
+            'house' => $house,
+   
         );
         $this->db->where('admno', $admno);
         $update = $this->db->update('students', $data);
         if($update){
             return true;
         }return false;
+    }
+
+    function editResult($file, $admno){
+        $data = array(
+            'result_img' => $file
+        );
+
+        $this->db->where('admno', $admno);
+        $update = $this->db->update('result_img', $data);
+        if($update){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     function editStudentClass($admno, $fname, $mname, $lname, $dob, $email, $gender, $class, $prefix, $group, $house){

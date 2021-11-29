@@ -1093,4 +1093,111 @@ class Students extends TL_Controller
             redirect('start');
         }
     }
+
+    function edit_old(){
+        $pass = $this->input->post('password');
+		$url = $this->input->post('url');
+		$id = $this->input->post('id');
+
+        if ($this->session->userdata('LoggedIn')) {
+            $school_info = $this->school_model->getSchoolInfo();
+            foreach ($school_info as $info) {
+                $emailextget = $info->email_ext;
+            }
+            $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
+            $this->form_validation->set_rules('mname', 'Middle Name', 'trim');
+            $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
+            $this->form_validation->set_rules('admno', 'Admission No', 'trim|required');
+
+            $admno = strtoupper($this->input->post('admno'));
+            $fname = strtoupper($this->input->post('fname'));
+            $mname = strtoupper($this->input->post('mname'));
+            $lname = strtoupper($this->input->post('lname'));
+            $dob = $this->input->post('dob');
+            $url = $this->input->post('url');
+            $gender = $this->input->post('gender');
+            $house =  $this->input->post('house');
+            $emailext = $emailextget;
+//            if(empty($this->input->post('password'))){
+//                $password = hash('sha256', 'password');
+//            }else{
+//                $password = hash('sha256', $this->input->post('password'));
+//            }
+            if(!empty($this->input->post('result'))){
+                $config1['upload_path']          = './assets/results/';
+                $config1['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+                $config1['encrypt_name']             = true;
+                $config1['max_size']             = 5000;
+                
+
+                $this->load->library('upload', $config1);
+                $this->upload->initialize($config1);
+
+                if (! $this->upload->do_upload('result')) {
+                    $error = array('error' => $this->upload->display_errors());
+
+                    $this->session->set_flashdata('picerr', $this->upload->display_errors());
+                    $file2 = "empty";
+                } else {
+                   
+                    $data = array('upload_data' => $this->upload->data());
+                    $image1 = $this->upload->data();
+                    $file2 = 'assets/results/'.$image1['file_name'];
+
+                    $this->students_model->editResult($file2, $admno);
+                }
+
+
+            }
+               
+
+
+
+            if (empty($this->input->post('email'))) {
+                $email = strtolower(strip_quotes($fname . $mname . $lname) . "@" . $emailext);
+            } else {
+                $email = $this->input->post('email');
+            }
+            if (empty($this->input->post('curr_year'))) {
+                $update = $this->students_model->editStudent($admno, $fname, $mname, $lname, $dob, $email, $gender, $house);
+				if(!empty($this->input->post('password'))){
+					$password = hash('sha256', $pass);
+					$update1 = $this->students_model->editPassword($id, $password);
+				}
+                if ($update) {
+                    $this->session->set_flashdata('success', 'You successfully edited the student\'s details.');
+                    redirect($url);
+                }
+                $this->session->set_flashdata('error', 'There is an error, try again!');
+                redirect($url);
+            } else {
+                $class = $this->input->post('curr_year');
+                $prefix = $this->input->post('class_prefix');
+                $group = $this->input->post('branch');
+                $update = $this->students_model->editStudentClass($admno, $fname, $mname, $lname, $dob, $email, $gender, $class, $prefix, $group, $house);
+				if(!empty($this->input->post('password'))){
+					$password = hash('sha256', $pass);
+					$update1 = $this->students_model->editPassword($id, $password);
+				}
+                $this->db->where('student_id', $this->input->post('id'));
+                $this->db->where('session', $this->input->post('session'));
+                $newData = array(
+                    'prefix' => $prefix,
+                    'digit' => $class,
+                    'groups' => $group,
+                );
+                $this->db->update('students_classes', $newData);
+
+                if ($update) {
+                    $this->session->set_flashdata('success', 'You successfully edited the student\'s details.');
+                    redirect($url);
+                }
+                $this->session->set_flashdata('error', 'There is an error, try again!');
+                redirect($url);
+            }
+
+        } else {
+            redirect('start');
+        }
+    }
 }

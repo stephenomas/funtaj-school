@@ -45,8 +45,8 @@
                     <div class="col-sm-9">
                         <select name="gender" class="form-select" aria-label="select ">
                             <option selected="">Choose Sex</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
                 </div>
