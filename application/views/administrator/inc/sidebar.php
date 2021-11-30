@@ -90,7 +90,7 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="<?= site_url('fees') ?>">School Fees</a></li>
-                                    <li><a href="expenditure">Expenditure</a></li>
+                                    <li><a href="<?= site_url('fees/expenditure') ?>">Expenditure</a></li>
                                     <!-- <li><a href="javascript: void(0);">Recover Password</a></li>
                                     <li><a href="javascript: void(0);">Lock Screen</a></li> -->
                                 </ul>

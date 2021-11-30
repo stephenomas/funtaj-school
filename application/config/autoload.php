@@ -158,5 +158,6 @@ $autoload['model'] = array(
     'inventory_model',
     'calendar_model',
     'house_model',
-    'fees_model'
+    'fees_model',
+    'expenditure_model'
 );

@@ -289,16 +289,7 @@ $this->load->view('administrator/inc/sidebar')
                                                     </div>
                                                 </div>
 
-                                                <div class="row mb-3">
-                                                    <label class="col-sm-3 col-form-label">Branch</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-select" aria-label="select ">
-                                                            <option selected="">Choose Branch</option>
-                                                            <option value="1">Gudu</option>
-                                                            <option value="2">Asokoro</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                               
 
                                                 <div class="row mb-3">
                                                     <label class="col-sm-3 col-form-label">Class Year</label>

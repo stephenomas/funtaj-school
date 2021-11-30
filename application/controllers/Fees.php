@@ -154,4 +154,24 @@ class Fees extends TL_Controller
         }
     }
 
+    public function expenditure(){
+
+        if ($this->session->userdata('Elevated')) {
+          $this->data['expenditure'] = $this->db->get('expenditure')->result();
+            $total = 0;
+            $fees = $this->db->get('fees_history')->result();
+            foreach($fees as $fee){
+                $total = $total + $fee->amount_paid;
+            }
+            $this->data['total'] = $total;
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/fees/expenditure', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        }else{
+
+            redirect('start');
+        }
+    }
+
+
 }
