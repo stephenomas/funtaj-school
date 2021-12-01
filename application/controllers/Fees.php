@@ -173,5 +173,15 @@ class Fees extends TL_Controller
         }
     }
 
+    public function addExpense(){
+        if ($this->session->userdata('Elevated')) {
+            
+
+        }else{
+
+            redirect('start');
+        }
+        }
+
 
 }
