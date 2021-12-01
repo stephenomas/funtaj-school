@@ -245,7 +245,11 @@ class Students extends TL_Controller
                     $file = 'assets/stuimg/'.$image['file_name'];
                 }
         
-            ///
+            ///dddd                                                                                                                                                                                                                                                 ZZ
+
+
+
+            
             $admno = strtoupper($this->input->post('admno'));
             $fname = strtoupper($this->input->post('fname'));
             $mname = strtoupper($this->input->post('mname'));

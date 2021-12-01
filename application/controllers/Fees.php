@@ -173,5 +173,17 @@ class Fees extends TL_Controller
         }
     }
 
+    public function addExpenditure(){
+        if ($this->session->userdata('Elevated')) {
+            $this->form_validation->set_rules('title', 'Title', 'trim|required');
 
+            if($this->form_validation->run()){
+                $note_title = ucwords(strtolower($this->input->post('title')));
+            }    
+    
+
+        }else{
+
+            redirect('start');
+        }
 }
