@@ -165,6 +165,24 @@
                         <span class="d-flex">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="btn btn-primary col-md-2"><i class="mdi mdi-cash-plus"></i> New Expense</a>
                         </span>
+                        <?php
+                 
+                         echo   validation_errors('<div class="alert alert-danger alert-dismissible fade show">','</div>');
+                  
+                        ?>
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <?php if($this->session->flashdata('error')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                         <p><br></p>
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
