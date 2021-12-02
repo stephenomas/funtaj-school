@@ -189,7 +189,7 @@
                                 <tr>
                                     <th> Receiver</th>
                                     <th>Purpose</th>
-                                    <th>Branch</th>
+                                    
                                     <th>Amount Paid</th>
                                     <th>Description</th>
                                     <th>Processed by</th>
@@ -199,15 +199,23 @@
 
 
                             <tbody>
+                                <?php foreach($expenditure as $exp){ ?>
                                 <tr>
-                                    <td>Adeolu </td>
-                                    <td>repair of tap</td>
-                                    <td>Gudu</td>
-                                    <td>₦10,000</td>
-                                    <td>tap in toilet b got spoilt</td>
-                                    <td>Mr Adeoye</td>
+                                    <td><?= $exp->receiver ?></td>
+                                    <td><?= $exp->purpose ?></td>
+                                  
+                                    <td>₦<?= $exp->amount_paid ?></td>
+                                    <td><?= $exp->description ?></td>
+                                    <td>
+                                        <?php
+                                        $this->db->where('id', $exp->user_id);
+                                        $user = $this->db->get('staff')->row();
+                                        echo $user->fname." ".$user->lname;
+                                        ?>
+                                    </td>
                                     <td><a href="">View</a> | <a href="#" class="text-warning">Cancel Expense</a> <span class="text-danger">Expense Cancelled</span></td>
                                 </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
