@@ -58,7 +58,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Total Revenue</p>
-                                                    <h4 class="mb-0">₦ 38452</h4>
+                                                    <h4 class="mb-0">₦ <?= number_format($total) ?></h4>
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="mdi mdi-cash-100 font-size-24"></i>
@@ -68,7 +68,7 @@
 
                                         <div class="card-body border-to py-3">
                                             <div class="text-truncate">
-                                                <span class="text-muted ms-2">2021/22 Session</span>
+                                                <span class="text-muted ms-2"><?= $currentSession ?> Session</span>
                                             </div>
                                         </div>
                                     </div>
