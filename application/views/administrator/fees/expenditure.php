@@ -58,7 +58,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Total Revenue</p>
-                                                    <h4 class="mb-0">₦ 38452</h4>
+                                                    <h4 class="mb-0">₦ <?= number_format($total) ?></h4>
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="mdi mdi-cash-100 font-size-24"></i>
@@ -68,7 +68,7 @@
 
                                         <div class="card-body border-to py-3">
                                             <div class="text-truncate">
-                                                <span class="text-muted ms-2">2021/22 Session</span>
+                                                <span class="text-muted ms-2"><?= $currentSession ?> Session</span>
                                             </div>
                                         </div>
                                     </div>
@@ -165,13 +165,31 @@
                         <span class="d-flex">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" class="btn btn-primary col-md-2"><i class="mdi mdi-cash-plus"></i> New Expense</a>
                         </span>
+                        <?php
+                 
+                         echo   validation_errors('<div class="alert alert-danger alert-dismissible fade show">','</div>');
+                  
+                        ?>
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+                            <?php if($this->session->flashdata('error')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                         <p><br></p>
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th> Receiver</th>
                                     <th>Purpose</th>
-                                    <th>Branch</th>
+                                    
                                     <th>Amount Paid</th>
                                     <th>Description</th>
                                     <th>Processed by</th>
@@ -181,15 +199,23 @@
 
 
                             <tbody>
+                                <?php foreach($expenditure as $exp){ ?>
                                 <tr>
-                                    <td>Adeolu </td>
-                                    <td>repair of tap</td>
-                                    <td>Gudu</td>
-                                    <td>₦10,000</td>
-                                    <td>tap in toilet b got spoilt</td>
-                                    <td>Mr Adeoye</td>
+                                    <td><?= $exp->receiver ?></td>
+                                    <td><?= $exp->purpose ?></td>
+                                  
+                                    <td>₦<?= $exp->amount_paid ?></td>
+                                    <td><?= $exp->description ?></td>
+                                    <td>
+                                        <?php
+                                        $this->db->where('id', $exp->user_id);
+                                        $user = $this->db->get('staff')->row();
+                                        echo $user->fname." ".$user->lname;
+                                        ?>
+                                    </td>
                                     <td><a href="">View</a> | <a href="#" class="text-warning">Cancel Expense</a> <span class="text-danger">Expense Cancelled</span></td>
                                 </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

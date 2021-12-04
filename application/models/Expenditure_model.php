@@ -9,8 +9,8 @@ class Expenditure_model extends CI_Model {
             'purpose' => $purpose,
             'amount_paid' => $amount_paid,
             'description' => $description,
-            'receiver' => $processed,
-            'user_id' => $receiver,
+            'receiver' => $receiver,
+            'user_id' => $user,
             'curr_term' => $curr_term,
             'curr_session' => $curr_session
         ];

@@ -175,12 +175,56 @@ class Fees extends TL_Controller
 
     public function addExpenditure(){
         if ($this->session->userdata('Elevated')) {
+<<<<<<< HEAD
             $this->form_validation->set_rules('title', 'Title', 'trim|required');
 
             if($this->form_validation->run()){
                 $note_title = ucwords(strtolower($this->input->post('title')));
             }    
     
+=======
+
+            $this->load->helper(array('form', 'url'));
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('purpose', 'Purpose', 'trim|required');
+            $this->form_validation->set_rules('amount', 'Amount', 'required');
+            $this->form_validation->set_rules('description', 'Description', 'trim|required');
+            $this->form_validation->set_rules('receiver', 'Receiver', 'trim|required');
+
+            if($this->form_validation->run() == TRUE){
+               $purpose = $this->input->post('purpose');
+               $amount_paid = $this->input->post('amount');
+               $description = $this->input->post('description');
+               $receiver = $this->input->post('receiver');
+               $user = $this->session->userdata('id');
+               $this->db->where('id', 1);
+               $current = $this->db->get('current_term_session')->row();
+               
+               $curr_term = $current->term;
+               $curr_session =$current->session;
+
+
+              $exp = $this->expenditure_model->add($purpose, $amount_paid, $description, $user, $receiver, $curr_term, $curr_session);
+
+              if($exp){
+                  $this->session->set_flashdata('success', 'Expenditure added Successfully');
+                  redirect('fees/expenditure');
+              }
+            }else{
+                // if(validation_errors()){
+                //     $this->session->set_flashdata('error', validation_errors());
+                // }
+               
+                redirect('fees/expenditure');
+            }
+        }else{
+
+            redirect('start');
+        }
+        }
+
+>>>>>>> d112fda6548726d04dc873d6668502cc0f8c4b32
 
         }else{
 
