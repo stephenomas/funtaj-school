@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ 
 class Expenditure_model extends CI_Model {
 
     function add($purpose, $amount_paid, $description, $user, $receiver, $curr_term, $curr_session){
