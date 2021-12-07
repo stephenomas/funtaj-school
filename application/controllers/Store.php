@@ -14,9 +14,9 @@ class Store extends TL_Controller
             $this->data['pageTitle'] = 'Store';
             $this->data['productsData'] = $this->store_model->get_all_products();
 
-            $this->load->view('templates/header', $this->data);
-            $this->load->view('store/index', $this->data);
-            $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/store/index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
         }

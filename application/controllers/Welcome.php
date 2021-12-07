@@ -10,6 +10,7 @@ class Welcome extends TL_Controller {
 	public function index()
 	{
 	    if (!$this->session->userdata('LoggedIn')){
+          
             $this->data['pageTitle'] = 'Login';
             $this->load->view('administrator/login', $this->data);
         }elseif($this->session->userdata('role') == "Student"){

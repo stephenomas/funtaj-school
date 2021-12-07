@@ -175,14 +175,6 @@ class Fees extends TL_Controller
 
     public function addExpenditure(){
         if ($this->session->userdata('Elevated')) {
-<<<<<<< HEAD
-            $this->form_validation->set_rules('title', 'Title', 'trim|required');
-
-            if($this->form_validation->run()){
-                $note_title = ucwords(strtolower($this->input->post('title')));
-            }    
-    
-=======
 
             $this->load->helper(array('form', 'url'));
 
@@ -218,16 +210,11 @@ class Fees extends TL_Controller
                
                 redirect('fees/expenditure');
             }
-        }else{
+            }else{
 
-            redirect('start');
+                redirect('start');
+            }
         }
-        }
 
->>>>>>> d112fda6548726d04dc873d6668502cc0f8c4b32
 
-        }else{
-
-            redirect('start');
-        }
 }
