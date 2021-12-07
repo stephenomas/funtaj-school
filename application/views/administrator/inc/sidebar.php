@@ -73,7 +73,7 @@
                                     <span>Store</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="products">Products</a></li>
+                                    <li><a href="<?= site_url('store/products') ?>">Products</a></li>
                                     <li><a href="orders">Orders</a></li>
                                     <!-- <li><a href="javascript: void(0);">Customers</a></li> -->
                                     <li><a href="cart">Cart</a></li>
