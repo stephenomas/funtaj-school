@@ -40,177 +40,57 @@ class Store extends TL_Controller
         echo json_encode($products);
     }
 
-    function add_to_cart($student_id)
-    {
-        $id = $this->input->post('product_id');
-        $product_name = $this->input->post('product_name');
-        $product_price = $this->input->post('product_price');
-        $product_quantity = $this->input->post('quantity');
-        $product_image = $this->input->post('product_image');
+   function addproduct(){
+    $data                              = array();
+    $data['product_title']             = $this->input->post('name');
+    $data['product_long_description']  = $this->input->post('description');
+    $data['product_price']             = $this->input->post('price');
+    $data['product_category']          = $this->input->post('product_category');
+    $data['gender']                    = $this->input->post('gender');
+  
+    $this->form_validation->set_rules('name', 'Name', 'trim|required');
+    
+    $this->form_validation->set_rules('description', 'Product Description', 'trim|required');
+    // $this->form_validation->set_rules('product_image', 'Product Image', 'trim|required');
+    $this->form_validation->set_rules('price', 'Product Price', 'trim|required');
 
-        $this->db->where('id', $id);
-        $this->db->where('student_id', $student_id);
-        $cart_get = $this->db->get('products_cart');
+    $this->form_validation->set_rules('category', 'Product Category', 'trim|required');
+ 
 
-        if ($cart_get->num_rows() > 0) {
-            $bq = $cart_get->first_row();
-            $before_quantity = $bq->product_quantity;
-            $update_data = array(
-                'product_price' => $product_price,
-                'product_quantity' => $product_quantity + $before_quantity,
-            );
-            $this->db->where('id', $id);
-            $this->db->where('student_id', $student_id);
-            $this->db->update('products_cart', $update_data);
+        if (!empty($_FILES['product_image']['name'])) {
+            $config['upload_path']   = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']      = 4096;
+            $config['max_width']     = 2000;
+            $config['max_height']    = 2000;
 
-//            Change Product quantity in products table
+            $this->upload->initialize($config);
 
-            $this->db->where('product_id', $id);
-            $pro_get = $this->db->get('products')->first_row();
-            $qua = $pro_get->quantity;
-            $c_d = array(
-                'quantity' => $qua - $product_quantity
-            );
+            if (!$this->upload->do_upload('product_image')) {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('message', $error);
+                redirect('add/product');
+            } else {
+                $post_image            = $this->upload->data();
+                $data['product_image'] = $post_image['file_name'];
+            }
+        }
+        if ($this->form_validation->run() == true) {
 
-            $this->db->where('product_id', $id);
-            $this->db->update('products', $c_d);
+            $result = $this->product_model->save_product_info($data);
 
-            echo json_encode(array('message' => 'Cart has been successfully updated.'));
+            if ($result) {
+                $this->session->set_flashdata('message', 'Product Inserted Sucessfully');
+                redirect('manage/product');
+            } else {
+                $this->session->set_flashdata('message', 'Product Inserted Failed');
+                redirect('manage/product');
+            }
         } else {
-            $insert_data = array(
-                'id' => $id,
-                'student_id' => $student_id,
-                'product_name' => $product_name,
-                'product_price' => $product_price,
-                'product_quantity' => $product_quantity,
-                'product_image' => $product_image,
-            );
-            $this->db->insert('products_cart', $insert_data);
-
-            //            Change Product quantity in products table
-
-            $this->db->where('product_id', $id);
-            $pro_get = $this->db->get('products')->first_row();
-            $qua = $pro_get->quantity;
-            $c_d = array(
-                'quantity' => $qua - $product_quantity
-            );
-
-            $this->db->where('product_id', $id);
-            $this->db->update('products', $c_d);
-
-            echo json_encode(array('message' => 'Product has been added to cart.'));
+            $this->session->set_flashdata('message', validation_errors());
+            redirect('add/product');
         }
-    }
 
-    function getCartItemsCount($student_id)
-    {
-        $this->db->where('student_id', $student_id);
-        $count = $this->db->get('products_cart')->num_rows();
-        echo json_encode($count);
-    }
-
-    function getCartItems($student_id)
-    {
-        $this->db->where('student_id', $student_id);
-        $cart = $this->db->get('products_cart')->result();
-        echo json_encode($cart);
-    }
-
-    function deleteCartItem($item_id)
-    {
-//      Check for and return cart product quantity to product in products table
-        $this->db->where('id', $item_id);
-        $this->db->where('student_id', $this->session->userdata('id'));
-        $getQ = $this->db->get('products_cart')->first_row();
-        $qua = $getQ->product_quantity;
-
-        $this->db->where('product_id', $item_id);
-        $getPQ = $this->db->get('products')->first_row();
-        $quap = $getPQ->quantity;
-
-        $return_data = array(
-            'quantity' => $qua + $quap
-        );
-        $this->db->where('product_id', $item_id);
-        $this->db->update('products', $return_data);
-
-//      Remove product from cart
-        $data = array(
-            'id' => $item_id,
-        );
-
-        $this->db->where('id', $item_id);
-        $this->db->where('student_id', $this->session->userdata('id'));
-        $this->db->delete('products_cart', $data);
-
-        echo json_encode(array('message' => 'Product has been deleted from your cart.'));
-    }
-
-    function increaseCartProductQuantity($item_id)
-    {
-//      Check if product is available
-        $this->db->where('product_id', $item_id);
-        $pro_get = $this->db->get('products')->first_row();
-        $qua = $pro_get->quantity;
-//      If available
-        if ($qua > 0) {
-//      Increase by 1 in cart
-            $this->db->where('id', $item_id);
-            $getQuantity = $this->db->get('products_cart')->first_row();
-            $quantity = $getQuantity->product_quantity;
-
-            $data = array(
-                'id' => $item_id,
-                'product_quantity' => $quantity + 1
-            );
-            $this->db->where('id', $item_id);
-            $this->db->update('products_cart', $data);
-
-//      Remove 1 from the products table to reconcile
-            $this->db->where('product_id', $item_id);
-            $pro_get = $this->db->get('products')->first_row();
-            $qua = $pro_get->quantity;
-            $c_d = array(
-                'quantity' => $qua - 1
-            );
-
-            $this->db->where('product_id', $item_id);
-            $this->db->update('products', $c_d);
-
-            echo json_encode(array('message' => 'Quantity increased.'));
-        }
-    }
-
-    function reduceCartProductQuantity($item_id)
-    {
-//      Check for the item quantity in products cart table
-        $this->db->where('id', $item_id);
-        $getQuantity = $this->db->get('products_cart')->first_row();
-        $quantity = $getQuantity->product_quantity;
-
-        if ($quantity > 0) {
-            $data = array(
-                'id' => $item_id,
-                'product_quantity' => $quantity - 1
-            );
-            $this->db->where('id', $item_id);
-            $this->db->update('products_cart', $data);
-
-//          Replenish the item in products table after reducing from the cart
-            $this->db->where('product_id', $item_id);
-            $pro_get = $this->db->get('products')->first_row();
-            $qua = $pro_get->quantity;
-            $c_d = array(
-                'quantity' => $qua + 1
-            );
-
-            $this->db->where('product_id', $item_id);
-            $this->db->update('products', $c_d);
-
-
-            echo json_encode(array('message' => 'Quantity reduced.'));
-        }
     }
 
 }
