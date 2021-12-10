@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <label for="" class="col-sm-3 col-form-label">Product Picture</label>
                     <div class="col-sm-9">
-                        <input type="file" name="picture" class="form-control" id="customFile">
+                        <input type="file" name="product_image" class="form-control" id="customFile">
                     </div>
                 </div>
                 <div class="row mb-3">

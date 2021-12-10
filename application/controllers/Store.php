@@ -47,6 +47,12 @@ class Store extends TL_Controller
     $data['product_price']             = $this->input->post('price');
     $data['product_category']          = $this->input->post('product_category');
     $data['gender']                    = $this->input->post('gender');
+    $data['size1']                    = $this->input->post('size1');
+    $data['size2']                    = $this->input->post('size2');
+    $data['size3']                    = $this->input->post('size3');
+    $data['quantity1']                = $this->input->post('quantity1');
+    $data['quantity2']                = $this->input->post('quantity2');
+    $data['quantity3']                = $this->input->post('quantity3');
   
     $this->form_validation->set_rules('name', 'Name', 'trim|required');
     
@@ -58,7 +64,8 @@ class Store extends TL_Controller
  
 
         if (!empty($_FILES['product_image']['name'])) {
-            $config['upload_path']   = './uploads/';
+            $config['upload_path']   = './assets/products/';
+            $config['encrypt_name']  = true;
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size']      = 4096;
             $config['max_width']     = 2000;
