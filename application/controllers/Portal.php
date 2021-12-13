@@ -46,4 +46,21 @@ public function logout(){
     redirect('welcome');
 }
 
+public function store(){    
+    $this->data['products'] = $this->db->get('products')->result();
+
+    $this->load->view('student/inc/header', $this->data);
+    $this->load->view('student/store', $this->data);
+    $this->load->view('student/inc/main-footer', $this->data);
+    }
+
+    public function single($id)
+    {
+        $data                       = array();
+        $data['get_single_product'] = $this->web_model->get_single_product($id);
+        $data['get_all_category']   = $this->web_model->get_all_category();
+        $this->load->view('web/inc/header');
+        $this->load->view('web/pages/single', $data);
+        $this->load->view('web/inc/footer');
+    }
 }

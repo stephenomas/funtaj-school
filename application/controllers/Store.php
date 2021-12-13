@@ -14,8 +14,10 @@ class Store extends TL_Controller
             $this->data['pageTitle'] = 'Store';
             $this->data['productsData'] = $this->store_model->get_all_products();
 
+            //var_dump($this->data["productsData"]);
+
             $this->load->view('administrator/templates/header', $this->data);
-            $this->load->view('administrator/store/index', $this->data);
+            $this->load->view('administrator/store/products', $this->data);
             $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
@@ -45,7 +47,7 @@ class Store extends TL_Controller
     $data['product_title']             = $this->input->post('name');
     $data['product_long_description']  = $this->input->post('description');
     $data['product_price']             = $this->input->post('price');
-    $data['product_category']          = $this->input->post('product_category');
+    $data['product_category']          = $this->input->post('category');
     $data['gender']                    = $this->input->post('gender');
     $data['size1']                    = $this->input->post('size1');
     $data['size2']                    = $this->input->post('size2');
@@ -79,23 +81,34 @@ class Store extends TL_Controller
                 redirect('add/product');
             } else {
                 $post_image            = $this->upload->data();
-                $data['product_image'] = $post_image['file_name'];
+                $data['product_image'] = 'assets/products/'.$post_image['file_name'];
+                $configer =  array(
+                    'image_library'   => 'gd2',
+                    'source_image'    =>  $data['product_image'],
+                    'maintain_ratio'  =>  TRUE,
+                    'width'           =>  450,
+                    'height'          =>  632,
+                  );
+                  $this->image_lib->clear();
+                  $this->image_lib->initialize($configer);
+                  $this->image_lib->resize();
+            
             }
         }
         if ($this->form_validation->run() == true) {
 
-            $result = $this->product_model->save_product_info($data);
+            $result = $this->store_model->saveproduct($data);
 
-            if ($result) {
-                $this->session->set_flashdata('message', 'Product Inserted Sucessfully');
-                redirect('manage/product');
+            if ($result == true) {
+                $this->session->set_flashdata('success', 'Product added Sucessfully');
+                redirect('store');
             } else {
-                $this->session->set_flashdata('message', 'Product Inserted Failed');
-                redirect('manage/product');
+                $this->session->set_flashdata('error', 'Product failed to add');
+                redirect('store');
             }
         } else {
-            $this->session->set_flashdata('message', validation_errors());
-            redirect('add/product');
+            $this->session->set_flashdata('error', validation_errors());
+            redirect('store');
         }
 
     }

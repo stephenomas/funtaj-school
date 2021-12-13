@@ -1,11 +1,11 @@
 <div class="modal fade" id="addInfo" tabindex="-1" role="dialog" aria-labelledby="addInfoTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
+        <form method="POST" action="<?= base_url('store/addproduct') ?>" enctype="multipart/form-data" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addInfoTitle">Add Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <?= form_open_multipart('store/addproduct') ?>
+
             <div class="modal-body">
                 <p>
 
@@ -101,5 +101,6 @@
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Add Product</button>
             </div>
         </form><!-- /.modal-content -->
+   
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

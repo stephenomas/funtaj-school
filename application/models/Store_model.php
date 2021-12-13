@@ -2,7 +2,7 @@
 
 class Store_model extends TL_Model{
     public function get_all_products(){
-        $result = $this->db->get('products');
+        $result = $this->db->get('products')->result();
         return $result;
     }
 
@@ -10,17 +10,19 @@ class Store_model extends TL_Model{
         $save = [
             'product_name' =>        $data['product_title'],
             'product_price' =>       $data['product_price'],
-            'product_image' =>       $data['image'],
+            'product_image' =>       $data['product_image'],
             'product_category'=>     $data['product_category'],
             'description' =>         $data['product_long_description'],
             'gender' =>              $data['gender']
         ];
 
         $product = $this->db->insert('products', $save);
+        $product_id =  $this->db->insert_id();
 
-         $addsize = $this->addsize($product->id, $data);
 
-         if($addsize){
+         $addsize = $this->addsize($product_id, $data);
+
+         if($product){
              return true;
          }else{
              return false;
@@ -53,6 +55,17 @@ class Store_model extends TL_Model{
 
 
 
+    }
+
+    public function get_single_product($id)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_product');
+        $this->db->join('products_categories', 'products_categories.id=tbl_product.product_category');
+        $this->db->join('tbl_brand', 'tbl_brand.brand_id=tbl_product.product_brand');
+        $this->db->where('tbl_product.product_id', $id);
+        $info = $this->db->get();
+        return $info->row();
     }
 
 }

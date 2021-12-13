@@ -1,5 +1,5 @@
 <body data-sidebar="dark">
-
+ 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <!-- Begin page -->
@@ -77,8 +77,9 @@
                                             <li class="list-inline-item"><a href="#">Primary</a></li>
                                             <li class="list-inline-item"><a href="#">Secondary</a></li>
                                         </ul>
-
+                                        <?php $this->load->view('errors/validation') ?>
                                         <div class="row g-0">
+                                            <?php foreach ($productsData as $prod){ ?>
                                             <div class="col-xl-3 col-sm-6">
                                                 <div class="product-box">
                                                     <div class="product-img">
@@ -90,62 +91,24 @@
                                                                 <i class="mdi mdi-pencil-outline"></i>
                                                             </a>
                                                         </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-1.jpg" alt="img-1" class="img-fluid mx-auto d-block">
+                                                        <img src="<?=base_url().$prod->product_image ?>" alt="img-1" class="img-fluid mx-auto d-block">
                                                     </div>
 
                                                     <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark">Boys Tie</a></h5>
+                                                        <p class="font-size-12 mb-1"><?php 
+                                                        $this->db->where('id', $prod->product_category);
+                                                        $cat = $this->db->get('products_categories')->row();
+                                                        echo  $cat->categories;
+                                                        ?></p>
+                                                        <h5 class="font-size-15"><a href="#" class="text-dark"><?= $prod->product_name ?></a></h5>
 
-                                                        <h5 class="mt-3 mb-0">₦240</h5>
+                                                        <h5 class="mt-3 mb-0">₦<?= number_format($prod->product_price) ?></h5>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-xl-3 col-sm-6">
-                                                <div class="product-box">
-                                                    <div class="product-img">
-                                                        <div class="product-ribbon badge bg-primary">
-                                                            In stock
-                                                        </div>
-                                                        <div class="product-like">
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editinfo">
-                                                                <i class="mdi mdi-pencil-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-2.jpg" alt="img-2" class="img-fluid mx-auto d-block">
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark">Boys White Long Sleeve </a></h5>
-
-                                                        <h5 class="mt-3 mb-0"><span class="text-muted me-2"><del>₦240</del></span>₦225</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-3 col-sm-6">
-                                                <div class="product-box">
-                                                    <div class="product-img">
-                                                        <div class="product-ribbon badge bg-danger">
-                                                            Out of stock
-                                                        </div>
-                                                        <div class="product-like">
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editinfo">
-                                                                <i class="mdi mdi-pencil-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-3.jpg" alt="img-3" class="img-fluid mx-auto d-block">
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" data-bs-toggle="modal" data-bs-target="#viewDetails" class="text-dark">Boys Blue Long Sleeve</a></h5>
-
-                                                        <h5 class="mt-3 mb-0"><span class="text-muted me-2"><del>₦290</del></span>₦275</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           <?php } ?>
+                                         
+                                           
                                             <div class="col-xl-3 col-sm-6">
                                                 <div class="product-box">
                                                     <div class="product-img">
@@ -166,48 +129,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-3 col-sm-6">
-                                                <div class="product-box">
-                                                    <div class="product-img">
-                                                        <div class="product-like">
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editinfo">
-                                                                <i class="mdi mdi-pencil-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-5.jpg" alt="img-5" class="img-fluid mx-auto d-block">
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark">White Short sleeve</a></h5>
-
-                                                        <h5 class="mt-3 mb-0">₦242</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-3 col-sm-6">
-                                                <div class="product-box">
-                                                    <div class="product-img">
-                                                        <div class="product-ribbon badge bg-primary">
-                                                            - 22 %
-                                                        </div>
-                                                        <div class="product-like">
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editinfo">
-                                                                <i class="mdi mdi-pencil-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-6.png" alt="img-6" class="img-fluid mx-auto d-block">
-
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark">Girls White Blouse </a></h5>
-
-                                                        <h5 class="mt-3 mb-0"><span class="text-muted me-2"><del>₦240</del></span>₦225</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row mt-4">

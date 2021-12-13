@@ -28,10 +28,10 @@
                                 <a href="#dashboards" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"> Store <i class="flaticon-dot-three"></i> </a>
                                 <ul class="collapse list-unstyled sub-submenu show" id="dashboards">
                                     <li class="active">
-                                        <a href="school-store"> Buy Uniforms </a>
+                                        <a href="<?= site_url('student-portal/store') ?>"> Buy Uniforms </a>
                                     </li>
                                     <li>
-                                        <a href=""> Order History </a>
+                                        <a href="<?= site_url('student-portal/orders') ?>"> Order History </a>
                                     </li>
                                     <li>
                                         <a href="cart"> Cart </a>
