@@ -60,10 +60,10 @@ class Store_model extends TL_Model{
     public function get_single_product($id)
     {
         $this->db->select('*');
-        $this->db->from('tbl_product');
-        $this->db->join('products_categories', 'products_categories.id=tbl_product.product_category');
-        $this->db->join('tbl_brand', 'tbl_brand.brand_id=tbl_product.product_brand');
-        $this->db->where('tbl_product.product_id', $id);
+        $this->db->from('products');
+        $this->db->join('products_categories', 'products_categories.id=products.product_category');
+        $this->db->join('products_sizes', 'products_sizes.product_id=products.id');
+        $this->db->where('products.id', $id);
         $info = $this->db->get();
         return $info->row();
     }

@@ -36,7 +36,7 @@
 
                     <div class="row">
                         <?php foreach($products as $prod){ ?>
-                        <a href="product-detail" class="col-xl-3 col-lg-6 col-md-6 col-sm-6 layout-spacing">
+                        <a href="<?= site_url('student-portal/store/product-detail/'.$prod->id) ?>" class="col-xl-3 col-lg-6 col-md-6 col-sm-6 layout-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-content widget-content-area px-0 py-0 product-cat7">
                                     <div class="row">

@@ -57,10 +57,12 @@ public function store(){
     public function single($id)
     {
         $data                       = array();
-        $data['get_single_product'] = $this->web_model->get_single_product($id);
-        $data['get_all_category']   = $this->web_model->get_all_category();
-        $this->load->view('web/inc/header');
-        $this->load->view('web/pages/single', $data);
-        $this->load->view('web/inc/footer');
+        $data['product'] = $this->store_model->get_single_product($id);
+        $this->db->where('product_id', $id);
+        $data['sizes'] = $this->db->get('products_sizes')->result();
+       // $data['get_all_category']   = $this->web_model->get_all_category();
+        $this->load->view('student/inc/header');
+        $this->load->view('student/product-detail', $data);
+        $this->load->view('student/inc/main-footer');
     }
 }

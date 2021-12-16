@@ -74,11 +74,12 @@ class Store extends TL_Controller
             $config['max_height']    = 2000;
 
             $this->upload->initialize($config);
+            $this->load->library('image_lib');
 
             if (!$this->upload->do_upload('product_image')) {
                 $error = $this->upload->display_errors();
-                $this->session->set_flashdata('message', $error);
-                redirect('add/product');
+                $this->session->set_flashdata('error', $error);
+                redirect('store');
             } else {
                 $post_image            = $this->upload->data();
                 $data['product_image'] = 'assets/products/'.$post_image['file_name'];
