@@ -65,4 +65,21 @@ public function store(){
         $this->load->view('student/product-detail', $data);
         $this->load->view('student/inc/main-footer');
     }
+
+    public function save_cart()
+    {
+        $data       = array();
+        $product_id = $this->input->post('product_id');
+        $results    = $this->web_model->get_single_product($product_id);
+
+        $data['id']      = $results->product_id;
+        $data['name']    = $results->product_name;
+        $data['price']   = $results->product_price;
+        $data['qty']     = $this->input->post('qty');
+        $data['size']     = $this->input->post('size');
+      //  $data['options'] = array('product_image' => $results->product_image);
+
+        $this->cart->insert($data);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
 }

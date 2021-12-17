@@ -105,7 +105,7 @@
                                                         <input class="form-control" type="number" value="1">
                                                     </div>
                                                     <div class="form-group col-md-6 mb-4">
-                                                        <select class="form-control">
+                                                        <select name="size" class="form-control">
                                                             <option selected="selected">Choose Size</option>
                                                             <?php 
                                                             foreach($sizes as $size){
@@ -122,9 +122,16 @@
                                                 </div>
                                                 <div class="form-row product-btn-cart">
                                                     <div class="form-group col-md-6">
-                                                        <a class="btn btn-dark" href="#">Add to cart</a>
+                                                        <form action="<?php echo base_url('save/cart');?>" method="post">
+                                                        <input type="number" class="buyfield" name="qty" value="1"/>
+                                                        <input type="hidden" class="buyfield" name="product_id" value="<?php echo $product->product_id?>"/>
+                                                       
+                                                        <button type="submit" class="btn btn-dark" >Add to cart</button>
                                                     </div>
+                                                  
+                                                </form>	
                                                 </div>
+                                               
                                                 <hr class="mt-3 mb-3">
                                                 <ul class="info-list list-unstyled mb-0">
                                                     <li>
