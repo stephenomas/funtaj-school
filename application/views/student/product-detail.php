@@ -34,7 +34,11 @@
                    
                     </div>
                 </div>
-
+                <?php 
+                $this->load->view('errors/validation');
+                ?>
+            
+                <form action="<?php echo base_url('save/cart');?>" method="post">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-content">
                         <div class="row">
@@ -83,6 +87,7 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                       
                                         <div class="col-lg-6">
                                             <div class="product-detailing">
                                                 <h2 class="product-name mt-4"><?= $product->product_name ?></h2>
@@ -102,7 +107,7 @@
                                                 </div>
                                                 <div class="form-row product-attribute-select">
                                                     <div class="form-group col-md-6">
-                                                        <input class="form-control" type="number" value="1">
+                                                        <input class="form-control" type="number" name="qty" placeholder="quantity">
                                                     </div>
                                                     <div class="form-group col-md-6 mb-4">
                                                         <select name="size" class="form-control">
@@ -122,8 +127,8 @@
                                                 </div>
                                                 <div class="form-row product-btn-cart">
                                                     <div class="form-group col-md-6">
-                                                        <form action="<?php echo base_url('save/cart');?>" method="post">
-                                                        <input type="number" class="buyfield" name="qty" value="1"/>
+                                                   
+                                                       
                                                         <input type="hidden" class="buyfield" name="product_id" value="<?php echo $product->product_id?>"/>
                                                        
                                                         <button type="submit" class="btn btn-dark" >Add to cart</button>

@@ -93,7 +93,7 @@
                                                         </div>
                                                         <img src="<?=base_url().$prod->product_image ?>" alt="img-1" class="img-fluid mx-auto d-block">
                                                     </div>
-
+  
                                                     <div class="text-center">
                                                         <p class="font-size-12 mb-1"><?php 
                                                         $this->db->where('id', $prod->product_category);
@@ -109,25 +109,7 @@
                                            <?php } ?>
                                          
                                            
-                                            <div class="col-xl-3 col-sm-6">
-                                                <div class="product-box">
-                                                    <div class="product-img">
-                                                        <div class="product-like">
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editinfo">
-                                                                <i class="mdi mdi-pencil-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <img src="<?=base_url()?>assets/images/product/img-4.jpg" alt="img-4" class="img-fluid mx-auto d-block">
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <p class="font-size-12 mb-1">Secondary</p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark">Boys Blue Short Sleeve</a></h5>
-
-                                                        <h5 class="mt-3 mb-0"><span class="text-muted me-2"><del>₦290</del></span>₦275</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
 
                                         </div>
 

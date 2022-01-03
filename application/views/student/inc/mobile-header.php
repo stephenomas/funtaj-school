@@ -11,8 +11,8 @@
                     <div class="media">
                         <img src="assets/img/90x90.jpg" class="img-fluid mr-2" alt="admin-profile">
                         <div class="media-body align-self-center">
-                            <h6 class="mb-1">Adetomi</h6>
-                            <p class="mb-0">Year 9A</p>
+                        <h6 class="mb-1"><?= $this->session->userdata('fname') ?></h6>
+                        <p class="mb-0"><?= $this->session->userdata('prefix')." ".$this->session->userdata('digit') ?></p>
                         </div>
                     </div>
                 </a>
@@ -29,7 +29,7 @@
                     <a class="dropdown-item d-flex" href="#">
                         <i class="mr-3 flaticon-lock-1"></i> <span class="align-self-center">Lock Screen</span>
                     </a>
-                    <a href="#" class="dropdown-item dropdown-item-btn">
+                    <a href="<?= site_url('student-portal/logout') ?>" class="dropdown-item dropdown-item-btn">
                         <i class="mr-2 flaticon-power-off"></i> <span class="align-self-center">Logout</span>
                     </a>
                 </div>

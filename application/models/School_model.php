@@ -72,7 +72,7 @@ class School_model extends TL_Model{
             return true;
         }
     }
-    public function createSession($session){
+    public function createSession($session){ 
         $data = array(
             'sessions' => $session,
         );

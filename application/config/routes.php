@@ -59,6 +59,9 @@ $route['student-portal/store/product-detail/(:num)']       = 'portal/single/$1';
 $route['student-portal/school-fees/schoolFees/addFees'] = 'SchoolFees/addFees';
 $route['student-portal/school-fees/pay/confirm'] = 'SchoolFees/confirm';
 $route['student-portal/logout'] = 'portal/logout';
+$route['save/cart'] = 'portal/save_cart';
+$route['student-portal/cart'] = 'portal/cart';
+
 //$route['tutor'] = 'tutor/index';
 $route['dashboard'] = 'welcome/dashboard';
 $route['404_override'] = '';

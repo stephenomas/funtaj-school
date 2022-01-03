@@ -70,7 +70,7 @@ public function store(){
     {
         $data       = array();
         $product_id = $this->input->post('product_id');
-        $results    = $this->web_model->get_single_product($product_id);
+        $results    = $this->store_model->get_single_product($product_id);
 
         $data['id']      = $results->product_id;
         $data['name']    = $results->product_name;
@@ -78,8 +78,30 @@ public function store(){
         $data['qty']     = $this->input->post('qty');
         $data['size']     = $this->input->post('size');
       //  $data['options'] = array('product_image' => $results->product_image);
+        $this->db->where('product_id', $product_id);
+        $this->db->where('product_size', $data['size']);
+        $size = $this->db->get('products_sizes')->row();
+        //var_dump($size);
 
-        $this->cart->insert($data);
-        redirect($_SERVER['HTTP_REFERER']);
+        if($size->size_quantity >= $data['qty']){
+            $this->cart->insert($data);
+            $this->session->set_flashdata('success', 'Product added to cart successfully');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('error', 'There are only '.$size->size_quantity.' left');
+            redirect($_SERVER['HTTP_REFERER']);
+        };
+       
+        
+    }
+
+    public function cart()
+    {
+        $data                  = array();
+        $data['cart_contents'] = $this->cart->contents();
+        var_dump($data);
+        // $this->load->view('web/inc/header');
+        // $this->load->view('web/pages/cart', $data);
+        // $this->load->view('web/inc/footer');
     }
 }
