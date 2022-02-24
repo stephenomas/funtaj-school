@@ -4,6 +4,7 @@ class Fees extends TL_Controller
 {
 
 
+    
     function __construct()
     {
         parent::__construct();
@@ -161,13 +162,15 @@ class Fees extends TL_Controller
             $expenditure = 0;
             $total = 0;
             foreach($exp as $ex){
-                $expenditure = $expenditure + $ex->amount;
+                $expenditure = $expenditure + $ex->amount_paid;
             }
+
+            $this->data['expense'] = $expenditure;
             $fees = $this->db->get('fees_history')->result();
             foreach($fees as $fee){
                 $total = $total + $fee->amount_paid;
             }
-            
+            $this->data['expenditure'] = $exp;
             $this->data['total'] = $total;
             $this->load->view('administrator/templates/header', $this->data);
             $this->load->view('administrator/fees/expenditure', $this->data);
