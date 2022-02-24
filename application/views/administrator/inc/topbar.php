@@ -99,12 +99,12 @@
                         </div>
 
                         <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                            <a href="cart" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="ri-notification-3-line"></i>
+                                <i class="ri-shopping-bag-2-line"></i>
                                 <span class="noti-dot"></span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            </a>
+                            <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                                 aria-labelledby="page-header-notifications-dropdown">
                                 <div class="p-3">
                                     <div class="row align-items-center">
@@ -184,7 +184,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="dropdown d-inline-block user-dropdown">

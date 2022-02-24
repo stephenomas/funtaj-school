@@ -1,9 +1,9 @@
 <div id="layout-wrapper">
 
 
-<!-- <?php // include 'inc/topbar.php'; 
+<?php // include 'inc/topbar.php'; 
     $this->load->view('administrator/inc/topbar');
-?> -->
+?>
 
 <!-- ========== Left Sidebar Start ========== -->
 <?php //include 'inc/sidebar.php';

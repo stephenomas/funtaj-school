@@ -34,6 +34,26 @@ class Store extends TL_Controller
         }
     }
 
+    function cart(){
+        if ($this->session->userdata('LoggedIn')){
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/store/cart', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+        }else{
+            redirect('start');
+        }
+    }
+
+    function checkout(){
+        if ($this->session->userdata('LoggedIn')){
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/store/checkout', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+        }else{
+            redirect('start');
+        }
+    }
+
 //    View store for purchase
 
     function getProducts()
