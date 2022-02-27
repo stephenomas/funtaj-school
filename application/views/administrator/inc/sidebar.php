@@ -101,7 +101,7 @@
 
 
                             <li>
-                                <a href="notes" class=" waves-effect">
+                                <a href="<?= base_url('notes') ?>" class=" waves-effect">
                                     <i class="ri-book-3-line"></i>
                                     <span>Notes</span>
                                 </a>
