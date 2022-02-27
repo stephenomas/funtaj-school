@@ -30,6 +30,7 @@ class Scores extends TL_Controller{
             redirect('start');
         }
     }
+    
     //Enter midterm scores for students
     function enterMTScores(){
         if($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor'){
