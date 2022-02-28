@@ -81,7 +81,18 @@
                             
 
                             <div id="todo-task" class="task-list row">
+<<<<<<< HEAD
                             <?php $count = 0; foreach ($allAssignments as $assignment) : $count++ ?>
+=======
+                                <?php
+                                  if($this->session->userdata('role') === 'Tutor'){
+                                    $assignments = $tutorAssignments;
+                                  }else{
+                                    $assignments = $allAssignments;
+                                  }   
+                                ?>
+                            <?php $count = 0; foreach ($assignments as $assignment) : $count++ ?>
+>>>>>>> c8701c2 (fresh)
 
                                 <!-- end task card -->
                                 <div class="card task-box col-md-3">

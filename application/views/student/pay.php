@@ -103,7 +103,11 @@
                                                         </div>
                                                         <div class="form-group col-md-6 mb-4">
                                                             <label for="exampleFormControlSelect1">Total Fees</label>
+<<<<<<< HEAD
                                                             <input type="text" class="form-control-rounded form-control" id="exampleFormControlInput1" value="₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?>" readonly>
+=======
+                                                        <input type="text" class="form-control-rounded form-control" id="exampleFormControlInput1" value="₦<?= number_format($fee->first_term + $fee->second_term + $fee->third_term) ?>" readonly>
+>>>>>>> c8701c2 (fresh)
                                                         </div>
                                                         <button  onclick="doit()"   class="mt-4 mb-4 btn btn-button-7 btn-rounded">Pay Now</button>
                                                     </form>
@@ -138,7 +142,11 @@
                                                    
                                                         function runit(){
                                                             var paymentForm = document.getElementById('paymentForm');
+<<<<<<< HEAD
                                                      var email = document.getElementById('email');
+=======
+                                                            var email = document.getElementById('email');
+>>>>>>> c8701c2 (fresh)
                                                             paymentForm.addEventListener('submit', payWithPaystack);
 
                                                         function payWithPaystack(e) {

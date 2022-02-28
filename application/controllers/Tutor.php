@@ -20,8 +20,14 @@ class Tutor extends TL_Controller
             $stud = $this->db->get('students');
             $this->data["studs"] = $stud->num_rows();
             $this->db->where('tutor_id', $this->session->userdata('id'));
+<<<<<<< HEAD
             $su = $this->db->get('tutor_subjects');
             $this->data['subs'] = $su->num_rows();
+=======
+            $su = $this->db->get('tutor_subjects')->result();
+            $this->data['subs'] = count($su);
+            $this->data['su'] = $su;
+>>>>>>> c8701c2 (fresh)
 
             
 

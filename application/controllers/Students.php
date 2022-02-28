@@ -10,7 +10,11 @@ class Students extends TL_Controller
 
     function index()
     {
+<<<<<<< HEAD
       if ($this->session->userdata('Elevated') || $this->session->userdata('role') == 'Tutor') {
+=======
+      if ($this->session->userdata('Elevated') ) {
+>>>>>>> c8701c2 (fresh)
             $this->data['pageTitle'] = 'Manage Students';
             $this->data['allStudentsNum'] = $this->getAllStudentsCount();
             $this->data['oldStudents'] = $this->getOldStudents();
@@ -64,6 +68,7 @@ class Students extends TL_Controller
 
             //For pagination end
 
+<<<<<<< HEAD
             $this->load->view('administrator/templates/header', $this->data);
             $this->load->view('administrator/students/index', $this->data);
             $this->load->view('administrator/templates/footer', $this->data);
@@ -71,6 +76,33 @@ class Students extends TL_Controller
         }else {
           redirect('start');
         }
+=======
+
+      //  }elseif( $this->session->userdata('role') == 'Tutor'){
+
+       }elseif($this->session->userdata('role') == 'Tutor'){
+           $id = $this->session->userdata('id');
+                $this->db->where('tutor_id',  $id);
+             $class = $this->db->get('class_tutor')->row();
+
+             if($class){
+                 $this->db->where('curr_year', $class->digit);
+                 $this->db->where('branch', $class->groups);
+                 $this->data['students_pagination'] = $this->db->get('students');
+             }
+
+
+       }
+
+        else {
+          redirect('start');
+        }
+
+
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/students/index', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+>>>>>>> c8701c2 (fresh)
     }
 
     function deleted()

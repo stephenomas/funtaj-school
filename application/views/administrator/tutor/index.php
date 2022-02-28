@@ -154,6 +154,7 @@
                                         <div class="table-responsive mt-4">
                                             <table class="table table-hover mb-0 table-centered table-nowrap">
                                                 <tbody>
+<<<<<<< HEAD
                                                     <tr>
 
                                                         <td>
@@ -174,6 +175,19 @@
                                                             <p class="text-muted mb-0">YEAR 12</p>
                                                         </td>
                                                     </tr>
+=======
+                                                    <?php
+                                                    foreach($su as $sub){
+                                                    ?>
+                                                    <tr>
+
+                                                      
+                                                        <td><?= $sub->subject_title ?></td>
+                                                       
+                                                    </tr>
+                                                <?php }?>
+                                                    
+>>>>>>> c8701c2 (fresh)
                                                 </tbody>
                                             </table>
                                         </div>

@@ -58,7 +58,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Total Revenue</p>
+<<<<<<< HEAD
                                                     <h4 class="mb-0">₦ <?= number_format($total) ?></h4>
+=======
+                                                    <h4 class="mb-0">₦ <?= number_format($total + $shop )  ?></h4>
+>>>>>>> c8701c2 (fresh)
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="mdi mdi-cash-100 font-size-24"></i>
@@ -79,7 +83,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Balance</p>
+<<<<<<< HEAD
                                                     <h4 class="mb-0">₦ 38452</h4>
+=======
+                                                    <h4 class="mb-0">₦ <?= number_format(($total + $shop) - $exp) ?></h4>
+>>>>>>> c8701c2 (fresh)
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="ri-stack-line font-size-24"></i>
@@ -100,7 +108,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">School Fees Revenue</p>
+<<<<<<< HEAD
                                                     <h4 class="mb-0">₦ 38452</h4>
+=======
+                                                    <h4 class="mb-0">₦ <?= number_format($total)  ?></h4>
+>>>>>>> c8701c2 (fresh)
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="mdi mdi-cash-refund font-size-24"></i>
@@ -121,7 +133,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Store Revenue</p>
+<<<<<<< HEAD
                                                     <h4 class="mb-0">₦ 38452</h4>
+=======
+                                                    <h4 class="mb-0">₦ <?= number_format($shop )  ?></h4>
+>>>>>>> c8701c2 (fresh)
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="ri-store-2-line font-size-24"></i>
@@ -141,7 +157,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-1 overflow-hidden">
                                                     <p class="text-truncate font-size-14 mb-2">Expenditure</p>
+<<<<<<< HEAD
                                                     <h4 class="mb-0">₦ <?= number_format($expense) ?></h4>
+=======
+                                                    <h4 class="mb-0">₦ <?= number_format($exp)  ?></h4>
+>>>>>>> c8701c2 (fresh)
                                                 </div>
                                                 <div class="text-primary ms-auto">
                                                     <i class="ri-briefcase-4-line font-size-24"></i>

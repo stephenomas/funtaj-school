@@ -51,16 +51,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $route['authme/process'] = 'authme/process';
 $route['default_controller'] = 'welcome';
+<<<<<<< HEAD
+=======
+
+/* student portal routes */
+>>>>>>> c8701c2 (fresh)
 $route['student-portal'] = 'portal/index';
 $route['student-portal/school-fees'] = 'SchoolFees/index';
 $route['student-portal/school-fees/pay'] = 'SchoolFees/pay';
 $route['student-portal/store'] = 'portal/store';
+<<<<<<< HEAD
 $route['student-portal/store/product-detail/(:num)']       = 'portal/single/$1';
 $route['student-portal/school-fees/schoolFees/addFees'] = 'SchoolFees/addFees';
 $route['student-portal/school-fees/pay/confirm'] = 'SchoolFees/confirm';
 $route['student-portal/logout'] = 'portal/logout';
 $route['save/cart'] = 'portal/save_cart';
 $route['student-portal/cart'] = 'portal/cart';
+=======
+$route['student-portal/store/cart'] = 'portal/cart';
+$route['student-portal/store/product-detail/(:num)']       = 'portal/single/$1';
+$route['student-portal/school-fees/schoolFees/addFees'] = 'SchoolFees/addFees';
+$route['student-portal/school-fees/pay/confirm'] = 'SchoolFees/confirm';
+$route['student-portal/store/checkout/confirm'] = 'Portal/confirm_checkout';
+$route['remove/cart'] = 'portal/remove_cart';
+$route['update/cart'] = 'portal/update_cart';
+$route['student-portal/store/checkout'] = 'portal/checkout';
+$route['student-portal/logout'] = 'portal/logout';
+$route['save/cart'] = 'portal/save_cart';
+$route['student-portal/cart'] = 'portal/cart';
+/* student portal routes */
+
+
+/* administrator portal routes */
+
+$route['midterm'] = 'Edittermreports/midterm';
+
+/* administrator portal routes */
+>>>>>>> c8701c2 (fresh)
 
 //$route['tutor'] = 'tutor/index';
 $route['dashboard'] = 'welcome/dashboard';

@@ -192,7 +192,11 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="<?=base_url()?>assets/images/users/avatar-2.jpg"
                                     alt="Header Avatar">
+<<<<<<< HEAD
                                 <span class="d-none d-xl-inline-block ms-1">Kevin</span>
+=======
+                                <span class="d-none d-xl-inline-block ms-1"><?= $this->session->userdata('fname') ?></span>
+>>>>>>> c8701c2 (fresh)
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">

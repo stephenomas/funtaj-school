@@ -7,7 +7,7 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title">Menu</li>
-
+                            <?php if($this->session->userdata('Elevated') == True): ?>
                             <li>
                                 <a href="<?= site_url('dashboard') ?>" class="waves-effect">
                                     <i class="ri-dashboard-line"></i>
@@ -21,16 +21,16 @@
                                     <span>Calendar</span>
                                 </a>
                             </li> -->
-                            <?php if($this->session->userdata('Elevated') == True): ?>
+                         
                             <li>
                                 <a href="<?=base_url('comments')?>" class=" waves-effect <?=($this->uri->segment(1) === 'comments') ? 'active': ''; ?>">
                                     <i class="ri-chat-1-line"></i>
                                     <span>Comment Bank</span>
                                 </a>
                             </li>
-                            <?php endif; ?>
+                        
                             
-                
+                                
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-mail-send-line"></i>
@@ -44,27 +44,32 @@
                                 <li><a class="<?=($this->uri->segment(2) === 'signatures') ? 'active': ''; ?>" href="<?=base_url('school/signatures')?>"> Upload Signatures</a></li>
                                 </ul>
                             </li>
-
+                        
                             <li
                             <?=($this->uri->segment(1) === 'staff') ? 'active': ''; ?>><a href="<?=base_url('staff')?>" class="waves-effect">
                                     <i class="ri-group-line"></i>
                                     <span>Staffs</span>
                                 </a>
                             </li>
+                            <?php endif; ?>
+                            <?php if($this->session->userdata('Elevated') == True || $this->session->userdata('role') == 'Tutor' ): ?>
                             <li>
                                 <a href="students" class=" waves-effect">
                                     <i class="ri-team-line"></i>
                                     <span>Students</span>
                                 </a>
                             </li>
+                            <?php endif; ?>
+                            <?php if($this->session->userdata('Elevated') == True): ?>
                             <li>
                                 <a href="<?= site_url('students/old') ?>" class=" waves-effect">
                                     <i class="mdi mdi-microsoft-teams"></i>
                                     <span>Old Students</span>
                                 </a>
                             </li>
-
-
+                            <?php endif; ?>
+                         
+                                <?php if($this->session->userdata('role') == 'Account' || $this->session->userdata('Elevated')): ?>
                             <li class="menu-title">Finance</li>
 
                             <li>
@@ -73,8 +78,8 @@
                                     <span>Store</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="<?= site_url('store/products') ?>">Products</a></li>
-                                    <li><a href="orders">Orders</a></li>
+                                    <li><a href="<?= site_url('store/') ?>">Products</a></li>
+                                    <li><a href="<?= site_url('store/orders') ?>">Orders</a></li>
                                     <!-- <li><a href="javascript: void(0);">Customers</a></li> -->
                                     <li><a href="cart">Cart</a></li>
                                     <li><a href="checkout">Checkout</a></li>
@@ -82,7 +87,7 @@
                                     <li><a href="add=product">Add Product</a></li>
                                 </ul>
                             </li>
-                            <?php if($this->session->userdata('Elevated') == True): ?>
+                           
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-account-circle-line"></i>
@@ -96,7 +101,7 @@
                                 </ul>
                             </li>
                             <?php endif; ?>
-                            
+                            <?php if($this->session->userdata('role') == 'Tutor' || $this->session->userdata('Elevated')): ?>
                             <li class="menu-title">School</li>
 
 
@@ -143,14 +148,13 @@
                                     <span>HT/VP Comments</span>
                                 </a>
                             </li>
-
+                            <?php endif; ?>
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect">
                                     <i class="ri-map-pin-line"></i>
                                     <span>Branches</span>
                                 </a>
                             </li>
-
 
                         </ul>
                     </div>
