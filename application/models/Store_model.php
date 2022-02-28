@@ -1,9 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-<<<<<<< HEAD
-
-=======
 require 'vendor/autoload.php';
->>>>>>> c8701c2 (fresh)
 class Store_model extends TL_Model{
     public function get_all_products(){
         $result = $this->db->get('products')->result();
@@ -62,12 +58,8 @@ class Store_model extends TL_Model{
     }
 
     public function get_single_product($id)
-<<<<<<< HEAD
-    {
-=======
     {   
 
->>>>>>> c8701c2 (fresh)
         $this->db->select('*');
         $this->db->from('products');
         $this->db->join('products_categories', 'products_categories.id=products.product_category');
@@ -77,8 +69,6 @@ class Store_model extends TL_Model{
         return $info->row();
     }
 
-<<<<<<< HEAD
-=======
     public function add_order($response){
         $data = [
             'purpose' => 'shop',
@@ -138,5 +128,4 @@ class Store_model extends TL_Model{
     return $items;
     }
 
->>>>>>> c8701c2 (fresh)
 }

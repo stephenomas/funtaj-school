@@ -313,8 +313,5 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-<<<<<<< HEAD
-=======
 $composer_vendor_path = 'vendor';
 require_once $composer_vendor_path.'/autoload.php';
->>>>>>> c8701c2 (fresh)
