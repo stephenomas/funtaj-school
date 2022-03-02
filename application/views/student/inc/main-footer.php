@@ -21,6 +21,11 @@
         }
     </script>
     <script src="<?=base_url()?>assets/student/assets/js/custom.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="<?=base_url()?>assets/student/plugins/jquery-step/jquery.steps.min.js"></script>
+    <script src="<?=base_url()?>assets/student/plugins/sweetalerts/sweetalert2.min.js"></script>
+>>>>>>> c8701c2 (fresh)
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

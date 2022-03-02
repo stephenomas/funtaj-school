@@ -34,6 +34,7 @@ class Store extends TL_Controller
         }
     }
 
+<<<<<<< HEAD
     function cart(){
         if ($this->session->userdata('LoggedIn')){
         $this->load->view('administrator/templates/header', $this->data);
@@ -43,6 +44,9 @@ class Store extends TL_Controller
             redirect('start');
         }
     }
+=======
+
+>>>>>>> c8701c2 (fresh)
 
     function checkout(){
         if ($this->session->userdata('LoggedIn')){
@@ -134,4 +138,34 @@ class Store extends TL_Controller
 
     }
 
+<<<<<<< HEAD
+=======
+    public function orders(){
+        if ($this->session->userdata('role') == 'Admin'  || $this->session->userdata('role') == 'Account' || $this->session->userdata('role') == 'SuperAdmin') {
+        $this->data['orders'] = $this->store_model->getOrders();
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/store/orders', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+
+
+
+        }else{
+            redirect('start');
+        }
+    }
+
+    public function cart(){
+        if($this->session->userdata('role') == "Account" || $this->session->userdata('Elevated')){
+            $data                  = array();
+            $this->data['cart_contents'] = $this->cart->contents();
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/store/cart', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
+        }else{
+            redirect("start");
+            }
+        
+    }
+
+>>>>>>> c8701c2 (fresh)
 }

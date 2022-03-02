@@ -158,9 +158,10 @@ class Fees extends TL_Controller
     public function expenditure(){
 
         if ($this->session->userdata('Elevated')) {
-            $exp= $this->db->get('expenditure')->result();
+            $exp = $this->db->get('expenditure')->result();
             $expenditure = 0;
             $total = 0;
+            $shop = 0;
             foreach($exp as $ex){
                 $expenditure = $expenditure + $ex->amount_paid;
             }
@@ -170,6 +171,14 @@ class Fees extends TL_Controller
             foreach($fees as $fee){
                 $total = $total + $fee->amount_paid;
             }
+            $prod = $this->db->get('orders')->result();
+            foreach($prod as $pr){
+                $shop = $shop +  $pr->price;
+            }
+
+
+            $this->data['shop'] = $shop;
+            $this->data['exp'] = $expenditure;
             $this->data['expenditure'] = $exp;
             $this->data['total'] = $total;
             $this->load->view('administrator/templates/header', $this->data);

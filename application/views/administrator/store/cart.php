@@ -57,6 +57,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+<<<<<<< HEAD
+=======
+                                                <?php foreach ($cart_contents as $cart){
+
+                                                ?>
+>>>>>>> c8701c2 (fresh)
                                                 <tr>
                                                     <td>
                                                         <img src="<?= base_url() ?>assets/images/product/img-1.jpg" alt="product-img" title="product-img" class="avatar-md" />
@@ -80,6 +86,7 @@
                                                         <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
                                                     </td>
                                                 </tr>
+<<<<<<< HEAD
                                                 <tr>
                                                     <td>
                                                         <img src="<?= base_url() ?>assets/images/product/img-2.jpg" alt="product-img" title="product-img" class="avatar-md" />
@@ -149,6 +156,12 @@
                                                         <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
                                                     </td>
                                                 </tr>
+=======
+                                                <?php 
+                                                }
+                                                ?>
+                                              
+>>>>>>> c8701c2 (fresh)
                                                 <tr class="bg-light text-end">
 
                                                     <th scope="row" colspan="5">

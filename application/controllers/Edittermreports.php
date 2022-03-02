@@ -22,7 +22,8 @@ class Edittermreports extends TL_Controller{
     function midterm(){
         if ($this->session->userdata('Elevated')){
             $this->data['pageTitle'] = 'Midterm - Select Class to Begin Editing';
-
+            $sessions = $this->db->get('school_sessions')->result();
+            $this->data['sessions'] = $sessions;
             $this->db->where('term', $this->data['currentTerm']);
             $this->db->where('session', $this->data['currentSession']);
             $this->db->group_by('class_details');
@@ -31,9 +32,9 @@ class Edittermreports extends TL_Controller{
 
             $this->data['classList'] = $getClasses->result();
 
-            $this->load->view('templates/header', $this->data);
-            $this->load->view('edittermreports/midterm', $this->data);
-            $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/reports/midterm', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         }
         else{
             redirect('welcome');

@@ -79,6 +79,7 @@
                 </div>
             </li>
            
+<<<<<<< HEAD
             <li class="nav-item dropdown message-dropdown ml-lg-4 mr-lg-4">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="message-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="icon flaticon-mail-1"></span><span class="badge badge-primary">13</span>
@@ -144,6 +145,13 @@
             <li class="nav-item dropdown notification-dropdown ml-3 mr-lg-4">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notification-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="icon flaticon-cart-bag"></span><span class="badge badge-success">15</span>
+=======
+            
+
+            <li class="nav-item dropdown notification-dropdown ml-3 mr-lg-4">
+                <a href="<?= site_url('student-portal/store/cart') ?>" class="nav-link dropdown-toggle" id="notification-dropdown"  aria-haspopup="true" aria-expanded="false">
+                    <span class="icon flaticon-cart-bag"></span><span class="badge badge-success"><?= $this->cart->total_items() ?></span>
+>>>>>>> c8701c2 (fresh)
                 </a>
                 <div class="dropdown-menu position-absolute p-0" aria-labelledby="notification-dropdown">
                     <div class="dropdown-item dropdown-header d-flex justify-content-between">

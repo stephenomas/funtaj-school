@@ -13,6 +13,17 @@
     <link href="<?=base_url()?>assets/student/assets/css/plugins.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
+<<<<<<< HEAD
+=======
+    <!--  BEGIN CUSTOM STYLE/SCRIPTS FILE  -->
+    <script src="plugins/sweetalerts/promise-polyfill.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/student/plugins/jquery-step/jquery.steps.css">
+    <link href="<?=base_url()?>assets/student/assets/css/ecommerce/ecommerce-wizards.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url()?>assets/student/plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>assets/student/plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
+    <!--  BEGIN CUSTOM STYLE/SCRIPTS FILE  -->
+
+>>>>>>> c8701c2 (fresh)
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="<?=base_url()?>assets/student/plugins/maps/vector/jvector/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/student/plugins/charts/chartist/chartist.css" rel="stylesheet" type="text/css">
