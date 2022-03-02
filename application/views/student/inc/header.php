@@ -17,6 +17,8 @@
     <link href="<?=base_url()?>assets/student/plugins/maps/vector/jvector/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/student/plugins/charts/chartist/chartist.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url()?>assets/student/assets/css/default-dashboard/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>plugins/table/datatable/datatables.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>assets/student/assets/css/ecommerce/order.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 </head>
