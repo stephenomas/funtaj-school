@@ -14,11 +14,7 @@ class Assignments extends TL_Controller{
         $this->data['allAssignments'] = $this->getAllAssignments();
     }
     function index(){
-<<<<<<< HEAD
-        if($this->session->userdata('LoggedIn')){
-=======
         if($this->session->userdata('role') == 'Tutor' || $this->session->userdata('Elevated') ){
->>>>>>> c8701c2 (fresh)
             $this->data['pageTitle'] = 'Assignments';
 
             $this->load->view('administrator/templates/header', $this->data);

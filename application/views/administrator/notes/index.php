@@ -315,11 +315,7 @@ $this->load->view('administrator/inc/topbar')
 
                                 <!-- To add new note -->
                                 <?php 
-<<<<<<< HEAD
-                                 $this->load->view('adminstrator/inc/add-note')
-=======
                                  $this->load->view('administrator/inc/add-note')
->>>>>>> c8701c2 (fresh)
                                 //include 'inc/add-note.php'; ?>
                             </div>
 

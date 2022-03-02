@@ -1,33 +1,3 @@
-<<<<<<< HEAD
-    <h2 class="mb-4"><?=$pageTitle.' - Choose Session'?></h2>
-
-
-    <div class="row mb-4">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-            <div class="d-flex border">
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="text-center">Sessions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($allSessions as $sess) : ?>
-                        <tr>
-                            <td class="text-center"><?=anchor(base_url('reports/terms/midterm/'.str_replace('/', '_', $sess->sessions)), $sess->sessions, 'class="btn btn-primary"');?></td>
-                        </tr>
-                    <?php endforeach;?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-3">
-        </div>
-
-    </div>
-=======
 <body data-sidebar="dark">
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
@@ -89,12 +59,7 @@
                             <li class="nav-item">
                                 <a class="nav-link fw-bold p-3 active" href="#">All Mid Term Report</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-3 fw-bold" href="#">Asokoro</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-3 fw-bold" href="#">Gudu</a>
-                            </li>
+                            
                         </ul>
                         <h4 class="card-title">All Mid Term Report</h4>
 
@@ -110,12 +75,16 @@
 
 
                             <tbody>
+                                <?php
+                                foreach($sessions as $session){
+                                ?>
                                 <tr>
-                                    <td>2021/2022</td>
+                                    <td><?= $session->sessions ?></td>
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
                                 </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
 
@@ -208,4 +177,3 @@
 
 <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
->>>>>>> c8701c2 (fresh)

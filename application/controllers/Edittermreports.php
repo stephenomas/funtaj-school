@@ -22,7 +22,7 @@ class Edittermreports extends TL_Controller{
     function midterm(){
         if ($this->session->userdata('Elevated')){
             $this->data['pageTitle'] = 'Midterm - Select Class to Begin Editing';
-            $sessions = $this->db->get('school_sessions')->result();
+            $sessions = $this->db->order_by('sessions', 'DESC')->get('school_sessions')->result();
             $this->data['sessions'] = $sessions;
             $this->db->where('term', $this->data['currentTerm']);
             $this->db->where('session', $this->data['currentSession']);

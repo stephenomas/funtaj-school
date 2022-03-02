@@ -1,10 +1,7 @@
 <?php defined('BASEPATH') OR die('No direct script access allowed');
 
-<<<<<<< HEAD
-=======
 use Paystack;
 
->>>>>>> c8701c2 (fresh)
 class SchoolFees extends TL_Controller{
 private $myfee;
 

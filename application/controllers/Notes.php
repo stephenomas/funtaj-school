@@ -9,22 +9,6 @@ class Notes extends TL_Controller{
         if($this->session->userdata('role') == 'Student'){
             $this->data['studentsNotes'] = $this->getStudentsNotes();
         }
-<<<<<<< HEAD
-        $this->data['tutorNotes'] = $this->getTutorNotes();
-        $this->data['allNotes'] = $this->getAllNotes();
-    }
-    function index(){
-        if($this->session->userdata('LoggedIn')){
-            if ($this->session->userdata('Elevated')) {
-                $this->data['pageTitle'] = 'Notes';
-
-                 $this->load->view('administrator/templates/header', $this->data);
-                $this->load->view('administrator/notes/index', $this->data);
-                $this->load->view('administrator/templates/footer', $this->data);
-            }else{
-                redirect('start');
-            }
-=======
         $this->data['tutorNotes'] = $this->getAllNotes();
         $this->data['allNotes'] = $this->getAllNotes();
     }
@@ -39,7 +23,6 @@ class Notes extends TL_Controller{
                 $this->load->view('administrator/notes/index', $this->data);
                 $this->load->view('administrator/templates/footer', $this->data);
          
->>>>>>> c8701c2 (fresh)
         }else{
             redirect('start');
         }
