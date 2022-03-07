@@ -182,14 +182,9 @@ $this->load->view('administrator/inc/sidebar')
                                     <td data-label="Email"><?=$student->email?></td>
                                     <td data-label="Reg No."><?=$student->admno?></td>
                                     <td data-label="Class"><?=$student->class_prefix.' '.$student->curr_year.$student->branch?></td>
-<<<<<<< HEAD
-                                
-                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?=$student->id?>">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$student->id?>">Edit</a> | <a href="">deactivate</a></td>
-=======
                                     <?php if($this->session->userdata('role') !='Tutor') {?>
                                     <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?=$student->id?>">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$student->id?>">Edit</a> | <a href="">deactivate</a></td>
                                     <?php } ?>
->>>>>>> c8701c2 (fresh)
                                  </tr>
                                  <div class="col-sm-6 col-md-4 col-xl-3">
                                 <!-- To edit student details -->

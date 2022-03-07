@@ -80,19 +80,156 @@
                                 ?>
                                 <tr>
                                     <td><?= $session->sessions ?></td>
-                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
-                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
-                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo" >View</a></td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#addInfo<?= $session->id ?>" >View</a></td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#saddInfo<?= $session->id ?>" >View</a></td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#taddInfo<?= $session->id ?>" >View</a></td>
                                 </tr>
-                                <?php } ?>
+                               
+                                    <!-- classes first term model begin model  -->
+                                    <div class="modal fade" id="addInfo<?= $session->id ?>" tabindex="-1" role="dialog" aria-labelledby="addInfoTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addInfoTitle">Mid Term</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                    <div class="mb-0 row">
+                                                        <?php
+                                                            $this->db->where('session', $session->sessions);
+                                                           // $years = $this->db->get('classes')->result();
+
+                                                            // foreach($years as $year){
+
+                                                            // }
+
+                                                            // $this->db->where('session', $session->sessions);
+                                                            // $this->db->where('term', 'Term 1');
+                                                        $classes = $this->db->get('classes')->result();
+                                                        foreach($classes as $class){
+                                                        ?>
+                                                        
+                                                        <div class="card col-md-4">
+                                                            <a href="<?= site_url('midterm/class?session='.$session->sessions.'&year='.$class->prefix." ".$class->digit.$class->groups.'&term=Term 1') ?>" class="card-body">
+                                                                <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
+                                                                <h6 class="card-subtitle font-14 text-muted">View all</h6>
+                                                            </a>
+                                                        </div>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    
+                                    <!-- classes model end -->
+
+                                     <!-- classes second term model begin model  -->
+                                     <div class="modal fade" id="saddInfo<?= $session->id ?>" tabindex="-1" role="dialog" aria-labelledby="addInfoTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addInfoTitle">Mid Term</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                    <div class="mb-0 row">
+                                                        <?php
+                                                            $this->db->where('session', $session->sessions);
+                                                           // $years = $this->db->get('classes')->result();
+
+                                                            // foreach($years as $year){
+
+                                                            // }
+
+                                                            // $this->db->where('session', $session->sessions);
+                                                            // $this->db->where('term', 'Term 1');
+                                                        $classes = $this->db->get('classes')->result();
+                                                        foreach($classes as $class){
+                                                        ?>
+                                                        
+                                                        <div class="card col-md-4">
+                                                            <a href="<?= site_url('midterm/class?session='.$session->sessions.'&year='.$class->prefix." ".$class->digit.$class->groups.'&term=Term 2') ?>" class="card-body">
+                                                                <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
+                                                                <h6 class="card-subtitle font-14 text-muted">View all</h6>
+                                                            </a>
+                                                        </div>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    
+                                    <!-- classes model end -->
+
+
+                                     <!-- classes third term model begin model  -->
+                                     <div class="modal fade" id="taddInfo<?= $session->id ?>" tabindex="-1" role="dialog" aria-labelledby="addInfoTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addInfoTitle">Mid Term</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                    <div class="mb-0 row">
+                                                        <?php
+                                                            $this->db->where('session', $session->sessions);
+                                                           // $years = $this->db->get('classes')->result();
+
+                                                            // foreach($years as $year){
+
+                                                            // }
+
+                                                            // $this->db->where('session', $session->sessions);
+                                                            // $this->db->where('term', 'Term 1');
+                                                        $classes = $this->db->get('classes')->result();
+                                                        foreach($classes as $class){
+                                                        ?>
+                                                        
+                                                        <div class="card col-md-4">
+                                                            <a href="<?= site_url('midterm/class?session='.$session->sessions.'&year='.$class->prefix." ".$class->digit.$class->groups.'&term=Term 3') ?>" class="card-body">
+                                                                <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
+                                                                <h6 class="card-subtitle font-14 text-muted">View all</h6>
+                                                            </a>
+                                                        </div>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    
+                                    <!-- classes model end -->
+
+                                <?php
+                                 
+                            } ?>
                             </tbody>
                         </table>
 
                         <div class="col-sm-6 col-md-4 col-xl-3">
                             <!-- for Mid Term Classes-->
-                            <?php // include 'inc/classes-mid-term.php';
-                               $this->load->view('administrator/inc/classes-mid-term')
-                            ?>
+                           
                         </div>
                     </div>
                 </div>

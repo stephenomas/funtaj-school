@@ -34,19 +34,6 @@ class Store extends TL_Controller
         }
     }
 
-<<<<<<< HEAD
-    function cart(){
-        if ($this->session->userdata('LoggedIn')){
-        $this->load->view('administrator/templates/header', $this->data);
-        $this->load->view('administrator/store/cart', $this->data);
-        $this->load->view('administrator/templates/footer', $this->data);
-        }else{
-            redirect('start');
-        }
-    }
-=======
-
->>>>>>> c8701c2 (fresh)
 
     function checkout(){
         if ($this->session->userdata('LoggedIn')){
@@ -138,8 +125,6 @@ class Store extends TL_Controller
 
     }
 
-<<<<<<< HEAD
-=======
     public function orders(){
         if ($this->session->userdata('role') == 'Admin'  || $this->session->userdata('role') == 'Account' || $this->session->userdata('role') == 'SuperAdmin') {
         $this->data['orders'] = $this->store_model->getOrders();
@@ -167,5 +152,4 @@ class Store extends TL_Controller
         
     }
 
->>>>>>> c8701c2 (fresh)
 }

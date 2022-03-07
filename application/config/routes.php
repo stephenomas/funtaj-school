@@ -72,8 +72,17 @@ $route['student-portal/cart'] = 'portal/cart';
 
 
 /* administrator portal routes */
-
+//midterm report
 $route['midterm'] = 'Edittermreports/midterm';
+$route['midterm/class']       = 'Edittermreports/single';
+$route['midterm/class/single']       = 'Edittermreports/midterm_detail';
+//end midterm report
+
+///endofterm reports routes
+$route['endofterm'] = 'Edittermreports/endofterm';
+$route['endofterm/class'] = 'Edittermreports/endofterm_single';
+$route['endofterm/class/single'] = 'Edittermreports/endofterm_detail';
+/////end endofterm
 
 /* administrator portal routes */
 

@@ -24,13 +24,13 @@ class Edittermreports extends TL_Controller{
             $this->data['pageTitle'] = 'Midterm - Select Class to Begin Editing';
             $sessions = $this->db->order_by('sessions', 'DESC')->get('school_sessions')->result();
             $this->data['sessions'] = $sessions;
-            $this->db->where('term', $this->data['currentTerm']);
-            $this->db->where('session', $this->data['currentSession']);
-            $this->db->group_by('class_details');
-            $this->db->order_by('class_details');
-            $getClasses = $this->db->get('midterm');
+            // $this->db->where('term', $this->data['currentTerm']);
+            // $this->db->where('session', $this->data['currentSession']);
+            // $this->db->group_by('class_details');
+            // $this->db->order_by('class_details');
+            // $getClasses = $this->db->get('midterm');
 
-            $this->data['classList'] = $getClasses->result();
+            // $this->data['classList'] = $getClasses->result();
 
             $this->load->view('administrator/templates/header', $this->data);
             $this->load->view('administrator/reports/midterm', $this->data);
@@ -44,20 +44,140 @@ class Edittermreports extends TL_Controller{
         if ($this->session->userdata('Elevated')){
             $this->data['pageTitle'] = 'End Of Term - Select Class to Begin Editing';
 
-            $this->db->where('term', $this->data['currentTerm']);
-            $this->db->where('session', $this->data['currentSession']);
-            $this->db->group_by('class_details');
-            $this->db->order_by('class_details');
-            $getClasses = $this->db->get('exam');
+            $sessions = $this->db->order_by('sessions', 'DESC')->get('school_sessions')->result();
+            $this->data['sessions'] = $sessions;
+            // $this->db->where('term', $this->data['currentTerm']);
+            // $this->db->where('session', $this->data['currentSession']);
+            // $this->db->group_by('class_details');
+            // $this->db->order_by('class_details');
+            // $getClasses = $this->db->get('exam');
 
-            $this->data['classList'] = $getClasses->result();
+            // $this->data['classList'] = $getClasses->result();
 
-            $this->load->view('templates/header', $this->data);
-            $this->load->view('edittermreports/endofterm', $this->data);
-            $this->load->view('templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/reports/endofterm', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
         }
         else{
             redirect('welcome');
         }
+    }
+
+    function single(){
+        if ($this->session->userdata('Elevated')){
+        $term = $this->input->get('term');
+        $year = $this->input->get('year');
+        $session = $this->input->get('session');
+
+
+        
+        $this->db->where('term', $term)->where('session', $session)->where('class_details', $year);
+        $student = $this->db->get('midterm')->result();
+        if(!$student){
+            redirect('midterm');
+        }
+        $this->data['students'] = $student;
+       // var_dump($students);
+       $this->load->view('administrator/templates/header', $this->data);
+       $this->load->view('administrator/reports/midterm-detail', $this->data);
+       $this->load->view('administrator/templates/footer', $this->data);
+
+        }
+        else{
+
+            redirect('welcome');
+        }
+
+    }
+
+    function midterm_detail(){
+        if ($this->session->userdata('Elevated')){
+            $term = $this->input->get('term');
+            $year = $this->input->get('year');
+            $session = $this->input->get('session');
+            $student = $this->input->get('student');
+            
+            $this->db->where('id', $student);
+            $this->data['detail'] = $this->db->get('students')->row();
+
+            $this->db->where('term', $term)->where('session', $session)->where('class_details', $year)->where('student_id', $student);
+            $this->data['student'] = $this->db->get('midterm')->result();
+            if(!$this->data['student']){
+                redirect('midterm');
+            }
+            // var_dump($students);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/reports/midterm-single', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+    
+            }
+            else{
+    
+                redirect('welcome');
+            }
+    }
+
+    function endofterm_single(){
+        if ($this->session->userdata('Elevated')){
+            $term = $this->input->get('term');
+            $year = $this->input->get('year');
+            $session = $this->input->get('session');
+            $this->db->where('term', $term)->where('session', $session)->where('class_details', $year);
+            $student = $this->db->get('exam')->result();
+            if(!$student){
+                redirect('endofterm');
+            }
+            $this->data['students'] = $student;
+           // var_dump($students);
+           $this->load->view('administrator/templates/header', $this->data);
+           $this->load->view('administrator/reports/endofterm-detail', $this->data);
+           $this->load->view('administrator/templates/footer', $this->data);
+        }
+    }
+    function endofterm_detail(){
+        if ($this->session->userdata('Elevated')){
+            $term = $this->input->get('term');
+            $year = $this->input->get('year');
+            $session = $this->input->get('session');
+            $student = $this->input->get('student');
+            
+            $this->db->where('id', $student);
+            $this->data['detail'] = $this->db->get('students')->row();
+
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('student_id', $student);
+            $this->db->where('session', $session);
+            $this->db->select_avg('gp');
+            $this->data['gpa'] = $this->db->get('exam')->row();
+
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('student_id', $student);
+            $this->db->where('session', $session);
+            $this->db->select_avg('average');
+            $this->data['average'] = $this->db->get('exam')->row();
+            
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('session', $session);
+            $this->db->select_avg('average');
+            $this->data['classaverage'] = $this->db->get('exam')->row();
+
+            $this->db->where('term', $term)->where('session', $session)->where('class_details', $year)->where('student_id', $student);
+            $this->data['student'] = $this->db->get('exam');
+            if(!$this->data['student']){
+                redirect('endofterm');
+            }
+            // var_dump($students);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/reports/endofterm-single', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+    
+            }
+            else{
+    
+                redirect('welcome');
+            }
     }
 }
