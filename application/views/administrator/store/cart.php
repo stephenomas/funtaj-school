@@ -57,141 +57,41 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-<<<<<<< HEAD
-=======
-                                                <?php foreach ($cart_contents as $cart){
+                                                <?php foreach ($cart_contents as $cart_items){
 
                                                 ?>
->>>>>>> c8701c2 (fresh)
                                                 <tr>
                                                     <td>
-                                                        <img src="<?= base_url() ?>assets/images/product/img-1.jpg" alt="product-img" title="product-img" class="avatar-md" />
+                                                        <img src="<?= base_url($cart_items['options']['product_image']) ?>" alt="product-img" title="product-img" class="avatar-md" />
                                                     </td>
                                                     <td>
-                                                        <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Full sleeve T-shirt</a></h5>
-                                                        <p class="mb-0">Color : <span class="fw-medium">Blue</span></p>
+                                                        <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark"><?php echo $cart_items['name'] ?></a></h5>
+
                                                     </td>
                                                     <td>
-                                                        ₦ 240
+                                                        ₦ <?= $this->cart->format_number($cart_items['price']) ?>
                                                     </td>
                                                     <td>
                                                         <div style="width: 120px;" class="product-cart-touchspin">
-                                                            <input data-bs-toggle="touchspin" type="text" value="02">
+                                                        <input name="qty" type="number" step="1" min="1" value="<?= $cart_items['qty'] ?>">
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        ₦ 480
+                                                        ₦ <?= $this->cart->format_number($cart_items['subtotal']) ?>
                                                     </td>
+                                                    <form action="<?php echo base_url('remove/cart'); ?>" method="post">
+                                                    <input type="hidden" name="rowid" value="<?php echo $cart_items['rowid'] ?>"/>
                                                     <td style="width: 90px;" class="text-center">
-                                                        <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
+                                                        <button type="submit" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></button>
                                                     </td>
+                                                    </form>
                                                 </tr>
-<<<<<<< HEAD
-                                                <tr>
-                                                    <td>
-                                                        <img src="<?= base_url() ?>assets/images/product/img-2.jpg" alt="product-img" title="product-img" class="avatar-md" />
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Half sleeve T-shirt</a></h5>
-                                                        <p class="mb-0">Color : <span class="fw-medium">Red</span></p>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 225
-                                                    </td>
-                                                    <td>
-                                                        <div style="width: 120px;" class="product-cart-touchspin">
-                                                            <input data-bs-toggle="touchspin" type="text" value="01">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 225
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="a<?= base_url() ?>ssets/images/product/img-3.jpg" alt="product-img" title="product-img" class="avatar-md" />
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Hoodie (Green)</a></h5>
-                                                        <p class="mb-0">Color : <span class="fw-medium">Green</span></p>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 275
-                                                    </td>
-                                                    <td>
-                                                        <div style="width: 120px;" class="product-cart-touchspin">
-                                                            <input data-bs-toggle="touchspin" type="text" value="02">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 550
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="<?= base_url() ?>assets/images/product/img-4.jpg" alt="product-img" title="product-img" class="avatar-md" />
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Hoodie (Gray)</a></h5>
-                                                        <p class="mb-0">Color : <span class="fw-medium">Gray</span></p>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 275
-                                                    </td>
-                                                    <td>
-                                                        <div style="width: 120px;" class="product-cart-touchspin">
-                                                            <input data-bs-toggle="touchspin" type="text" value="01">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        ₦ 275
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
-                                                    </td>
-                                                </tr>
-=======
                                                 <?php 
                                                 }
                                                 ?>
                                               
->>>>>>> c8701c2 (fresh)
-                                                <tr class="bg-light text-end">
-
-                                                    <th scope="row" colspan="5">
-                                                        Sub Total :
-                                                    </th>
-
-                                                    <td>
-                                                        ₦ 1530
-                                                    </td>
-                                                </tr>
-                                                <tr class="bg-light text-end">
-
-                                                    <th scope="row" colspan="5">
-                                                        Discount :
-                                                    </th>
-
-                                                    <td>
-                                                        - ₦ 30
-                                                    </td>
-                                                </tr>
-                                                <tr class="bg-light text-end">
-
-                                                    <th scope="row" colspan="5">
-                                                        Shipping Charge :
-                                                    </th>
-
-                                                    <td>
-                                                        ₦ 25
-                                                    </td>
-                                                </tr>
+                                             
+                                               
                                                 <tr class="bg-light text-end">
 
                                                     <th scope="row" colspan="5">
@@ -199,7 +99,7 @@
                                                     </th>
 
                                                     <td>
-                                                        ₦ 1525
+                                                        ₦ <?php echo $this->cart->format_number($this->cart->total()) ?>
                                                     </td>
                                                 </tr>
                                             </tbody>

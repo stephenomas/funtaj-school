@@ -97,7 +97,7 @@ public function store(){
         if($size->size_quantity >= $data['qty']){
             $this->cart->insert($data);
             $this->session->set_flashdata('success', 'Product added to cart successfully');
-            redirect($_SERVER['HTTP_REFERER']);
+            redirect($_SERVER['HTTP_REFERER']);     
         }else{
             $this->session->set_flashdata('error', 'There are only '.$size->size_quantity.' left');
             redirect($_SERVER['HTTP_REFERER']);

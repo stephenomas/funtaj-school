@@ -132,6 +132,9 @@ class Edittermreports extends TL_Controller{
            $this->load->view('administrator/templates/header', $this->data);
            $this->load->view('administrator/reports/endofterm-detail', $this->data);
            $this->load->view('administrator/templates/footer', $this->data);
+        }else{
+    
+            redirect('welcome');
         }
     }
     function endofterm_detail(){
@@ -179,5 +182,46 @@ class Edittermreports extends TL_Controller{
     
                 redirect('welcome');
             }
+    }
+
+    function endofyear(){
+        if ($this->session->userdata('Elevated')){
+            $this->data['pageTitle'] = 'Midterm - Select Class to Begin Editing';
+            $sessions = $this->db->order_by('sessions', 'DESC')->get('school_sessions')->result();
+            $this->data['sessions'] = $sessions;
+            // $this->db->where('term', $this->data['currentTerm']);
+            // $this->db->where('session', $this->data['currentSession']);
+            // $this->db->group_by('class_details');
+            // $this->db->order_by('class_details');
+            // $getClasses = $this->db->get('midterm');
+
+            // $this->data['classList'] = $getClasses->result();
+
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/reports/endofyear', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+        }
+        else{
+            redirect('welcome');
+        }
+    }
+
+    function endofyear_single(){
+        if ($this->session->userdata('Elevated')){
+            $year = $this->input->get('year');
+            $session = $this->input->get('session');
+            $this->db->where('session', $session)->where('class_details', $year);
+            $student = $this->db->get('exam')->result();
+            if(!$student){
+                redirect('endofterm');
+            }
+            $this->data['students'] = $student;
+           // var_dump($students);
+           $this->load->view('administrator/templates/header', $this->data);
+           $this->load->view('administrator/reports/endofterm-detail', $this->data);
+           $this->load->view('administrator/templates/footer', $this->data);
+        } else{
+            redirect('welcome');
+        }
     }
 }

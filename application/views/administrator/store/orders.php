@@ -52,12 +52,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link fw-bold p-3 active" href="#">All Orders</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3 fw-bold" href="#">Active</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3 fw-bold" href="#">Unpaid</a>
-                                        </li>
+                                
                                     </ul>
                                     <div class="table-responsive">
                                         <table class="table table-centered datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

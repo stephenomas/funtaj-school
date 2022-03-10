@@ -9,6 +9,13 @@
     <!-- apexcharts -->
     <script src="<?=base_url()?>assets/libs/apexcharts/apexcharts.min.js"></script>
 
+    <!-- twitter-bootstrap-wizard js -->
+    <script src="<?=base_url()?>assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+    <script src="<?=base_url()?>assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
+    <script src="<?=base_url()?>assets/js/pages/ecommerce-checkout.init.js"></script>
+    <!-- ecommerce-checkout init -->
+
     <!-- jquery.vectormap map -->
     <script src="<?=base_url()?>assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="<?=base_url()?>assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
@@ -38,6 +45,7 @@
 
 
     <script src="<?=base_url()?>assets/js/pages/dashboard.init.js"></script>
+    <script src="<?=base_url()?>assets/student/plugins/sweetalerts/sweetalert2.min.js"></script>
 
     <!-- App js -->
     <script src="assets/js/app.js"></script>

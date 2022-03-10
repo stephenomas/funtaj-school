@@ -8,42 +8,22 @@
             <div class="modal-body">
                 <p>
                 <div class="mb-0 row">
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 7A</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 7B</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 7C</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 8A</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 8B</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
-                    <div class="card col-md-4">
-                        <a href="mid-term-subj-scores" class="card-body">
-                            <h4 class="card-title">Year 8C</h4>
-                            <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
-                        </a>
-                    </div>
+                    <?php 
+                        $classes = $this->db->get('classes')->result();
+                        foreach($classes as $class){
+                        ?>
+                        
+                        
+                        <div class="card col-md-4">
+                            <a href="mid-term-subj-scores" class="card-body">
+                                <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
+                                <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
+                            </a>
+                        </div>
+                    <?php
+                        }
+                        ?>
+                   
 
                 </div>
             </div>

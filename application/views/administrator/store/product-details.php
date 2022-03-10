@@ -48,19 +48,23 @@
                                     <div class="col-xl-5">
                                         <div class="product-detail">
                                             <div class="row">
+                                            <?php 
+                                            $this->load->view('errors/validation');
+                                            ?>
                                                 <div class="col-3">
                                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                                         <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab">
-                                                            <img src="assets/images/product/img-1.png" alt="img-1" class="img-fluid mx-auto d-block tab-img rounded">
+                                                            <img src="<?= base_url().$product->product_image ?>" alt="img-1" class="img-fluid mx-auto d-block tab-img rounded">
+                               
                                                         </a>
                                                         <a class="nav-link" id="product-2-tab" data-bs-toggle="pill" href="#product-2" role="tab">
-                                                            <img src="assets/images/product/img-5.png" alt="img-5" class="img-fluid mx-auto d-block tab-img rounded">
+                                                            <img src="<?= base_url().$product->product_image ?>" alt="img-5" class="img-fluid mx-auto d-block tab-img rounded">
                                                         </a>
                                                         <a class="nav-link" id="product-3-tab" data-bs-toggle="pill" href="#product-3" role="tab">
-                                                            <img src="assets/images/product/img-3.png" alt="img-3" class="img-fluid mx-auto d-block tab-img rounded">
+                                                            <img src="<?= base_url().$product->product_image ?>" alt="img-3" class="img-fluid mx-auto d-block tab-img rounded">
                                                         </a>
                                                         <a class="nav-link" id="product-4-tab" data-bs-toggle="pill" href="#product-4" role="tab">
-                                                            <img src="assets/images/product/img-4.png" alt="img-4" class="img-fluid mx-auto d-block tab-img rounded">
+                                                            <img src="<?= base_url().$product->product_image ?>" alt="img-4" class="img-fluid mx-auto d-block tab-img rounded">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -68,7 +72,7 @@
                                                     <div class="tab-content" id="v-pills-tabContent">
                                                         <div class="tab-pane fade show active" id="product-1" role="tabpanel">
                                                             <div class="product-img">
-                                                                <img src="assets/images/product/img-1.png" alt="img-1" class="img-fluid mx-auto d-block" data-zoom="assets/images/product/img-1.png">
+                                                                <img src="<?= base_url().$product->product_image ?>" alt="img-1" class="img-fluid mx-auto d-block" data-zoom="assets/images/product/img-1.png">
                                                             </div>
                                                         </div>
                                                         <div class="tab-pane fade" id="product-2" role="tabpanel">
@@ -95,75 +99,51 @@
                                     </div>
                                     <div class="col-xl-7">
                                         <div class="mt-4 mt-xl-3">
-                                            <a href="#" class="text-primary">T-shirt</a>
-                                            <h5 class="mt-1 mb-3">Full sleeve Blue color t-shirt</h5>
+                                            <a href="#" class="text-primary">Store</a>
+                                            <h5 class="mt-1 mb-3"><?= $product->product_name ?></h5>
 
-                                            <div class="d-inline-flex">
-                                                <div class="text-muted me-3">
-                                                    <span class="mdi mdi-star text-warning"></span>
-                                                    <span class="mdi mdi-star text-warning"></span>
-                                                    <span class="mdi mdi-star text-warning"></span>
-                                                    <span class="mdi mdi-star text-warning"></span>
-                                                    <span class="mdi mdi-star"></span>
-                                                </div>
-                                                <div class="text-muted">( 132 )</div>
-                                            </div>
 
-                                            <h5 class="mt-2"><del class="text-muted me-2">₦252</del>₦240 <span class="text-danger font-size-12 ms-2">25 % Off</span></h5>
-                                            <p class="mt-3">To achieve this, it would be necessary to have uniform pronunciation</p>
+                                            <h5 class="mt-2">₦<?= number_format($product->product_price) ?> </h5>
+                                            <p class="mt-3"><?= $product->description ?></p>
                                             <hr class="my-4">
 
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <form>
+                                                        <form action="<?php echo base_url('save/cart');?>" method="post">
+                                                        <h5 class="font-size-14"><i class="mdi mdi-location"></i>Quantity</h5>
+                                                        <div class="d-flex flex-wrap">
+                                                        <div class="input-group mb-3 w-100">
+                                                            <div class="form-group ">
+                                                                <input class="form-control" type="number" min="1" name="qty" placeholder="quantity">
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <input type="hidden" class="buyfield" name="product_id" value="<?php echo $product->product_id?>"/>
                                                             <h5 class="font-size-14"><i class="mdi mdi-location"></i>Sizes</h5>
                                                             <div class="d-flex flex-wrap">
 
                                                                 <div class="input-group mb-3 w-100">
-                                                                    <select name="" id="" class="form-control">
+                                                                    <select name="size" id="" class="form-control">
                                                                         <option value="">Select Size</option>
-                                                                        <option value="">17</option>
-                                                                        <option value="">18</option>
+                                                                        <?php 
+                                                                        foreach($sizes as $size){
+                                                                            if($size->size_quantity > 0){
+                                                                        ?>
+                                                                        <option value="<?= $size->id ?>"><?= $size->product_size?></option>
+                                                                        
+                                                                        <?php
+                                                                        }
+                                                                        }
+                                                                        ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="product-color mt-3">
-                                                                <h5 class="font-size-14">Size :</h5>
-                                                                <a href="#" class="active">
-                                                                    <div class="product-color-item">
-                                                                        <div class="avatar-xs">
-                                                                            <span class="avatar-title bg-transparent text-body">S</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </a>
-                                                                <a href="#">
-                                                                    <div class="product-color-item">
-                                                                        <div class="avatar-xs">
-                                                                            <span class="avatar-title bg-transparent text-body">M</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a href="#">
-                                                                    <div class="product-color-item">
-                                                                        <div class="avatar-xs">
-                                                                            <span class="avatar-title bg-transparent text-body">L</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a href="#">
-                                                                    <div class="product-color-item">
-                                                                        <div class="avatar-xs">
-                                                                            <span class="avatar-title bg-transparent text-body">XL</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
+                                              
 
                                                             <div class="d-grid">
-                                                                <button type="button" class="btn btn-primary waves-effect waves-light mt-2">
+                                                                <button type="submit" class="btn btn-primary waves-effect waves-light mt-2">
                                                                     <i class="mdi mdi-cart me-2"></i> Add to cart
                                                                 </button>
                                                             </div>

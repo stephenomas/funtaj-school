@@ -37,9 +37,19 @@ class Store extends TL_Controller
 
     function checkout(){
         if ($this->session->userdata('LoggedIn')){
-        $this->load->view('administrator/templates/header', $this->data);
-        $this->load->view('administrator/store/checkout', $this->data);
-        $this->load->view('administrator/templates/footer', $this->data);
+            if($this->cart->total_items()){
+
+        
+                $data  = array();
+                $this->data['cart_contents'] = $this->cart->contents();
+                $this->load->view('administrator/templates/header', $this->data);
+                $this->load->view('administrator/store/checkout', $this->data);
+                $this->load->view('administrator/templates/footer', $this->data);
+            }else{
+                redirect('store/cart');
+            }
+
+       
         }else{
             redirect('start');
         }
@@ -150,6 +160,24 @@ class Store extends TL_Controller
             redirect("start");
             }
         
+    }
+
+    public function single($id){
+        
+        if ($this->session->userdata('Elevated')){
+
+            $data                       = array();
+            $data['product'] = $this->store_model->get_single_product($id);
+            $this->db->where('product_id', $id);
+            $data['sizes'] = $this->db->get('products_sizes')->result();
+
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/store/product-details', $data);
+            $this->load->view('administrator/templates/footer', $this->data);
+         } else{
+    
+                redirect('welcome');
+            }
     }
 
 }

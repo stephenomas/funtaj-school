@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="dropdown d-inline-block">
-                            <a href="cart" class="btn header-item noti-icon waves-effect" >
+                            <a href="<?= site_url('store/cart') ?>" class="btn header-item noti-icon waves-effect" >
                                 <i class="ri-shopping-bag-2-line"></i>
                                 <span class="noti-dot"></span>
                             </a>

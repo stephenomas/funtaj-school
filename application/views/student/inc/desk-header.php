@@ -79,79 +79,11 @@
                 </div>
             </li>
            
-<<<<<<< HEAD
-            <li class="nav-item dropdown message-dropdown ml-lg-4 mr-lg-4">
-                <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="message-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="icon flaticon-mail-1"></span><span class="badge badge-primary">13</span>
-                </a>
-                <div class="dropdown-menu  position-absolute p-0" aria-labelledby="message-dropdown">
-                    <div class="dropdown-item dropdown-header d-flex justify-content-between">
-                        <p class="mb-0 align-self-center">You have 13 new messages</p>
-                        <div class="">
-                            <i class="flaticon-chat-bubble"></i>
-                        </div>
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="message-scroll">
-                        <div class="dropdown-item">
-                            <div class="">
-                                <div class="media">
-                                    <div class="usr-img online mr-3">
-                                        <img class="usr-img rounded-circle" src="<?=base_url()?>assets/student/assets/img/90x90.jpg" alt="profile">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex">
-                                            <p class="meta-user-name mr-3">Kara Young</p>
-                                            <p class="meta-time align-self-center mb-1">2 mins ago</p>
-                                        </div>
-                                        <p class="message-text mb-0 ">Simple and clean! Nice I'd like to </p>
-                                        <a href="javascript:void(0);" class="see-more">See More</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between dropdown-action">
-                                    <a href="javascript:void(0);" class="">View Details</a>
-                                    <i class="flaticon-delete"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown-item">
-                            <div class="">
-                                <div class="media">
-                                    <div class="usr-img online mr-3">
-                                        <img class="usr-img rounded-circle" src="<?=base_url()?>assets/student/assets/img/90x90.jpg" alt="profile">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex">
-                                            <p class="meta-user-name mr-3">Oscar Garner</p>
-                                            <p class="meta-time align-self-center mb-1">5 mins ago</p>
-                                        </div>
-                                        <p class="message-text mb-0 ">Simple and clean! Nice I'd like to </p>
-                                        <a href="javascript:void(0);" class="see-more">See More</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between dropdown-action">
-                                    <a href="javascript:void(0);" class="">View Details</a>
-                                    <i class="flaticon-delete"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer dropdown-item text-center">
-                        <a class="btn btn-info my-3 btn-rounded" href="javascript:void(0);">More...</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown notification-dropdown ml-3 mr-lg-4">
-                <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notification-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="icon flaticon-cart-bag"></span><span class="badge badge-success">15</span>
-=======
             
 
             <li class="nav-item dropdown notification-dropdown ml-3 mr-lg-4">
                 <a href="<?= site_url('student-portal/store/cart') ?>" class="nav-link dropdown-toggle" id="notification-dropdown"  aria-haspopup="true" aria-expanded="false">
                     <span class="icon flaticon-cart-bag"></span><span class="badge badge-success"><?= $this->cart->total_items() ?></span>
->>>>>>> c8701c2 (fresh)
                 </a>
                 <div class="dropdown-menu position-absolute p-0" aria-labelledby="notification-dropdown">
                     <div class="dropdown-item dropdown-header d-flex justify-content-between">

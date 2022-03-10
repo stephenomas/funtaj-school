@@ -107,11 +107,7 @@
                                                 </div>
                                                 <div class="form-row product-attribute-select">
                                                     <div class="form-group col-md-6">
-<<<<<<< HEAD
-                                                        <input class="form-control" type="number" name="qty" placeholder="quantity">
-=======
                                                         <input class="form-control" type="number" min="1" name="qty" placeholder="quantity">
->>>>>>> c8701c2 (fresh)
                                                     </div>
                                                     <div class="form-group col-md-6 mb-4">
                                                         <select name="size" class="form-control">
@@ -120,11 +116,7 @@
                                                             foreach($sizes as $size){
                                                                 if($size->size_quantity > 0){
                                                             ?>
-<<<<<<< HEAD
-                                                            <option><?= $size->product_size?></option>
-=======
                                                             <option value="<?= $size->id ?>"><?= $size->product_size?></option>
->>>>>>> c8701c2 (fresh)
                                                             
                                                             <?php
                                                             }

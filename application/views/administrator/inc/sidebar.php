@@ -82,8 +82,7 @@
                                     <li><a href="<?= site_url('store/orders') ?>">Orders</a></li>
                                     <!-- <li><a href="javascript: void(0);">Customers</a></li> -->
                                     <li><a href="cart">Cart</a></li>
-                                    <li><a href="checkout">Checkout</a></li>
-                                    <li><a href="shops">Shops</a></li>
+                                    <li><a href="<?= site_url('store/checkout') ?>">Checkout</a></li>
                                     <li><a href="add=product">Add Product</a></li>
                                 </ul>
                             </li>

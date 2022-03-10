@@ -84,6 +84,24 @@ $route['endofterm/class'] = 'Edittermreports/endofterm_single';
 $route['endofterm/class/single'] = 'Edittermreports/endofterm_detail';
 /////end endofterm
 
+// year report routes
+$route['endofyear'] = 'Edittermreports/endofyear';
+$route['endofyear/class'] = 'Edittermreports/endofyear_single';
+$route['endofyear/class/single'] = 'Edittermreports/endofyear_detail';
+// end year report
+
+// term scores route
+//midterm term scores
+$route['termscores/midterm'] = 'Termscores/midterm';
+$route['termscores/midterm/single'] = 'Termscores/midterm_single';
+//end 
+// end term scores
+
+//shop routes
+$route['store/product/(:any)'] = 'store/single/$1';
+$route['store/cart'] = 'store/cart';
+//end shop routes
+
 /* administrator portal routes */
 
 //$route['tutor'] = 'tutor/index';

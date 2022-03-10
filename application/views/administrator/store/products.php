@@ -100,7 +100,7 @@
                                                         $cat = $this->db->get('products_categories')->row();
                                                         echo  $cat->categories;
                                                         ?></p>
-                                                        <h5 class="font-size-15"><a href="#" class="text-dark"><?= $prod->product_name ?></a></h5>
+                                                        <h5 class="font-size-15"><a href="<?= site_url('store/product/'.$prod->id.'') ?>" class="text-dark"><?= $prod->product_name ?></a></h5>
 
                                                         <h5 class="mt-3 mb-0">₦<?= number_format($prod->product_price) ?></h5>
                                                     </div>
