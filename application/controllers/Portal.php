@@ -7,6 +7,11 @@ class Portal extends TL_Controller{
     {
         parent::__construct();
         $this->load->database();
+        if ($this->session->userdata('LoggedIn')) {
+        
+        }else{
+            redirect('start');
+        } 
     }
 
 function index(){
@@ -37,7 +42,7 @@ public function logout(){
         'LoggedIn' => FALSE,
         'Elevated' => FALSE,
         'StoreElevated' => FALSE,
-        'Role' => '',
+        'Role' => null,
     );
 
     $this->session->set_userdata($user_data);
@@ -176,5 +181,193 @@ public function store(){
             return true;
         }
     }
-   
-}
+
+    public function orders(){
+
+        if($this->session->userdata('role') == "Student"){
+        $this->db->where('user_id', $this->session->userdata('email'));
+        $this->data['orders'] = $this->db->get('orders');
+
+            $this->load->view('student/inc/header');
+            $this->load->view('student/orders', $this->data);
+            $this->load->view('student/inc/main-footer');
+        }else{
+            redirect("start");
+        }     
+    }
+
+    public function results(){
+     //   if($this->session->userdata('role') == "Student"){
+        $this->load->view('student/inc/header');
+        $this->load->view('student/results', $this->data);
+        $this->load->view('student/inc/main-footer');
+    }
+
+    public function midterm_result(){
+        $term = $this->input->get('term');
+        $user = $this->session->userdata('id');
+        if(isset($term)){
+            $this->db->where('student_id', $user);
+            $this->db->where('term', $term);
+            $this->db->order_by('class_details', 'DESC');
+            $this->data['year'] = $this->db->get('midterm');
+
+            if(empty($this->data['year']->result())){
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+            
+            $this->load->view('student/inc/header');
+            $this->load->view('student/midterm', $this->data);
+            $this->load->view('student/inc/main-footer');
+        }else{
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+        
+    }
+    
+    public function midterm_report(){
+        $user = $this->session->userdata('id');
+        $term = $this->input->get('term');
+        $year = $this->input->get('year');
+        $session = $this->input->get('session');
+        $this->db->where('id', $user);
+        $this->data['detail'] = $this->db->get('students')->row();
+        if(isset($term) && isset($year) && isset($session)){
+            $this->db->where('student_id', $user);
+            $this->db->where('term', $term);
+            $this->db->where('class_details', $year);
+            $this->db->where('session', $session);
+            $this->data['results'] = $this->db->get('midterm');
+
+            
+
+            if(empty($this->data['results']->result())){
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+
+        $this->load->view('student/inc/header');
+        $this->load->view('student/midterm-report', $this->data);
+        $this->load->view('student/inc/main-footer');
+        }else{
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function endofterm_result(){
+        $user = $this->session->userdata('id');
+        $term = $this->input->get('term');
+
+        if(isset($term)){
+            
+            $this->db->where('student_id', $user);
+            $this->db->order_by('session', 'DESC');
+            $this->data['year'] = $this->db->get('exam');
+
+            if(empty($this->data['year']->result())){
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+            
+            $this->load->view('student/inc/header');
+            $this->load->view('student/endofterm', $this->data);
+            $this->load->view('student/inc/main-footer');
+        }else{
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+        
+    }
+
+    public function endofterm_report(){
+        $user = $this->session->userdata('id');
+        $term = $this->input->get('term');
+        $year = $this->input->get('year');
+        $session = $this->input->get('session');
+        $this->db->where('id', $user);
+        $this->data['detail'] = $this->db->get('students')->row();
+        if(isset($term) && isset($year) && isset($session)){
+            $this->db->where('student_id', $user);
+            $this->db->where('term', $term);
+            $this->db->where('class_details', $year);
+            $this->db->where('session', $session);
+            $this->data['results'] = $this->db->get('exam');
+
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('student_id', $user);
+            $this->db->where('session', $session);
+            $this->db->select_avg('gp');
+            $this->data['gpa'] = $this->db->get('exam')->row();
+
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('student_id', $user);
+            $this->db->where('session', $session);
+            $this->db->select_avg('average');
+            $this->data['average'] = $this->db->get('exam')->row();
+            
+            $this->db->where('term', $term);  
+            $this->db->where('class_details', $year);
+            $this->db->where('session', $session);
+            $this->db->select_avg('average');
+            $this->data['classaverage'] = $this->db->get('exam')->row();
+            
+
+            if(empty($this->data['results']->result())){
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+
+        $this->load->view('student/inc/header');
+        $this->load->view('student/endofterm-report', $this->data);
+        $this->load->view('student/inc/main-footer');
+        }else{
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function endofyear(){
+        $user = $this->session->userdata('id');
+    
+            
+            $this->db->where('student_id', $user);
+            $this->data['year'] = $this->db->get('endofyear');
+
+            if(empty($this->data['year']->result())){
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+            
+            $this->load->view('student/inc/header');
+            $this->load->view('student/endofyear', $this->data);
+            $this->load->view('student/inc/main-footer');
+        
+    }
+
+    public function endofyear_report(){
+        $user = $this->session->userdata('id');
+        $session = $this->input->get('session');
+
+        
+        $this->db->where('student_id', $user);
+        $this->db->where('session', $session);
+        $this->data['results'] = $this->db->get('endofyear');
+
+        if(empty($this->data['results']->result())){
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+       
+        $this->db->where('student_id', $user);
+        $this->db->where('session', $session);
+        $this->db->select_avg('average');
+        $this->data['average'] = $this->db->get('exam')->row();
+        
+        
+        $this->db->where('session', $session);
+        $this->db->select_avg('average');
+        $this->data['classaverage'] = $this->db->get('exam')->row();
+        
+
+    $this->load->view('student/inc/header');
+    $this->load->view('student/endofyear-report', $this->data);
+    $this->load->view('student/inc/main-footer');
+
+    }
+    
+}  

@@ -171,9 +171,7 @@
                                                     </form>
                                                 </div>
                                                 <script>
-                                                    function getalert(){
-                                                        alert('fuckk')
-                                                    }
+                                                    
                                                     function payWithPaystack(){
                                                         // e.preventDefault();
                                                         // paymentForm.addEventListener('submit', payWithPaystack);

@@ -42,7 +42,7 @@
                     </li>
 
                     <li class="menu">
-                        <a href="results" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="<?= site_url('student-portal/results') ?>"  aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <i class="flaticon-copy"></i>
                                 <span>Results</span>

@@ -82,7 +82,7 @@
                                                         <h6>Possible Attendance: <span class="text-info" id="actual_attendance">110</span> | Actual Attendance: <span class="text-info" id="actual_attendance">110</span></h6>
                                                     </div>
                                                     <div class="col-md-4" id="printPageButton">
-                                                        <img src="assets/images/users/avatar-2.jpg" style="height: 80px; width: 80px" alt="profile Picture">
+                                                        <img src="<?= site_url($detail->stu_img) ?>" style="height: 80px; width: 80px" alt="profile Picture">
                                                     </div>
                                                 </div>
                                                 <table class="table table-striped table-bordered dt-responsive nowrap">
@@ -100,9 +100,9 @@
                                                         <?php foreach($student->result() as $stud){ ?>
                                                         <tr>
                                                             <td data-label="Subject"><?= $stud->subject_title ?></td>
-                                                            <td data-label="CA"><? $stud->ca ?></td>
-                                                            <td data-label="Exam"><? $stud->exam ?></td>
-                                                            <td data-label="Avg"><? $stud->average ?></td>
+                                                            <td data-label="CA"><?= $stud->ca ?></td>
+                                                            <td data-label="Exam"><?= $stud->exam ?></td>
+                                                            <td data-label="Avg"><?= $stud->average ?></td>
                                                             <td data-label="Grade">
                                                                 <?php 
                                                                         if ($stud->average >= 90 && $stud->average <= 100) {

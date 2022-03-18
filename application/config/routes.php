@@ -68,6 +68,15 @@ $route['student-portal/store/checkout'] = 'portal/checkout';
 $route['student-portal/logout'] = 'portal/logout';
 $route['save/cart'] = 'portal/save_cart';
 $route['student-portal/cart'] = 'portal/cart';
+$route['student-portal/orders'] = 'portal/orders';
+$route['student-portal/results'] = 'portal/results';
+$route['student-portal/results/midterm'] = 'portal/midterm_result';
+$route['student-portal/results/midterm-report'] = 'portal/midterm_report';
+$route['student-portal/results/endofterm'] = 'portal/endofterm_result';
+$route['student-portal/results/endofterm-report'] = 'portal/endofterm_report';
+$route['student-portal/results/endofyear'] = 'portal/endofyear';
+$route['student-portal/results/endofyear-report'] = 'portal/endofyear_report';
+
 /* student portal routes */
 
 

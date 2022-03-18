@@ -9,20 +9,30 @@ class Termscores extends TL_Controller{
     }
 
     public function midterm(){
-        $this->data['subjects'] = $this->db->get('subjects')->result();
-        
+        if ($this->session->userdata('Elevated')){
+            $this->data['subjects'] = $this->db->get('subjects')->result();
+            
 
-        $this->load->view('administrator/templates/header', $this->data);
-        $this->load->view('administrator/scores/midterm-index', $this->data);
-        $this->load->view('administrator/templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/scores/midterm-index', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+        }
+        else{
+            redirect('welcome');
+        }
     }
 
     public function midterm_single(){
-        $this->data['subjects'] = $this->db->get('subjects')->result();
+        if ($this->session->userdata('Elevated')){
+            $this->data['subjects'] = $this->db->get('subjects')->result();
 
-        $this->load->view('administrator/templates/header', $this->data);
-        $this->load->view('administrator/scores/midterm-single', $this->data);
-        $this->load->view('administrator/templates/footer', $this->data);
+            $this->load->view('administrator/templates/header', $this->data);
+            $this->load->view('administrator/scores/midterm-single', $this->data);
+            $this->load->view('administrator/templates/footer', $this->data);
+        }
+        else{
+            redirect('welcome');
+        }
     }
 
 
