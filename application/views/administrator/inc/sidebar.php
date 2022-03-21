@@ -123,9 +123,9 @@
                                     <span>Term Scores</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="">Mid Term</a></li>
-                                    <li><a href="end-of-term-scores">End of Term</a></li>
-                                    <li><a href="expenditure">Year Report</a></li>
+                                    <li><a href="<?= site_url('/termscores/midterm') ?>">Mid Term</a></li>
+                                    <li><a href="<?= site_url('/termscores/endofterm') ?>">End of Term</a></li>
+                                    <li><a href="<?= site_url('/termscores/year') ?>">Year Report</a></li>
                                 </ul>
                             </li>
 

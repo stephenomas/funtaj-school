@@ -54,7 +54,7 @@
                                 Was unable to save
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                            <h4 class="card-title">Enter Account Scores For: Year 8A</h4>
+                            <h4 class="card-title">Enter <?= $this->input->get('subject') ?> Scores For: Year <?= $this->input->get('year').$this->input->get('class') ?></h4>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
@@ -71,9 +71,15 @@
 
 
                                 <tbody>
+                                    <?php
+                                    foreach($students->result() as $stud){
+                                    ?>
                                     <tr>
+                                    <form method="post" action="<?=site_url('termscores/midterm/save'.$stud->id ) ?>">
+                                        <input type="hidden" name="subject" value="<?= $this->input->get('subject') ?>">
+                                        <input type="hidden" name="id" value="<?= $stud->id ?>">
                                         <td>1</td>
-                                        <td>Mike stew</td>
+                                        <td><?= $stud->fname.' '.$stud->mname.' '.$stud->lname ?></td>
                                         <td><select name="" id="">
                                             <option value="A">A</option>
                                             <option value="B">B</option>
@@ -102,8 +108,12 @@
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                         </select></td>
-                                        <td><a href="" >Save</a> | <a href="">Reset</a> </td>
+                                        <td><button type="submit" class="btn btn-large" >Save</button> </td>
+                                    </form>
                                     </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
 

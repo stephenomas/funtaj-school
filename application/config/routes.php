@@ -103,6 +103,7 @@ $route['endofyear/class/single'] = 'Edittermreports/endofyear_detail';
 //midterm term scores
 $route['termscores/midterm'] = 'Termscores/midterm';
 $route['termscores/midterm/single'] = 'Termscores/midterm_single';
+$route['termscores/midterm/save'] = 'Termscores/midterm_save';
 //end 
 // end term scores
 

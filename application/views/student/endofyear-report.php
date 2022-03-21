@@ -46,8 +46,26 @@
                         <h5 class="text-danger">Class:  <?= $this->input->get('year') ?></h5>
                         <h5 class="text-primary">Reg No: <?= $detail->admno ?> | DoB:  <?= $detail->dob ?> |  <?= $this->input->get('term') ?>   | <?= $this->input->get('session') ?>  Session</h5>
                         <!--                            <h6>Possible Attendance: | Actual Attendance:</h6>-->
-                        <h5>Class Avg.: <?= number_format($classaverage->average, 1) ?> | Student Avg.:  <?= number_format($average->average, 1) ?> | GPA: <?= number_format($gpa->gp,1 )?> </h5>
-                        <h5 class="text-secondary">Form Tutor: <?= $results->row()->tutor_id ?> </h5>
+                        <h5>Class Avg.: <?php 
+                        $sum = 0;
+                        $count = 0;
+                        foreach ($classaverage->result() as $av){
+                            $avg = ($av->term1avg + $av->term2avg + $av->term3avg) / 3;
+                            $sum = $sum + $avg;
+                            $count = $count + 1;
+                        }
+                        echo number_format($sum / $count,1);
+                        ?> | Student Avg.:  <?php 
+                        $minisum = 0;
+                        $minicount = 0;
+                        foreach ($results->result() as $av2){
+                            $avg2 = ($av2->term1avg + $av2->term2avg + $av2->term3avg) / 3;
+                            $minisum = $minisum + $avg2;
+                            $minicount = $minicount + 1;
+                        }
+                        echo number_format($minisum / $minicount,1);
+                        ?> | GPA: <?= number_format($average->gp,1 )?> </h5>
+                        
                             <h6>Possible Attendance: <span class="text-info" id="actual_attendance">110</span> | Actual Attendance: <span class="text-info" id="actual_attendance">110</span></h6>
                             <div class="table-responsive mb-4">
                                 <table class="table table-striped table-bordered dt-responsive">
@@ -78,86 +96,131 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php 
+                                        foreach($results->result() as $result){
+
+                                    
+                                        ?>
                                         <tr>
-                                            <td data-label="Subject">Agric. Science</td>
-                                            <td data-label="CA">63.0</td>
-                                            <td data-label="Exam">74.0</td>
-                                            <td data-label="Avg">69.0</td>
-                                            <td data-label="Grade">B</td>
+                                            <td data-label="Subject"><?= $result->subject ?> </td>
+                                            <td data-label="CA"><?= $result->term1ca ?> </td>
+                                            <td data-label="Exam"><?= $result->term1exam ?> </td>
+                                            <td data-label="Avg"><?= $result->term1avg ?> </td>
+                                            <td data-label="Grade"> <?php 
+                                                if ($result->term1avg >= 90 && $result->term1avg <= 100) {
+                                                    $grade = 'A+';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term1avg >= 75 && $result->term1avg <= 89.9) {
+                                                    $grade = 'A';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term1avg >= 65 && $result->term1avg <= 74.9) {
+                                                    $grade = 'B';
+                                                    $gp = 3.0;
+                                                } elseif ($result->term1avg >= 50 && $result->term1avg <= 64.9) {
+                                                    $grade = 'C';
+                                                    $gp = 2.0;
+                                                } elseif ($result->term1avg >= 45 && $result->term1avg <= 49.9) {
+                                                    $grade = 'D';
+                                                    $gp = 1.0;
+                                                } elseif ($result->term1avg >= 40 && $result->term1avg <= 44.9) {
+                                                    $grade = 'E';
+                                                    $gp = 0.7;
+                                                } else {
+                                                    $grade = 'F';
+                                                    $gp = 0.0;
+                                                }
+                                                echo $grade;
+                                                 ?></td>
                                             <!--                                    Term 2-->
-                                            <td data-label="CA">54.0</td>
-                                            <td data-label="Exam">70.0</td>
-                                            <td data-label="Avg">62.0</td>
-                                            <td data-label="Grade">C</td>
+                                            <td data-label="CA"><?= $result->term2ca ?> </td>
+                                            <td data-label="Exam"><?= $result->term2exam ?> </td>
+                                            <td data-label="Avg"><?= $result->term2avg ?> </td>
+                                            <td data-label="Grade"> <?php 
+                                                if ($result->term2avg >= 90 && $result->term2avg <= 100) {
+                                                    $grade = 'A+';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term2avg >= 75 && $result->term2avg <= 89.9) {
+                                                    $grade = 'A';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term2avg >= 65 && $result->term2avg <= 74.9) {
+                                                    $grade = 'B';
+                                                    $gp = 3.0;
+                                                } elseif ($result->term2avg >= 50 && $result->term2avg <= 64.9) {
+                                                    $grade = 'C';
+                                                    $gp = 2.0;
+                                                } elseif ($result->term2avg >= 45 && $result->term2avg <= 49.9) {
+                                                    $grade = 'D';
+                                                    $gp = 1.0;
+                                                } elseif ($result->term2avg >= 40 && $result->term2avg <= 44.9) {
+                                                    $grade = 'E';
+                                                    $gp = 0.7;
+                                                } else {
+                                                    $grade = 'F';
+                                                    $gp = 0.0;
+                                                }
+                                                echo $grade;
+                                                 ?></td>
                                             <!--                                    Term 3-->
-                                            <td data-label="CA">55.0</td>
-                                            <td data-label="Exam">78.0</td>
-                                            <td data-label="Avg">67.0</td>
-                                            <td data-label="Grade">B</td>
-                                            <td data-label="Year Avg">66.0</td>
-                                            <td data-label="Year Grade">
-                                                B </td>
+                                            <td data-label="CA"><?= $result->term3ca ?> </td>
+                                            <td data-label="Exam"><?= $result->term3exam ?> </td>
+                                            <td data-label="Avg"><?= $result->term3avg ?> </td>
+                                            <td data-label="Grade"> <?php 
+                                                if ($result->term3avg >= 90 && $result->term3avg <= 100) {
+                                                    $grade = 'A+';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term3avg >= 75 && $result->term3avg <= 89.9) {
+                                                    $grade = 'A';
+                                                    $gp = 4.0;
+                                                } elseif ($result->term3avg >= 65 && $result->term3avg <= 74.9) {
+                                                    $grade = 'B';
+                                                    $gp = 3.0;
+                                                } elseif ($result->term3avg >= 50 && $result->term3avg <= 64.9) {
+                                                    $grade = 'C';
+                                                    $gp = 2.0;
+                                                } elseif ($result->term3avg >= 45 && $result->term3avg <= 49.9) {
+                                                    $grade = 'D';
+                                                    $gp = 1.0;
+                                                } elseif ($result->term3avg >= 40 && $result->term3avg <= 44.9) {
+                                                    $grade = 'E';
+                                                    $gp = 0.7;
+                                                } else {
+                                                    $grade = 'F';
+                                                    $gp = 0.0;
+                                                }
+                                                echo $grade;
+                                                 ?></td>
+
+                                                 <td><?= $final = number_format(($result->term1avg + $result->term2avg + $result->term3avg) / 3,1)?></td>
+                                                 <td><?php 
+                                                if ($final >= 90 && $final <= 100) {
+                                                    $grade = 'A+';
+                                                    $gp = 4.0;
+                                                } elseif ($final >= 75 && $final <= 89.9) {
+                                                    $grade = 'A';
+                                                    $gp = 4.0;
+                                                } elseif ($final >= 65 && $final <= 74.9) {
+                                                    $grade = 'B';
+                                                    $gp = 3.0;
+                                                } elseif ($final >= 50 && $final <= 64.9) {
+                                                    $grade = 'C';
+                                                    $gp = 2.0;
+                                                } elseif ($final >= 45 && $final <= 49.9) {
+                                                    $grade = 'D';
+                                                    $gp = 1.0;
+                                                } elseif ($final >= 40 && $final <= 44.9) {
+                                                    $grade = 'E';
+                                                    $gp = 0.7;
+                                                } else {
+                                                    $grade = 'F';
+                                                    $gp = 0.0;
+                                                }
+                                                echo $grade;
+                                                 ?></td>
                                         </tr>
-                                        <tr>
-                                            <td data-label="Subject">Basic Science</td>
-                                            <td data-label="CA">76.0</td>
-                                            <td data-label="Exam">64.0</td>
-                                            <td data-label="Avg">70.0</td>
-                                            <td data-label="Grade">B</td>
-                                            <!--                                    Term 2-->
-                                            <td data-label="CA">42.0</td>
-                                            <td data-label="Exam">58.0</td>
-                                            <td data-label="Avg">50.0</td>
-                                            <td data-label="Grade">C</td>
-                                            <!--                                    Term 3-->
-                                            <td data-label="CA">67.0</td>
-                                            <td data-label="Exam">57.0</td>
-                                            <td data-label="Avg">62.0</td>
-                                            <td data-label="Grade">C</td>
-                                            <td data-label="Year Avg">60.7</td>
-                                            <td data-label="Year Grade">
-                                                C </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Subject">Basic Tech</td>
-                                            <td data-label="CA">72.0</td>
-                                            <td data-label="Exam">54.0</td>
-                                            <td data-label="Avg">63.0</td>
-                                            <td data-label="Grade">C</td>
-                                            <!--                                    Term 2-->
-                                            <td data-label="CA">56.0</td>
-                                            <td data-label="Exam">51.0</td>
-                                            <td data-label="Avg">54.0</td>
-                                            <td data-label="Grade">C</td>
-                                            <!--                                    Term 3-->
-                                            <td data-label="CA">68.0</td>
-                                            <td data-label="Exam">54.0</td>
-                                            <td data-label="Avg">61.0</td>
-                                            <td data-label="Grade">C</td>
-                                            <td data-label="Year Avg">59.3</td>
-                                            <td data-label="Year Grade">
-                                                C </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Subject">Business Studies</td>
-                                            <td data-label="CA">90.0</td>
-                                            <td data-label="Exam">86.0</td>
-                                            <td data-label="Avg">88.0</td>
-                                            <td data-label="Grade">A</td>
-                                            <!--                                    Term 2-->
-                                            <td data-label="CA">80.0</td>
-                                            <td data-label="Exam">76.0</td>
-                                            <td data-label="Avg">78.0</td>
-                                            <td data-label="Grade">A</td>
-                                            <!--                                    Term 3-->
-                                            <td data-label="CA">76.0</td>
-                                            <td data-label="Exam">62.0</td>
-                                            <td data-label="Avg">69.0</td>
-                                            <td data-label="Grade">B</td>
-                                            <td data-label="Year Avg">78.3</td>
-                                            <td data-label="Year Grade">
-                                                A </td>
-                                        </tr>
+                                    <?php 
+                                        }
+                                    ?>
+                                     
                                      
                                     </tbody>
                                 </table>

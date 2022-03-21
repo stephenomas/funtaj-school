@@ -15,7 +15,7 @@
                         
                         
                         <div class="card col-md-4">
-                            <a href="mid-term-subj-scores" class="card-body">
+                            <a href="<?= site_url('/termscores/midterm/single?class='.$class->digit.'&year='.$class->groups.'&subject='.$subject->subjects) ?>" class="card-body">
                                 <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
                                 <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
                             </a>

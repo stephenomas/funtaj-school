@@ -42,12 +42,7 @@
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
-                        <h5>Name: <?= $detail->fname." ".$detail->mname." ".$detail->lname ?></h5>
-                        <h5 class="text-danger">Class:  <?= $this->input->get('year') ?></h5>
-                        <h5 class="text-primary">Reg No: <?= $detail->admno ?> | DoB:  <?= $detail->dob ?> |  <?= $this->input->get('term') ?>   | <?= $this->input->get('session') ?>  Session</h5>
-                        <!--                            <h6>Possible Attendance: | Actual Attendance:</h6>-->
-                        <h5>Class Avg.: <?= number_format($classaverage->average, 1) ?> | Student Avg.:  <?= number_format($average->average, 1) ?> | GPA: <?= number_format($gpa->gp,1 )?> </h5>
-                        <h5 class="text-secondary">Form Tutor: <?= $results->row()->tutor_id ?> </h5>
+                        
                         <h6>Possible Attendance: <span class="text-info" id="actual_attendance">110</span> | Actual Attendance: <span class="text-info" id="actual_attendance">110</span></h6>
                             <div class="table-responsive mb-4">
                                 <table class="table table-striped table-bordered dt-responsive nowrap">

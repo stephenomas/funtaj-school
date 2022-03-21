@@ -348,20 +348,21 @@ public function store(){
         $this->db->where('student_id', $user);
         $this->db->where('session', $session);
         $this->data['results'] = $this->db->get('endofyear');
-
+        
         if(empty($this->data['results']->result())){
             redirect($_SERVER['HTTP_REFERER']);
         }
-       
+        $this->db->where('id', $user);
+        $this->data['detail'] = $this->db->get('students')->row();
+        
         $this->db->where('student_id', $user);
         $this->db->where('session', $session);
-        $this->db->select_avg('average');
-        $this->data['average'] = $this->db->get('exam')->row();
+        $this->db->select_avg('gp');
+        $this->data['average'] = $this->db->get('endofyear')->row();
         
         
         $this->db->where('session', $session);
-        $this->db->select_avg('average');
-        $this->data['classaverage'] = $this->db->get('exam')->row();
+        $this->data['classaverage'] = $this->db->get('endofyear');
         
 
     $this->load->view('student/inc/header');
