@@ -105,6 +105,11 @@ $route['termscores/midterm'] = 'Termscores/midterm';
 $route['termscores/midterm/single'] = 'Termscores/midterm_single';
 $route['termscores/midterm/save'] = 'Termscores/midterm_save';
 //end 
+//endofterm scores route
+$route['termscores/endofterm'] = 'Termscores/endofterm';
+$route['termscores/endofterm/single'] = 'Termscores/endofterm_single';
+$route['termscores/endofterm/save'] = 'Termscores/endofterm_save';
+//end
 // end term scores
 
 //shop routes

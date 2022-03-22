@@ -8,11 +8,7 @@ class Scores extends TL_Controller{
     }
     function index(){
         if ($this->session->userdata('LoggedIn')){
-            $this->data['pageTitle'] = 'Scores';
-
-            $this->load->view('templates/header', $this->data);
-            $this->load->view('scores/index', $this->data);
-            $this->load->view('templates/footer', $this->data);
+            redirect('/termscores/midterm');
         }else {
             $this->session->set_flashdata('warning', 'Please login with the right account to see this page.');
             redirect('start');

@@ -218,10 +218,40 @@ class Edittermreports extends TL_Controller{
             $this->data['students'] = $student;
            // var_dump($students);
            $this->load->view('administrator/templates/header', $this->data);
-           $this->load->view('administrator/reports/endofterm-detail', $this->data);
+           $this->load->view('administrator/reports/endofyear-detail', $this->data);
            $this->load->view('administrator/templates/footer', $this->data);
         } else{
             redirect('welcome');
         }
+    }
+
+    function endofyear_detail(){
+        $user = $this->input->get('student');
+        $session = $this->input->get('session');
+
+        
+        $this->db->where('student_id', $user);
+        $this->db->where('session', $session);
+        $this->data['results'] = $this->db->get('endofyear');
+        
+        if(empty($this->data['results']->result())){
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+        $this->db->where('id', $user);
+        $this->data['detail'] = $this->db->get('students')->row();
+        
+        $this->db->where('student_id', $user);
+        $this->db->where('session', $session);
+        $this->db->select_avg('gp');
+        $this->data['average'] = $this->db->get('endofyear')->row();
+        
+        
+        $this->db->where('session', $session);
+        $this->data['classaverage'] = $this->db->get('endofyear');
+        
+
+        $this->load->view('administrator/templates/header', $this->data);
+        $this->load->view('administrator/reports/endofyear-single', $this->data);
+        $this->load->view('administrator/templates/footer', $this->data);
     }
 }

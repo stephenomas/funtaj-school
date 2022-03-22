@@ -1,9 +1,7 @@
- <!-- Begin page -->
- <div id="layout-wrapper">
+<div id="layout-wrapper">
 
 
-
- <?php //include 'inc/topbar.php';
+<?php //include 'inc/topbar.php';
   $this->load->view('administrator/inc/topbar')
 ?>
 
@@ -11,6 +9,7 @@
 <?php ///include 'inc/sidebar.php';
   $this->load->view('administrator/inc/sidebar')
 ?>
+<!-- Left Sidebar End -->
 
 
 
@@ -26,12 +25,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Scores</h4>
+                        <h4 class="mb-sm-0">End of Term</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Funtaj</a></li>
-                                <li class="breadcrumb-item active">Scores</li>
+                                <li class="breadcrumb-item active">End of Term</li>
                             </ol>
                         </div>
 
@@ -45,31 +44,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
-                        <?php if($this->session->flashdata('success')){ ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?= $this->session->flashdata('success') ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            
-                            <?php } ?>
-                            <?php if($this->session->flashdata('error')){ ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= $this->session->flashdata('error') ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <h4 class="card-title">Enter <?= $this->input->get('subject') ?> Scores For: Year <?= $this->input->get('year').$this->input->get('class') ?></h4>
+                            <h4 class="card-title">End of Term</h4>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Achievements</th>
-                                        <th>Efforts</th>
-                                        <th>Home Work</th>
-                                        <th>Behaviour</th>
+                                        <th>Subjects</th>
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -77,54 +57,58 @@
 
                                 <tbody>
                                     <?php
-                                    foreach($students->result() as $stud){
-                                        $year =  "Year ".$this->input->get('year').$this->input->get('class');
+                                    foreach($subjects as $subject){
+                                        $sub = $subject->subjects;
                                     ?>
                                     <tr>
-                                    <form method="post" action="<?=site_url('termscores/midterm/save') ?>">
-                                        <input type="hidden"  name="class_details" value="<?= $year?>" id="">
-                                        <input type="hidden" name="subject" value="<?= $this->input->get('subject') ?>">
-                                        <input type="hidden" name="student_id" value="<?= $stud->id ?>">
-                                        <td>1</td>
-                                        <td><?= $stud->fname.' '.$stud->mname.' '.$stud->lname ?></td>
-                                        <td><select name="achievement" id="">
-                                            <option value="A">A</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                            <option value="D">D</option>
-                                            <option value="E">E</option>
-                                        </select></td>
-                                        <td><select name="effort" id="">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select></td>
-                                        <td><select name="homework" id="">
-                                            <option value="A">A</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                            <option value="D">D</option>
-                                            <option value="E">E</option>
-                                        </select></td>
-                                        <td><select name="behaviour" id="">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select></td>
-                                        <td><button type="submit" class="btn btn-large" >Save</button> </td>
-                                    </form>
+                                        <td><?= $subject->subjects ?></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#addInfo<?= $subject->id ?>">Choose class</a></td>
                                     </tr>
+                                    <div class="col-sm-6 col-md-4 col-xl-3">
+                                        <div class="modal fade" id="addInfo<?= $subject->id ?>" tabindex="-1" role="dialog" aria-labelledby="addInfoTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addInfoTitle">End of Term</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                        <div class="mb-0 row">
+                                                            <?php 
+                                                                $classes = $this->db->get('classes')->result();
+                                                                foreach($classes as $class){
+                                                                ?>
+                                                                
+                                                                
+                                                                <div class="card col-md-4">
+                                                                    <a href="<?= site_url('/termscores/endofterm/single?class='.$class->digit.'&year='.$class->groups.'&subject='.$sub) ?>" class="card-body">
+                                                                        <h4 class="card-title"><?= $class->prefix." ".$class->digit.$class->groups ?></h4>
+                                                                        <h6 class="card-subtitle font-14 text-muted">Enter Midterm Scores</h6>
+                                                                    </a>
+                                                                </div>
+                                                            <?php
+                                                                }
+                                                                ?>
+                                                        
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    </div>
                                     <?php
                                     }
                                     ?>
                                 </tbody>
                             </table>
 
-                           
+
+                          
                         </div>
                     </div>
                 </div> <!-- end col -->

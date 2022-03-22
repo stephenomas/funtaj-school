@@ -57,16 +57,16 @@ class Scores_model extends TL_Model{
             return true;
         }
     }
-    public function enterMTScores($scores, $term, $session, $tutor_id, $subject){
+    public function enterMTScores($scores){
         // Check if record exists for student at the current term or session
 
 //            Get current student id
         $student_id = $scores['student_id'];
 
-        $this->db->where('term', $term);
-        $this->db->where('session', $session);
-        $this->db->where('student_id', $student_id);
-        $this->db->where('subject', $subject);
+        $this->db->where('term', $scores['term']);
+        $this->db->where('session', $scores['session']);
+        $this->db->where('student_id', $scores['student_id']);
+        $this->db->where('subject', $scores['subject']);
 //            $this->db->where('tutor_id', $tutor_id);
         $query = $this->db->get('midterm');
 // If record empty for student, insert
@@ -76,10 +76,10 @@ class Scores_model extends TL_Model{
             return true;
         }else{
             // If record exist for student: update
-            $this->db->where('term', $term);
-            $this->db->where('session', $session);
-            $this->db->where('subject', $subject);
-            $this->db->where('student_id', $student_id);
+            $this->db->where('term', $scores['term']);
+            $this->db->where('session', $scores['session']);
+            $this->db->where('student_id', $scores['student_id']);
+            $this->db->where('subject', $scores['subject']);
             $this->db->update('midterm', $scores);
 //            $this->session->set_flashdata('success', 'You have updated '.$subject.' scores for this class successfully!');
             return true;

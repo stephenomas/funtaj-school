@@ -157,13 +157,8 @@ $this->load->view('administrator/inc/sidebar')
                                         <th>Email</th>
                                         <th>Reg No.</th>
                                         <th>Class</th>
-<<<<<<< HEAD
-                             
-                                        <th>Options</th>
-=======
 
                                        <?=  $this->session->userdata('role') =='Tutor' ? '': '<th>Options</th>' ?>
->>>>>>> c8701c2 (fresh)
                                     </tr>
                                 </thead>
 
