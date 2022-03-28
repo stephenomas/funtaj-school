@@ -197,8 +197,35 @@
                                                         <div class="badge badge-soft-warning font-size-12"><?= $fee_paid->status ?></div>
                                                         <?php } ?>
                                                     </td>
-                                                   <?php if($fee_paid->paymentmode == "Bank Transfer"){ ?><td><a href="">View</a> | <?php if($fee_paid->status == "Pending Approval"){ ?><a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$fee_paid->id?>">Edit</a><?php }?> </td> <?php }?>
+                                                   <?php if($fee_paid->paymentmode == "Bank Transfer"){ ?><td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?=$fee_paid->id?>">View</a>| <?php if($fee_paid->status == "Pending Approval"){ ?><a href="#" data-bs-toggle="modal" data-bs-target="#editInfo<?=$fee_paid->id?>">Edit</a><?php }?> </td> <?php }?>
                                                 </tr>
+                                                <!-- To display note information -->
+                                                <!-- sample modal content -->
+                                                <div class="col-sm-6 col-md-4 col-xl-3">
+                                                    <div id="viewDetails<?= $fee_paid->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel<?= $fee_paid->id ?>" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-fullscreen">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="viewDetailsLabel<?= $fee_paid->id ?>">Title - Description</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 border-right text-center">
+                                                                        <iframe src="<?= $fee_paid->image ?>" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div><!-- /.modal-content -->
+                                                        </div><!-- /.modal-dialog -->
+                                                    </div><!-- /.modal -->
+                                                                
+                                                </div>
+                                                <!-- To display note information -->
+                                                <!-- sample modal content -->
                                                 <div class="modal fade" id="editInfo<?=$fee_paid->id?>" tabindex="-1" role="dialog" aria-labelledby="editInfoTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable">
                                                     <div class="modal-content">

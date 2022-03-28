@@ -87,7 +87,7 @@
                         </div>
                     </a>
 
-                    <a href="" class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-sm-0 mb-4">
+                    <a href="<?= site_url('student-portal/assignments') ?>" class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-sm-0 mb-4">
                         <div class="widget-content-area  data-widgets br-4">
                             <div class="widget  t-customer-widget">
                                 <div class="media">

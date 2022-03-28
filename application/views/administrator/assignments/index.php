@@ -54,7 +54,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                        <?php if($this->session->flashdata('success')){ ?>
+                            <?php if($this->session->flashdata('success')){ ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <?= $this->session->flashdata('success') ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -121,10 +121,41 @@
                                
                                             </div>
                                         </div>
-                                        <div class="mb-0 float-end">
+
+                                       <!-- To display note information -->
+                                        <!-- sample modal content -->
+                                        <div class="col-sm-6 col-md-4 col-xl-3">
+                                            <div id="viewDetails<?= $assignment->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel<?= $assignment->id ?>" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-fullscreen">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewDetailsLabel<?= $assignment->id ?>">Title - Description</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 border-right text-center">
+                                                                <iframe src="<?= $assignment->assignment_link ?>" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
+                                                        
+                                        </div>
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
+
+                                        <div class="mb-0 ">
                                             <a href="#" class=""><?=$assignment->prefix.' '.$assignment->digit?></a>
                                         </div>
-
+                                        <div class="mb-0 float-end">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $assignment->id ?>" class="">View</a> | <?php echo anchor("assignments/deleteAssignment/" . $assignment->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this Assignment?')", 'class' => " ")); ?>
+                                        </div>
                                     </div>
                                 </div>
                              <?php endforeach;?>
@@ -175,10 +206,7 @@
                                 //include 'inc/add-note.php'; ?>
                             </div>
 
-                            <div class="col-sm-6 col-md-4 col-xl-3">
-                                <!-- To display note information -->
-                                <?php // include 'inc/note-details.php'; ?>
-                            </div>
+                           
                         </div>
                     </div>
                 </div> <!-- end col -->

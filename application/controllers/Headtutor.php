@@ -15,7 +15,7 @@ class Headtutor extends TL_Controller
             $this->data['subTitle'] = 'Select class to view students';
 
             $this->load->view('administrator/templates/header', $this->data);
-            $this->load->view('administrator/admin_comments/index', $this->data);
+            $this->load->view('administrator/admin_comments/index', $this->data); 
             $this->load->view('administrator/templates/footer', $this->data);
         } else {
             redirect('start');
@@ -78,7 +78,7 @@ class Headtutor extends TL_Controller
             $this->db->where('exam_name', $this->data['currentTerm'] . ' - ' . $this->data['currentSession']);
             $this->db->delete('head_tutor_comments_ratings');
 
-            redirect('headtutor/stu_comment/'.$prefix.'/'.$digit.'/'.$groups);
+            redirect($_SERVER['HTTP_REFERER']);
         } else {
             redirect('start');
         }

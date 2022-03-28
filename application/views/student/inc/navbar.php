@@ -93,10 +93,10 @@
                                 <a href="#dashboards" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"> Other Options <i class="flaticon-dot-three"></i> </a>
                                 <ul class="collapse list-unstyled sub-submenu show" id="dashboards">
                                     <li >
-                                        <a href=""> Assignments</a>
+                                        <a href="<?= site_url('student-portal/assignments') ?>"> Assignments</a>
                                     </li>
                                     <li>
-                                        <a href=""> Notes </a>
+                                        <a href="<?= site_url('student-portal/notes') ?>"> Notes </a>
                                     </li>
                                     <li>
                                         <a href=""> Announcement </a>

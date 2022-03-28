@@ -76,7 +76,8 @@ $route['student-portal/results/endofterm'] = 'portal/endofterm_result';
 $route['student-portal/results/endofterm-report'] = 'portal/endofterm_report';
 $route['student-portal/results/endofyear'] = 'portal/endofyear';
 $route['student-portal/results/endofyear-report'] = 'portal/endofyear_report';
-
+$route['student-portal/assignments'] = 'portal/assignments';
+$route['student-portal/notes'] = 'portal/notes';
 /* student portal routes */
 
 

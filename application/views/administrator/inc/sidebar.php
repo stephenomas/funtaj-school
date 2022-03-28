@@ -125,7 +125,7 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="<?= site_url('/termscores/midterm') ?>">Mid Term</a></li>
                                     <li><a href="<?= site_url('/termscores/endofterm') ?>">End of Term</a></li>
-                                    <li><a href="<?= site_url('/termscores/year') ?>">Year Report</a></li>
+                                    
                                 </ul>
                             </li>
 

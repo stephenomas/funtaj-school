@@ -122,63 +122,57 @@ $this->load->view('administrator/inc/topbar')
 
 
                                         </div>
+
+
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
+                                        <div class="col-sm-6 col-md-4 col-xl-3">
+                                            <div id="viewDetails<?= $notes->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel<?= $notes->id ?>" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-fullscreen">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewDetailsLabel<?= $notes->id ?>">Title - Description</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 border-right text-center">
+                                                                <iframe src="<?= $notes->note_link ?>" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
+                                                        
+                                        </div>
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
+
                                        
                                         <div class="mb-0 float-end">
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('Elevated')){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $notes->id ?>" class="">View</a> | <?php if($this->session->userdata('Elevated')){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
                                         </div>
                                         
                                     </div>
                                 </div>
+                              
+                                      
                                 <?php endforeach;?>
                                 <!-- end task card -->
 
-                                
-                                
-                            </div>
-
-                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Reg No.</th>
-                                        <th>Class</th>
-                                        <th>Status</th>
-                                        <th>Options</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    <tr>
-                                        <td>Ade</td>
-                                        <td>Mike</td>
-                                        <td>Stew</td>
-                                        <td>abc@xyz.com</td>
-                                        <td>14365</td>
-                                        <td>Year 9A</td>
-                                        <td>Active</td>
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
                             <div class="col-sm-6 col-md-4 col-xl-3">
 
-                                <!-- To add new note -->
-                                <?php 
-                                 $this->load->view('administrator/inc/add-note')
-                                //include 'inc/add-note.php'; ?>
+                                        <!-- To add new note -->
+                                        <?php 
+                                        $this->load->view('administrator/inc/add-note')
+                                        //include 'inc/add-note.php'; ?>
                             </div>
 
-                            <div class="col-sm-6 col-md-4 col-xl-3">
-                                <!-- To display note information -->
-                                <?php 
-                                 $this->load->view('administrator/inc/note-preview')
-                                //include 'inc/note-preview.php'; ?>
-                            </div>
+                            
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -268,9 +262,36 @@ $this->load->view('administrator/inc/topbar')
 
 
                                         </div>
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
+                                        <div class="col-sm-6 col-md-4 col-xl-3">
+                                            <div id="viewDetails<?= $notes->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel<?= $notes->id ?>" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-fullscreen">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewDetailsLabel<?= $notes->id ?>">Title - Description</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 border-right text-center">
+                                                                <iframe src="<?= $notes->note_link ?>" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
+                                                        
+                                        </div>
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
                                        
                                         <div class="mb-0 float-end">
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('role') == 'Admin'){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $notes->id ?>" class="">View</a> | <?php if($this->session->userdata('role') == 'Admin'){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
                                         </div>
                                         
                                     </div>
@@ -282,35 +303,7 @@ $this->load->view('administrator/inc/topbar')
                                 
                             </div>
 
-                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Reg No.</th>
-                                        <th>Class</th>
-                                        <th>Status</th>
-                                        <th>Options</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    <tr>
-                                        <td>Ade</td>
-                                        <td>Mike</td>
-                                        <td>Stew</td>
-                                        <td>abc@xyz.com</td>
-                                        <td>14365</td>
-                                        <td>Year 9A</td>
-                                        <td>Active</td>
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
+                        
                             <div class="col-sm-6 col-md-4 col-xl-3">
 
                                 <!-- To add new note -->
@@ -319,12 +312,7 @@ $this->load->view('administrator/inc/topbar')
                                 //include 'inc/add-note.php'; ?>
                             </div>
 
-                            <div class="col-sm-6 col-md-4 col-xl-3">
-                                <!-- To display note information -->
-                                <?php 
-                                 $this->load->view('administrator/inc/note-preview')
-                                //include 'inc/note-preview.php'; ?>
-                            </div>
+                           
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -332,142 +320,11 @@ $this->load->view('administrator/inc/topbar')
             <?php endif; ?>
 
 
-            <?php if($this->session->userdata('role') == 'Student') :  ?>
+            <?php if($this->session->userdata('role') == 'Student') :
+                redirect('/student-portal/note');
+                ?>
             
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <?php if($this->session->flashdata('success')){ ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?= $this->session->flashdata('success') ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            
-                            <?php } ?>
-                            <span class="d-flex">
-                                <form class="app-search row">
-                                    <div class="position-relative col-10">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <!-- <span class="ri-search-line"></span> -->
-                                    </div>
-                                    <button type="button" class="btn btn-primary col-2"><i class="ri-search-line"></i></button>
-                                </form>
-                            </span>
-
-
-                            <div id="todo-task" class="task-list row">
-                            <?php $count = 0; foreach ($studentsNotes as $notes) : $count++ ?>
-                                <!-- end task card -->
-                                <div class="card task-box col-md-3">
-                                    <div class="progress progress-sm animated-progess" style="height: 3px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <div class="float-end ms-2">
-                                            <div>
-                                            <?=$notes->prefix.' '.$notes->digit?>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <a href="#" class=""><?php
-                                            $pos = strrpos(base_url($notes->note_link), '.');
-                                            $type = ($pos === false) ? base_url($notes->note_link) : substr(base_url($notes->note_link), $pos + 1);
-                                            echo '<span class="text-danger">'.strtoupper($type).'</span>';?></a>
-                                        </div>
-                                        <div>
-                                            <h5 class="font-size-16"><a href="javascript: void(0);" class="text-dark"><?=$notes->subject?></a></h5>
-                                            <p class="mb-4"><?=$notes->note_title?></p>
-                                        </div>
-
-                                        <div class="d-inline-flex team mb-0">
-                                            <div class="me-3 align-self-center">
-                                                Staff :
-                                            </div>
-                                            <div class="team-member">
-                                                <a href="javascript: void(0);" class="team-member d-inline-block">
-                                                    <div class="">
-                                                        <span class="avatar-title bg-soft-primary text-primary rounded-circle">
-                                                        <?php
-                                                        $this->db->where('id', $notes->staff_id);
-                                                        $staffGet = $this->db->get('staff');
-                                                        foreach($staffGet->result() as $staff) :
-                                                            $staffName = $staff->fname.' '.$staff->lname;
-                                                            echo $staffName;
-                                                            ?>
-                                                           
-                                                        <?php endforeach;?>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-
-                                        </div>
-                                       
-                                        <div class="mb-0 float-end">
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails" class="">View</a> | <?php if($this->session->userdata('role') == 'Admin'){echo anchor("notes/deleteNote/" . $notes->id, "Delete", array('onclick' => "return confirm('Do you really want to delete this note?')", 'class' => " "));} ?>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <?php endforeach;?>
-                                <!-- end task card -->
-
-                                
-                                
-                            </div>
-
-                            <!-- <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Reg No.</th>
-                                        <th>Class</th>
-                                        <th>Status</th>
-                                        <th>Options</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    <tr>
-                                        <td>Ade</td>
-                                        <td>Mike</td>
-                                        <td>Stew</td>
-                                        <td>abc@xyz.com</td>
-                                        <td>14365</td>
-                                        <td>Year 9A</td>
-                                        <td>Active</td>
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#viewDetails">View</a> | <a href="">Delete</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#editInfo">Edit</a> | <a href="">deactivate</a></td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
-                            <div class="col-sm-6 col-md-4 col-xl-3">
-
-                                <!-- To add new note -->
-                                <?php 
-                                 $this->load->view('administrator/inc/add-note')
-                                //include 'inc/add-note.php'; ?>
-                            </div>
-
-                            <div class="col-sm-6 col-md-4 col-xl-3">
-                                <!-- To display note information -->
-                                <?php 
-                                 $this->load->view('administrator/inc/note-preview')
-                                //include 'inc/note-preview.php'; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end col -->
-            </div> <!-- end row -->
             <?php endif; ?>
 
 

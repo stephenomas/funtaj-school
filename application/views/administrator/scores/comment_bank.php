@@ -45,6 +45,21 @@ $this->load->view('administrator/inc/topbar')
                         <!-- <div class="col-12"> -->
                         <!-- Left sidebar -->
                         <div class="email-leftbar card col-md-3">
+                            <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
+
+                            <?php if($this->session->flashdata('error')){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php } ?>
                             <div class="d-grid">
                                 <div class="row">
                                     <a href="" class="btn btn-primary col-md-5 me-2 mb-3" data-bs-toggle="modal" data-bs-target="#commentmodal">
@@ -61,7 +76,7 @@ $this->load->view('administrator/inc/topbar')
                             <?php 
                                 foreach ($categories as $category) :
                                 ?>
-                                <div><i class="mdi mdi-circle-outline me-2"></i> <?= $category->categories ?> <span class="ms-1 float-end"><a href=""><i class="mdi mdi-trash-can-outline me-2 text-danger"></i></a></span></div><br>
+                                <div><i class="mdi mdi-circle-outline me-2"></i> <?= $category->categories ?> <span class="ms-1 float-end"><a href="<?= site_url('/comments/deletecategory/'.$category->id) ?>"><i class="mdi mdi-trash-can-outline me-2 text-danger"></i></a></span></div><br>
                                 <?php endforeach ?>
                              </div>
 
@@ -74,28 +89,7 @@ $this->load->view('administrator/inc/topbar')
 
                             <div class="card">
                                 <div class="btn-toolbar p-3" role="toolbar">
-                                    <div class="btn-group me-2 mb-2 mb-sm-0">
-                                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="far fa-trash-alt"></i></button>
-                                    </div>
-                                    <div class="btn-group me-2 mb-2 mb-sm-0">
-                                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Category <i class="mdi mdi-chevron-down ms-1"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Updates</a>
-                                            <a class="dropdown-item" href="#">Social</a>
-                                            <a class="dropdown-item" href="#">Team Manage</a>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group me-2 mb-2 mb-sm-0">
-                                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Added by <i class="mdi mdi-chevron-down ms-1"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Me</a>
-                                            <a class="dropdown-item" href="#">Admin</a>
-                                        </div>
-                                    </div>
+                                    
 
                                 </div>
                                 
@@ -107,12 +101,12 @@ $this->load->view('administrator/inc/topbar')
                                                 <input type="checkbox" id="chk19">
                                                 <label class="form-label" for="chk19" class="toggle"></label>
                                             </div>
-                                            <a href="#" class="title"><?php if($comment->categories == ""){ echo $comment->categories; }else{ echo "No category"; } ?></a>
+                                            <a href="#" class="title"><?php if($comment->categories != ""){ echo $comment->categories; }else{ echo "No category"; } ?></a>
                                         </div>
                                         <div class="col-mail col-mail-2">
                                             <a href="#" class="subject"><?= $comment->comments ?></span>
                                             </a>
-                                            <div class="date"><a href="">Edit</a> | <a href="">Delete</a></div>
+                                            <div class="date"> | <a href="<?= site_url('/comments/deletecomment/'.$comment->id) ?>">Delete</a></div>
                                         </div>
                                     </li>
                                 <?php endforeach ?>

@@ -329,6 +329,35 @@ $this->load->view('administrator/inc/sidebar')
                                 <?php 
                                  //  $this->load->view('inc/add-student')
                                 //include 'inc/add-student.php'; ?>
+
+                                <!-- To display note information -->
+                                        <!-- sample modal content -->
+                                        <div class="col-sm-6 col-md-4 col-xl-3">
+                                            <div id="viewsDetails<?= $student->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabels<?= $student->id ?>" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-fullscreen">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewDetailsLabels<?= $student->id ?>">Title - Description</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 border-right text-center">
+                                                                <iframe src="<?= $student->result_img ?>" style="width:85vw; height:85vh;" frameborder="0"></iframe>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
+                                                        
+                                        </div>
+                                        <!-- To display note information -->
+                                        <!-- sample modal content -->
+
                                 <div id="viewDetails<?=$student->id?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel" style="display: none;" aria-hidden="true">
                                     <div class="modal-dialog modal-fullscreen">
                                         <div class="modal-content">
@@ -370,8 +399,7 @@ $this->load->view('administrator/inc/sidebar')
                                                     <div class="col-md-4">
                                                         <div class="p-3 py-5">
                                                             <div class="d-flex justify-content-between align-items-center experience"><label class="labels">Result History</label></div><br>
-                                                            <div class="d-flex justify-content-between align-items-center experience"><span>2018/2019 Session - (year 9)</span><a href="" class="btn btn-primary waves-effect waves-light px-3 p-1 add-experience"><i class="fa fa-eye"></i>&nbsp;View</a></div><br>
-                                                            <div class="d-flex justify-content-between align-items-center experience"><span>2018/2019 Session - (year 9)</span><a href="" class="btn btn-primary waves-effect waves-light px-3 p-1 add-experience"><i class="fa fa-eye"></i>&nbsp;View</a></div><br>
+                                                            <a href="" data-bs-toggle="modal" data-bs-target="#viewsDetails<?=$student->id?>">View</a> 
                                                         </div>
                                                     </div>
                                                 </div>

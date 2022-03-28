@@ -10,8 +10,13 @@ class Portal extends TL_Controller{
         if ($this->session->userdata('LoggedIn')) {
         
         }else{
+            $this->session->set_flashdata('warning', 'Please login with the right account to see this page.');
             redirect('start');
         } 
+        if($this->session->userdata('role') == "Student"){
+        } else{
+            redirect('start');
+        }
     }
 
 function index(){
@@ -370,5 +375,55 @@ public function store(){
     $this->load->view('student/inc/main-footer');
 
     }
+
+    function notes(){
+       
+        $this->db->where('id', $this->session->userdata('id'));
+        $stu = $this->db->get('students');
+        $student = $stu->first_row();
+        $prefix = $student->class_prefix;
+        $digit = $student->curr_year;
+
+        $currentSession = $this->data['currentSession'];
+        $currentTerm = $this->data['currentTerm'];
+
+        $this->db->where('prefix', $prefix);
+        $this->db->where('digit', $digit);
+        $this->db->where('session', $currentSession);
+        $this->db->where('term', $currentTerm);
+        $this->db->order_by('subject', 'asc');
+        $this->db->order_by('note_title', 'asc');
+        $this->data['notes'] = $this->db->get('subject_notes');
+
+        $this->load->view('student/inc/header');
+        $this->load->view('student/notes', $this->data);
+        $this->load->view('student/inc/main-footer');
     
+      
+    }
+
+    function assignments(){
+ 
+        $this->db->where('id', $this->session->userdata('id'));
+        $stu = $this->db->get('students');
+        $student = $stu->first_row();
+            $prefix = $student->class_prefix;
+            $digit = $student->curr_year;
+
+        $currentSession = $this->data['currentSession'];
+        $currentTerm = $this->data['currentTerm'];
+
+        $this->db->where('prefix', $prefix);
+        $this->db->where('digit', $digit);
+        $this->db->where('session', $currentSession);
+        $this->db->where('term', $currentTerm);
+        $this->db->order_by('subject', 'asc');
+        $this->db->order_by('assignment_title', 'asc');
+        $this->data['assignments'] = $this->db->get('subject_assignments');
+
+        $this->load->view('student/inc/header');
+        $this->load->view('student/assignments', $this->data);
+        $this->load->view('student/inc/main-footer');
+        
+    }
 }  

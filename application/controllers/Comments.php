@@ -28,7 +28,7 @@ class Comments extends TL_Controller
 
     function addComment()
     {
-        if ($this->session->userdata('LoggedIn')) {
+        if ($this->session->userdata('LoggedIn')) {     
             $comment_input = trim($_POST['comment_input']);
             $category_input = trim($_POST['category_input']);
 
@@ -36,7 +36,9 @@ class Comments extends TL_Controller
             $this->db->insert('reports_comments_bank', $data);
 
             $comments = $this->db->get('reports_comments_bank')->result();
-            echo json_encode($comments);
+            $this->session->set_flashdata('success', 'comment added successfully');
+            redirect('/comments');
+            
         }
     }
 
@@ -49,7 +51,8 @@ class Comments extends TL_Controller
             $this->db->insert('reports_comments_categories', $data);
 
             $categories = $this->db->get('reports_comments_categories')->result();
-            echo json_encode($categories);
+            $this->session->set_flashdata('success', 'category added successfully');
+            redirect('/comments');
         }
     }
 
@@ -58,8 +61,8 @@ class Comments extends TL_Controller
         if ($this->session->userdata('LoggedIn')) {
             $this->db->where('id', $category_id);
             $this->db->delete('reports_comments_categories');
-
-            echo json_encode('Comment category deleted!');
+            $this->session->set_flashdata('success', 'category deleted successfully');
+            redirect('/comments');
         }
     }
 
@@ -69,7 +72,8 @@ class Comments extends TL_Controller
             $this->db->where('id', $comment_id);
             $this->db->delete('reports_comments_bank');
 
-            echo json_encode('Comment deleted!');
+            $this->session->set_flashdata('success', 'comment deleted successfully');
+            redirect('/comments');
         }
     }
 
@@ -84,7 +88,8 @@ class Comments extends TL_Controller
             $this->db->where('id', $comment_id);
             $this->db->update('reports_comments_bank', $data);
 
-            echo json_encode('Comment edited!');
+            $this->session->set_flashdata('success', 'comment updated successfully');
+            redirect('/comments');
         }
     }
 

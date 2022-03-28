@@ -7,23 +7,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="<?=site_url('/comments/addcomment')?>">
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="select ">
-                            <option selected="">Choose Category</option>
-                            <option value="1">Average</option>
-                            <option value="2">Constructive</option>
-                            <option value="2">Excellent</option>
+                        <select name="category_input" class="form-select" aria-label="select ">
+                            <option disabled selected="">Choose Category</option>
+                            <?php foreach($categories as $cat){ ?>
+                            <option value="<?= $cat->categories ?>"><?= $cat->categories ?></option>
+                            
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <form method="post">
-                            <textarea id="elm1" name="area"></textarea>
-                        </form>
+                      
+                            <textarea id="elm1" name="comment_input"></textarea>
+                      
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary">Send <i class="fab fa-telegram-plane ms-1"></i></button>
+                        <button type="submit" class="btn btn-primary">Send <i class="fab fa-telegram-plane ms-1"></i></button>
                     </div>
 
                 </form>

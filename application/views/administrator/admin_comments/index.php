@@ -64,15 +64,14 @@ $this->load->view('administrator/inc/topbar')
                                             $query = $this->db->get('classes');
                                             foreach ($query->result() as $cl) : ?>
                                                 <div class="card col-md-4">
-                                                    <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?=base_url('headtutor/stu_comment/'.$cl->prefix.'/'.$cl->digit.'/'.$cl->groups)?>" class="card-body">
+                                                    <a href="" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $cl->id ?>" class="card-body">
                                                         <h4 class="card-title"><?=$cl->prefix.' '.$cl->digit.$cl->groups?></h4>
                                                         <h6 class="card-subtitle font-14 text-muted">View all</h6>
                                                     </a>
-                                                </div>
-
+                                                    <div class="col-sm-6 col-md-4 col-xl-3">
                                                 <!-- modal start -->
                                                 <!-- sample modal content -->
-                                                    <div id="viewDetails<?=base_url('headtutor/stu_comment/'.$cl->prefix.'/'.$cl->digit.'/'.$cl->groups)?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel" style="display: none;" aria-hidden="true">
+                                                    <div id="viewDetails<?= $cl->id ?>" class="modal fade" tabindex="-1" aria-labelledby="#viewDetailsLabel" style="display: none;" aria-hidden="true">
                                                         <div class="modal-dialog modal-fullscreen">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -94,16 +93,62 @@ $this->load->view('administrator/inc/topbar')
 
 
                                                                         <tbody>
+                                                                            <?php
+                                                                                $this->db->where('curr_year', $cl->digit);
+                                                                                $this->db->where('branch', $cl->groups);
+                                                                                $this->db->where('left_school', 0);
+                                                                                $this->db->where('has_graduated', 0);
+                                                                                $this->db->order_by('fname', 'asc');
+                                                                                $students =  $this->db->get('students');
+                                                                                $no = 0;
+                                                                                foreach ($students->result() as $stud){
+                                                                                    $no++
+                                                                            ?>
                                                                             <tr>
-                                                                                <td>1</td>
-                                                                                <td>Mike Stew</td>
-                                                                                <td class="text-danger">68.9 - B</td>
-                                                                                <td>17</td>
-                                                                                <td><textarea name="" id="" cols="30" rows="3" placeholder="Type your comment here"></textarea></td>
-                                                                                <td><a href="">Delete</a></td>
+                                                                                <td><?= $no ?></td>
+                                                                                <td><?= $stud->fname." ".$stud->mname." ".$stud->lname; ?></td>
+                                                                                <?php
+                                                                                $this->db->where('student_id', $stud->id);
+                                                                                $this->db->where('term', $currentTerm);
+                                                                                $this->db->where('session', $currentSession);
+                                                                                $this->db->select_avg('average');
+                                                                                $getStuAvg = $this->db->get('exam');
+                                                                                foreach ($getStuAvg->result() as $getStu) :
+                                                                                    $average = $getStu->average;
+                                                                                    if($average >= 90 && $average <= 100){$grade = 'A+'; $gp = 4.0;
+                                                                                    }elseif ($average >= 75 && $average < 90){$grade = 'A'; $gp = 4.0;
+                                                                                    }elseif ($average >= 65 && $average < 75){$grade = 'B'; $gp = 3.0;
+                                                                                    }elseif ($average >= 50 && $average < 65){$grade = 'C'; $gp = 2.0;
+                                                                                    }elseif ($average >= 45 && $average < 50){$grade = 'D'; $gp = 1.0;
+                                                                                    }elseif ($average >= 40 && $average < 45){$grade = 'E'; $gp = 0.7;
+                                                                                    }else{$grade = 'F'; $gp = 0.0;}
+                                                                                ?>                                                                             
+                                                                                <td data-label="Average Score/Grade" ><?php if($average > 0) : ?><?=($getStuAvg->num_rows() > 0) ? '<span class="text-danger">'.number_format($average, '1').' - '.$grade.'</span>' : ''?><?php endif;?></td>
+                                                                                <?php endforeach; ?>
+                                                                                <?php
+                                                                                $this->db->where('student_id', $stud->id);
+                                                                                $this->db->where('exam_name', $currentTerm.' - '.$currentSession);
+                                                                                $getCR = $this->db->get('head_tutor_comments_ratings');
+                                                                                $stuComment = $getCR->first_row();
+                                                                            ?>
+                                                                            <?php
+                                                                                $this->db->where('student_id', $stud->id);
+                                                                                $this->db->where('term', $currentTerm);
+                                                                                $this->db->where('session', $currentSession);
+                                                                                $subjCount = $this->db->get('exam');?>
+                                                                            <td data-label="Subject Count"><?=$subjCount->num_rows()?></td>
+                                                                            <td data-label="Comment"><form name="<?=$stud->id?>"><textarea id="htComment<?=$stud->id?>" class="form-control" onblur="headTutorComments('<?=$stud->id?>')" onmouseleave="headTutorComments('<?=$stud->id?>')" onchange="headTutorComments('<?=$stud->id?>')" placeholder="Type your comment"><?=($getCR->num_rows() > 0) ? $stuComment->head_tutor_comment : ''?></textarea></form></td>
+                                                                            <td data-label="Delete"><?=($this->session->userdata('role') === 'Admin' || $this->session->userdata('role') === 'SuperAdmin') ? anchor("headtutor/deleteHtComment/" . $stud->id.'/'.$cl->prefix.'/'.$cl->digit.'/'.$cl->groups, "<i class='fa fa-trash-alt'></i>", array('onclick' => "return confirm('Do you really want to delete this comment?')", 'class' => '')) : '' ?></td>
                                                                             </tr>
+                                                                            <?php 
+                                                                                }
+                                                                            ?>
                                                                         </tbody>
                                                                     </table>
+
+                                                                
+
+
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
@@ -113,6 +158,9 @@ $this->load->view('administrator/inc/topbar')
                                                     </div><!-- /.modal -->
 
                                                 <!-- model end -->
+                                                </div>
+                                                </div>
+                                              
 
                                             <?php endforeach;?>
                                                 
@@ -216,4 +264,28 @@ $this->load->view('administrator/inc/topbar')
     <!-- /Right-bar -->
 
     <!-- Right bar overlay-->
-    <div class="rightbar-overlay"></div>                                   
+    <input hidden id="baseurl" type="text" value="<?= base_url() ?>"  />
+    <div class="rightbar-overlay"></div>             
+    <script>
+        function headTutorComments(studentId) {
+    const base_url = document.getElementById("baseurl").value;
+    let comment = document.getElementById('htComment' + studentId);
+
+    let htComment = comment.value;
+
+    let dataString = 'htComment=' + htComment;
+
+    $.ajax({
+        type: "POST",
+        url: base_url + "headtutor/htComment" + "/" + studentId,
+        data: dataString,
+        cache: false,
+        success: function (html) {
+            let data = JSON.parse(html);
+            comment.value = data.head_tutor_comment;
+        }
+    });
+    return false;
+}
+
+    </script>                      

@@ -7,12 +7,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="<?= site_url('/comments/addcategory') ?>"> 
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Category Name">
+                        <input type="text" name="category_input" class="form-control" placeholder="Category Name">
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary">Add Category <i class="fab fa-telegram-plane ms-1"></i></button>
+                        <button type="submit" class="btn btn-primary">Add Category <i class="fab fa-telegram-plane ms-1"></i></button>
                     </div>
 
                 </form>
